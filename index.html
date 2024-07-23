@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Python Projects Portfolio</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+      :root {
+        --primary-color: #00ffff;
+        --secondary-color: #ff00ff;
+        --tertiary-color: #ffff00;
+        --bg-color: #000;
+        --text-color: #fff;
+        --accent-color: #ff4500;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5em;
+        color: var(--primary-color);
+        text-shadow: 0 0 10px var(--primary-color);
+      }
+
+      nav {
+        display: flex;
+      }
+
+      nav a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin-left: 20px;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.3s ease;
+      }
+
+      nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--primary-color);
+      }
+
+      nav a:hover::after {
+        transform: translateX(0);
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+        opacity: 0.1;
+        z-index: -1;
+        animation: gradientShift 10s ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero-text {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 3em;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.2;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 20px;
+      }
+
+      .hero-text span {
+        display: block;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 0.5s forwards;
+        animation-delay: calc(var(--i) * 0.1s);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero img {
+        max-width: 80%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+      }
+
+      .project {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .project::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, var(--primary-color), transparent 30%);
+        animation: rotate 4s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .project:hover::before {
+        opacity: 1;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .project:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+      }
+
+      .project img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+      }
+
+      .project:hover img {
+        transform: scale(1.05);
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+        transition: all 0.6s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+
+      footer {
+        margin-top: 60px;
+        text-align: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      footer::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, var(--tertiary-color), transparent 30%);
+        animation: rotate 10s linear infinite;
+        opacity: 0.1;
+      }
+
+      /* Glitch effect */
+      .glitch {
+        position: relative;
+      }
+
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .glitch::before {
+        left: 2px;
+        text-shadow: -2px 0 var(--primary-color);
+        clip: rect(24px, 550px, 90px, 0);
+        animation: glitch-anim 3s infinite linear alternate-reverse;
+      }
+
+      .glitch::after {
+        left: -2px;
+        text-shadow: -2px 0 var(--secondary-color);
+        clip: rect(85px, 550px, 140px, 0);
+        animation: glitch-anim 2s infinite linear alternate-reverse;
+      }
+
+      @keyframes glitch-anim {
+        0% {
+          clip: rect(51px, 9999px, 28px, 0);
+        }
+
+        5% {
+          clip: rect(70px, 9999px, 71px, 0);
+        }
+
+        10% {
+          clip: rect(92px, 9999px, 100px, 0);
+        }
+
+        15% {
+          clip: rect(23px, 9999px, 15px, 0);
+        }
+
+        20% {
+          clip: rect(60px, 9999px, 79px, 0);
+        }
+
+        25% {
+          clip: rect(50px, 9999px, 67px, 0);
+        }
+
+        30% {
+          clip: rect(10px, 9999px, 96px, 0);
+        }
+
+        35% {
+          clip: rect(24px, 9999px, 84px, 0);
+        }
+
+        40% {
+          clip: rect(96px, 9999px, 33px, 0);
+        }
+
+        45% {
+          clip: rect(21px, 9999px, 3px, 0);
+        }
+
+        50% {
+          clip: rect(66px, 9999px, 7px, 0);
+        }
+
+        55% {
+          clip: rect(98px, 9999px, 34px, 0);
+        }
+
+        60% {
+          clip: rect(53px, 9999px, 22px, 0);
+        }
+
+        65% {
+          clip: rect(36px, 9999px, 98px, 0);
+        }
+
+        70% {
+          clip: rect(87px, 9999px, 90px, 0);
+        }
+
+        75% {
+          clip: rect(2px, 9999px, 14px, 0);
+        }
+
+        80% {
+          clip: rect(60px, 9999px, 62px, 0);
+        }
+
+        85% {
+          clip: rect(55px, 9999px, 64px, 0);
+        }
+
+        90% {
+          clip: rect(66px, 9999px, 13px, 0);
+        }
+
+        95% {
+          clip: rect(39px, 9999px, 56px, 0);
+        }
+
+        100% {
+          clip: rect(37px, 9999px, 25px, 0);
+        }
+      }
+
+      /* Skill bars */
+      .skills {
+        margin-top: 60px;
+      }
+
+      .skill-bar {
+        margin-bottom: 20px;
+      }
+
+      .skill-bar .skill-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .skill-bar .skill-progress {
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .skill-bar .skill-progress-fill {
+        height: 100%;
+        background-color: var(--primary-color);
+        width: 0;
+        transition: width 1s ease;
+      }
+
+      /* Testimonials */
+      .testimonials {
+        margin-top: 60px;
+      }
+
+      .testimonial {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .testimonial::before {
+        content: '"';
+        font-size: 4em;
+        position: absolute;
+        top: -20px;
+        left: 10px;
+        color: var(--primary-color);
+        opacity: 0.3;
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 60px auto;
+      }
+
+      .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: var(--primary-color);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+      }
+
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+      }
+
+      .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -17px;
+        background-color: var(--bg-color);
+        border: 4px solid var(--primary-color);
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .timeline-item-left {
+        left: 0;
+      }
+
+      .timeline-item-right {
+        left: 50%;
+      }
+
+      .timeline-item-right::after {
+        left: -16px;
+      }
+
+      .timeline-content {
+        padding: 20px 30px;
+        background-color: rgba(255, 255, 255, 0.05);
+        position: relative;
+        border-radius: 6px;
+      }
+
+      /* Particle effect */
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      /* Dark mode toggle */
+      .dark-mode-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        z-index: 1000;
+      }
+
+      .dark-mode-toggle:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* Mobile-specific styles */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        nav {
+          margin-top: 10px;
+        }
+
+        nav a {
+          margin-left: 0;
+          margin-right: 15px;
+        }
+
+        .hero-text {
+          font-size: 2em;
+        }
+
+        .timeline::after {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::before {
+          left: 60px;
+          border: medium solid white;
+          border-width: 10px 10px 10px 0;
+          border-color: transparent white transparent transparent;
+        }
+
+        .timeline-item-left::after,
+        .timeline-item-right::after {
+          left: 15px;
+        }
+
+        .timeline-item-right {
+          left: 0%;
+        }
+      }
+
+      /* Tablet-specific styles */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .hero-text {
+          font-size: 2.5em;
+        }
+
+        .projects {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Larger screens */
+      @media (min-width: 1025px) {
+        .projects {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* Scroll to top button */
+      .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 80px;
+        /* Positioned to the left of the dark mode toggle */
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, opacity 0.3s ease;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .scroll-to-top:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* Loading animation */
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loader.fade-out {
+        opacity: 0;
+      }
+
+      .loader-inner {
+        width: 100px;
+        height: 100px;
+        border: 5px solid var(--primary-color);
+        border-top: 5px solid var(--secondary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Tooltip styles */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader">
+      <div class="loader-inner"></div>
+    </div>
+    <div id="particles-js"></div>
+    <div class="container">
+      <header>
+        <div class="logo">nourddinak</div>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      <section class="hero" id="home">
+        <div class="hero-text">
+          <span class="glitch" data-text="Python" style="--i:1;">Python</span>
+          <span class="glitch" data-text="Projects" style="--i:2;">Projects</span>
+          <span class="glitch" data-text="Portfolio" style="--i:3;">Portfolio</span>
+        </div>
+       <img src="https://i.ibb.co/4MrRbnw/Default-A-meticulously-constructed-Python-Projects-Portfolio-c-3.jpg" alt="Default-A-meticulously-constructed-Python-Projects-Portfolio-c-3" border="0">
+      </section>
+      <section class="projects" id="projects">
+        <div class="project">
+          <img src="https://i.ibb.co/VpxG2y2/Default-Create-an-image-that-represents-a-You-Tube-Livestream-M-0.jpg" alt="Default-Create-an-image-that-represents-a-You-Tube-Livestream-M-0" border="0">
+          <h2>YouTube Livestream Manager</h2>
+          <p>The YouTube Livestream Manager is a powerful web application designed to give content creators full control over their YouTube livestreams. This application allows users to manage various aspects of their livestream, including background images, music, and video content, all in real-time.</p>
+          <a href="/PROJECTS/project1.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span>
+          </a>
+        </div>
+        <div class="project">
+          <img src="https://i.ibb.co/hVT5vXT/Default-Create-a-modern-stylized-illustration-of-an-Instagram-0.jpg" alt="Default-Create-a-modern-stylized-illustration-of-an-Instagram-0" border="0">
+          <h2>AI-Powered Social Media Management</h2>
+          <p>Instagram Bot Control Panel - AI-Powered Social Media Management.</p>
+          <a href="/PROJECTS/project2.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span>
+          </a>
+        </div>
+       <div class="project">
+          <img src="https://i.ibb.co/pWWNLbT/Default-A-meticulously-crafted-Python-Projects-Portfolio-emerg-0.jpg" alt="Default-A-meticulously-crafted-Python-Projects-Portfolio-emerg-0" border="0">
+          <h2>AI News Video Generator</h2>
+          <p>An innovative Python script that automatically creates engaging news videos by leveraging AI technologies and web APIs.</p>
+          <a href="/PROJECTS/project3.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span>
+          </a>
+        </div>
+      </section>
+      <section class="skills" id="skills">
+        <h2>Skills</h2>
+        <div class="skill-bar">
+          <div class="skill-name">Python</div>
+          <div class="skill-progress">
+            <div class="skill-progress-fill" style="width: 90%;"></div>
+          </div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-name">html/js/css</div>
+          <div class="skill-progress">
+            <div class="skill-progress-fill" style="width: 80%;"></div>
+          </div>
+        </div>
+      </section>
+      <section class="timeline" id="timeline">
+        <h2>My Journey</h2>
+        <div class="timeline-item timeline-item-left">
+          <div class="timeline-content">
+            <h3>2023</h3>
+            <p>Started learning Python</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-item-right">
+          <div class="timeline-content">
+            <h3>2024</h3>
+            <p>started learning html</p>
+          </div>
+        </div>
+      </section>
+      <section class="testimonials" id="testimonials">
+        <h2>Testimonials</h2>
+        <div class="testimonial">
+          <p>"An exceptional Python developer with a keen eye for detail."</p>
+          <p>- 10 years python user  </p>
+        </div>
+      </section>
+      <footer id="contact">
+        <h2>Contact</h2>
+        <p>Your contact information here</p>
+        <div class="social-links">
+          <a href="#" class="tooltip">GitHub <span class="tooltiptext">View my projects</span>
+          </a>
+          <a href="#" class="tooltip">LinkedIn <span class="tooltiptext">Connect with me</span>
+          </a>
+          <a href="#" class="tooltip">Twitter <span class="tooltiptext">Follow me</span>
+          </a>
+        </div>
+      </footer>
+    </div>
+    <button class="scroll-to-top" aria-label="Scroll to top">↑</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        // Fade out loader
+        const loader = document.querySelector('.loader');
+        loader.classList.add('fade-out');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+        // Particle effect
+        particlesJS('particles-js', {
+          particles: {
+            number: {
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800
+              }
+            },
+            color: {
+              value: "#ffffff"
+            },
+            shape: {
+              type: "circle"
+            },
+            opacity: {
+              value: 0.5,
+              random: false
+            },
+            size: {
+              value: 3,
+              random: true
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#ffffff",
+              opacity: 0.4,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 6,
+              direction: "none",
+              random: false,
+              straight: false,
+              out_mode: "out",
+              bounce: false
+            }
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: {
+                enable: true,
+                mode: "repulse"
+              },
+              onclick: {
+                enable: true,
+                mode: "push"
+              },
+              resize: true
+            },
+            modes: {
+              grab: {
+                distance: 400,
+                line_linked: {
+                  opacity: 1
+                }
+              },
+              bubble: {
+                distance: 400,
+                size: 40,
+                duration: 2,
+                opacity: 8,
+                speed: 3
+              },
+              repulse: {
+                distance: 200,
+                duration: 0.4
+              },
+              push: {
+                particles_nb: 4
+              },
+              remove: {
+                particles_nb: 2
+              }
+            }
+          },
+          retina_detect: true
+        });
+        // Projects animation
+        const projects = document.querySelectorAll('.project');
+        const observerOptions = {
+          threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, observerOptions);
+        projects.forEach(project => {
+          project.style.opacity = 0;
+          project.style.transform = 'translateY(50px)';
+          project.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          observer.observe(project);
+        });
+        // Skill bars animation
+        const skillBars = document.querySelectorAll('.skill-progress-fill');
+        const skillObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.width = entry.target.getAttribute('style').split(':')[1];
+            }
+          });
+        }, observerOptions);
+        skillBars.forEach(bar => {
+          bar.style.width = '0';
+          skillObserver.observe(bar);
+        });
+        // Scroll to top button
+        const scrollToTopButton = document.querySelector('.scroll-to-top');
+        window.addEventListener('scroll', () => {
+          if (window.pageYOffset > 100) {
+            scrollToTopButton.classList.add('visible');
+          } else {
+            scrollToTopButton.classList.remove('visible');
+          }
+        });
+        scrollToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
