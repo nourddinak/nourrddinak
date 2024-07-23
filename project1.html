@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
       :root {
-        --primary-color: #6e00ff;
-        --secondary-color: #00ffff;
-        --bg-color: #0a0a1f;
-        --text-color: #e0e0e0;
-        --accent-color: #ff00ff;
+        --primary-color: #ffffff;
+        --secondary-color: #1a1a1a;
+        --accent-color: #00ffff;
+        --bg-color: #0a0a0a;
+        --text-color: #ffffff;
       }
 
       body {
@@ -24,80 +24,223 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-image:
-          radial-gradient(circle at 10% 20%, rgba(110, 0, 255, 0.1) 0%, transparent 20%),
-          radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 20%);
         overflow-x: hidden;
       }
-      .download-button {
-          text-align: center;
-          margin-top: 2rem;
-        }
-
-        .download-button a {
-          display: inline-block;
-          padding: 0.75rem 2rem;
-          font-size: 1.2rem;
-          color: var(--text-color);
-          background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-          border: none;
-          border-radius: 8px;
-          text-decoration: none;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-          transition: all 0.3s ease;
-        }
-
-        .download-button a:hover {
-          background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-          transform: translateY(-2px);
-        }
 
       .container {
-        max-width: 800px;
+        max-width: 1200px;
+        width: 100%;
         padding: 2rem;
         box-sizing: border-box;
       }
 
       h1 {
         font-family: 'Audiowide', cursive;
-        font-size: 3rem;
+        font-size: 6rem;
         text-align: center;
         color: var(--primary-color);
-        margin-bottom: 2rem;
-        text-shadow: 0 0 10px var(--primary-color),
-          0 0 20px var(--primary-color),
-          0 0 30px var(--primary-color);
-        animation: pulse 2s infinite alternate;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        animation: glitch 2s infinite alternate-reverse;
       }
 
-      @keyframes pulse {
-        from {
-          opacity: 0.8;
-        }
+      h1::before,
+      h1::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-        to {
-          opacity: 1;
+      h1::before {
+        left: 2px;
+        text-shadow: -2px 0 var(--accent-color);
+        clip: rect(24px, 550px, 90px, 0);
+        animation: glitch-anim 2s infinite linear alternate-reverse;
+      }
+
+      h1::after {
+        left: -2px;
+        text-shadow: -2px 0 var(--secondary-color);
+        clip: rect(85px, 550px, 140px, 0);
+        animation: glitch-anim 2s infinite linear alternate-reverse;
+      }
+
+      @keyframes glitch {
+        0% {
+          text-shadow: 0.05em 0 0 var(--accent-color), -0.05em -0.025em 0 var(--secondary-color),
+            -0.025em 0.05em 0 var(--primary-color);
+        }
+        14% {
+          text-shadow: 0.05em 0 0 var(--accent-color), -0.05em -0.025em 0 var(--secondary-color),
+            -0.025em 0.05em 0 var(--primary-color);
+        }
+        15% {
+          text-shadow: -0.05em -0.025em 0 var(--accent-color), 0.025em 0.025em 0 var(--secondary-color),
+            -0.05em -0.05em 0 var(--primary-color);
+        }
+        49% {
+          text-shadow: -0.05em -0.025em 0 var(--accent-color), 0.025em 0.025em 0 var(--secondary-color),
+            -0.05em -0.05em 0 var(--primary-color);
+        }
+        50% {
+          text-shadow: 0.025em 0.05em 0 var(--accent-color), 0.05em 0 0 var(--secondary-color),
+            0 -0.05em 0 var(--primary-color);
+        }
+        99% {
+          text-shadow: 0.025em 0.05em 0 var(--accent-color), 0.05em 0 0 var(--secondary-color),
+            0 -0.05em 0 var(--primary-color);
+        }
+        100% {
+          text-shadow: -0.025em 0 0 var(--accent-color), -0.025em -0.025em 0 var(--secondary-color),
+            -0.025em -0.05em 0 var(--primary-color);
+        }
+      }
+
+      @keyframes glitch-anim {
+        0% {
+          clip: rect(42px, 9999px, 44px, 0);
+        }
+        5% {
+          clip: rect(12px, 9999px, 59px, 0);
+        }
+        10% {
+          clip: rect(48px, 9999px, 29px, 0);
+        }
+        15% {
+          clip: rect(42px, 9999px, 73px, 0);
+        }
+        20% {
+          clip: rect(63px, 9999px, 27px, 0);
+        }
+        25% {
+          clip: rect(34px, 9999px, 55px, 0);
+        }
+        30% {
+          clip: rect(86px, 9999px, 73px, 0);
+        }
+        35% {
+          clip: rect(20px, 9999px, 20px, 0);
+        }
+        40% {
+          clip: rect(26px, 9999px, 60px, 0);
+        }
+        45% {
+          clip: rect(25px, 9999px, 66px, 0);
+        }
+        50% {
+          clip: rect(57px, 9999px, 98px, 0);
+        }
+        55% {
+          clip: rect(5px, 9999px, 46px, 0);
+        }
+        60% {
+          clip: rect(82px, 9999px, 31px, 0);
+        }
+        65% {
+          clip: rect(54px, 9999px, 27px, 0);
+        }
+        70% {
+          clip: rect(28px, 9999px, 99px, 0);
+        }
+        75% {
+          clip: rect(45px, 9999px, 69px, 0);
+        }
+        80% {
+          clip: rect(23px, 9999px, 85px, 0);
+        }
+        85% {
+          clip: rect(54px, 9999px, 84px, 0);
+        }
+        90% {
+          clip: rect(45px, 9999px, 47px, 0);
+        }
+        95% {
+          clip: rect(37px, 9999px, 20px, 0);
+        }
+        100% {
+          clip: rect(4px, 9999px, 91px, 0);
         }
       }
 
       h2 {
         font-family: 'Audiowide', cursive;
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--secondary-color);
-        padding-bottom: 0.5rem;
-        margin-top: 2rem;
+        color: var(--accent-color);
+        text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+        letter-spacing: 0.1em;
+        animation: neon 1.5s ease-in-out infinite alternate;
       }
 
-      p,
-      li {
-        line-height: 1.6;
-        margin-bottom: 1rem;
+      @keyframes neon {
+        from {
+          text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+        }
+        to {
+          text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color), 0 0 40px var(--accent-color);
+        }
       }
 
-      ul,
-      ol {
-        padding-left: 1.5rem;
+      .download-button a {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        background: linear-gradient(45deg, var(--accent-color), transparent);
+        border: 2px solid var(--accent-color);
+        border-radius: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .download-button a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.5s ease;
+      }
+
+      .download-button a:hover::before {
+        left: 100%;
+      }
+
+      .download-button a:hover {
+        background: linear-gradient(45deg, transparent, var(--accent-color));
+        box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
+          radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 20%);
+        animation: backgroundShift 20s infinite alternate;
+        z-index: -1;
+      }
+
+      @keyframes backgroundShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 100% 100%;
+        }
       }
 
       .feature-list {
@@ -106,30 +249,33 @@
       }
 
       .feature-list li {
-        padding: 0.5rem 0;
         position: relative;
         padding-left: 2rem;
-        transition: transform 0.3s ease;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
       }
 
-      .feature-list li:before {
-        content: '▶';
+      .feature-list li::before {
+        content: '>';
         position: absolute;
         left: 0;
         color: var(--accent-color);
-        transition: transform 0.3s ease;
+        font-weight: bold;
+        transition: all 0.3s ease;
       }
 
       .feature-list li:hover {
         transform: translateX(10px);
+        color: var(--accent-color);
       }
 
-      .feature-list li:hover:before {
-        transform: rotate(90deg);
+      .feature-list li:hover::before {
+        transform: scale(1.2);
+        left: -5px;
       }
 
       .tech-stack {
-        background: linear-gradient(135deg, rgba(110, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+        background: rgba(255, 255, 255, 0.05);
         border-radius: 15px;
         padding: 1.5rem;
         margin-top: 2rem;
@@ -137,35 +283,39 @@
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
+      }
+
+      .tech-stack:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
       }
 
       .tech-stack h3 {
-        font-family: 'Audiowide', cursive;
         color: var(--accent-color);
         margin-top: 0;
+        font-family: 'Audiowide', cursive;
       }
 
-      .glow {
-        text-shadow: 0 0 5px var(--text-color),
-          0 0 10px var(--text-color);
-      }
-
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         h1 {
-          font-size: 2rem;
+          font-size: 3rem;
         }
-
+        
         .container {
           padding: 1rem;
         }
-
         
+        .tech-stack {
+          padding: 1rem;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>NexStream</h1>
-      <p class="glow">Advanced YouTube Livestream Control Hub</p>
+      <h1 data-text="NexStream">NexStream</h1>
+      <p>Advanced YouTube Livestream Control Hub</p>
       <h2>Revolutionize Your Livestreams</h2>
       <p>NexStream empowers content creators with unparalleled control over their YouTube livestreams. This cutting-edge web application brings studio-level production capabilities to your fingertips, allowing real-time manipulation of stream elements for a truly dynamic viewer experience.</p>
       <h2>Core Capabilities</h2>
@@ -208,7 +358,7 @@
         </p>
       </div>
       <div class="download-button">
-        <a href="https://example.com/path/to/your/bot/file.zip" download>Download the Bot</a>
+        <a href="https://example.com/path/to/your/bot/file.zip" download>Download NexStream</a>
       </div>
     </div>
   </body>
