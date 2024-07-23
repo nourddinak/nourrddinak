@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Video Generator</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #e94560;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .download-button {
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .download-button a {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .download-button a:hover {
+        background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .container {
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);
+        max-width: 800px;
+        width: 90%;
+      }
+
+      h1 {
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 30px;
+        text-shadow: 0 0 10px #e94560;
+      }
+
+      h2 {
+        font-size: 1.8em;
+        border-bottom: 2px solid #e94560;
+        padding-bottom: 10px;
+        margin-top: 30px;
+      }
+
+      p {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #a2a2a2;
+      }
+
+      .feature {
+        background: rgba(233, 69, 96, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .feature h3 {
+        color: #0f3460;
+        margin-top: 0;
+      }
+
+      .tech {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+      }
+
+      .tech-item {
+        background: #0f3460;
+        color: #e94560;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI News Video Generator</h1>
+      <p>An innovative Python script that automatically creates engaging news videos by leveraging AI technologies and web APIs.</p>
+      <h2>Key Features</h2>
+      <div class="feature">
+        <h3>Trending News Fetching</h3>
+        <p>Utilizes the Google News API to retrieve the latest trending news articles.</p>
+      </div>
+      <div class="feature">
+        <h3>Text-to-Speech Conversion</h3>
+        <p>Employs ElevenLabs API to convert news text into natural-sounding speech.</p>
+      </div>
+      <div class="feature">
+        <h3>Dynamic Image Scraping</h3>
+        <p>Scrapes relevant images from news articles to visually enhance the video content.</p>
+      </div>
+      <div class="feature">
+        <h3>Automated Video Creation</h3>
+        <p>Combines audio narration, scraped images, and text overlays to produce a complete news video.</p>
+      </div>
+      <h2>How It Works</h2>
+      <p>The script fetches a random trending news article, converts its title and description to speech, downloads relevant images, and compiles everything into a dynamic video presentation.</p>
+      <h2>Technologies Used</h2>
+      <div class="tech">
+        <span class="tech-item">Python</span>
+        <span class="tech-item">Google News API</span>
+        <span class="tech-item">ElevenLabs API</span>
+        <span class="tech-item">BeautifulSoup</span>
+        <span class="tech-item">MoviePy</span>
+        <span class="tech-item">Pillow</span>
+      </div>
+      <div class="download-button">
+        <a href="https://example.com/path/to/your/bot/file.zip" download>Download the Bot</a>
+      </div>
+    </div>
+  </body>
+</html>
