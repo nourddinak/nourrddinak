@@ -3,190 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Bot Control Panel - AI-Powered Social Media Management</title>
+    <title>Futuristic Website Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --background: #0f0e17;
-            --text: #fffffe;
-            --highlight: #ff8906;
-            --secondary: #f25f4c;
-            --tertiary: #e53170;
+            --background: #0a0a0a;
+            --text: #ffffff;
+            --accent: #00ffff;
+            --secondary: #ff00ff;
         }
-        body {
+        
+        body, html {
+            margin: 0;
+            padding: 0;
             font-family: 'Roboto', sans-serif;
             background-color: var(--background);
             color: var(--text);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            height: 100%;
             overflow-x: hidden;
         }
-        .download-button {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.download-button a {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    font-size: 1.2rem;
-    color: var(--text-color);
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-.download-button a:hover {
-    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
-}
-
+        
         .container {
-            max-width: 800px;
-            width: 100%;
-            padding: 40px;
-            box-sizing: border-box;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--highlight);
-            text-shadow: 0 0 10px var(--highlight);
-            animation: glow 2s ease-in-out infinite alternate;
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
         }
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px var(--highlight);
-            }
-            to {
-                text-shadow: 0 0 20px var(--highlight), 0 0 30px var(--secondary);
-            }
-        }
-        .description {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            transform: perspective(1000px) rotateX(5deg);
-            transition: transform 0.3s ease;
-        }
-        .description:hover {
-            transform: perspective(1000px) rotateX(0deg);
-        }
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        ul {
-            padding-left: 20px;
+        
+        nav ul {
+            display: flex;
             list-style-type: none;
         }
-        li {
-            margin-bottom: 15px;
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            padding-left: 30px;
+            overflow: hidden;
         }
-        li:before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--tertiary);
-        }
-        .highlight {
-            color: var(--highlight);
-            font-weight: bold;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .feature-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
+        
+        .hero-content {
             text-align: center;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: glitch 5s infinite;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: var(--background);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
             transition: all 0.3s ease;
         }
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
         }
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: var(--tertiary);
+        
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--secondary),
+                    -0.025em 0.05em 0 var(--accent);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--secondary),
+                    -0.025em 0.05em 0 var(--accent);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--secondary),
+                    -0.05em -0.05em 0 var(--accent);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--secondary),
+                    -0.05em -0.05em 0 var(--accent);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--secondary),
+                    0 -0.05em 0 var(--accent);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--secondary),
+                    0 -0.05em 0 var(--accent);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--accent), -0.025em -0.025em 0 var(--secondary),
+                    -0.025em -0.05em 0 var(--accent);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Instagram Bot Control Panel</h1>
-        <div class="description">
-            <h2>AI-Powered Social Media Management</h2>
-            <p>
-                Welcome to the cutting-edge Instagram Bot Control Panel, a sophisticated tool designed to revolutionize your social media management experience. This advanced system leverages artificial intelligence to automate interactions, provide real-time insights, and streamline your Instagram messaging workflow.
-            </p>
-            <h2>Key Features:</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🤖</div>
-                    <p><span class="highlight">Intelligent Automated Responses</span></p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <p><span class="highlight">Real-time Monitoring</span></p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🎨</div>
-                    <p><span class="highlight">User-friendly Interface</span></p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔧</div>
-                    <p><span class="highlight">Customizable Interactions</span></p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔒</div>
-                    <p><span class="highlight">Secure Authentication</span></p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🎛️</div>
-                    <p><span class="highlight">Flexible Control</span></p>
-                </div>
+        <header>
+            <div class="logo">LOGO</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>FUTURE IS NOW</h1>
+                <a href="#" class="cta-button">Explore</a>
             </div>
-            <h2>How It Works:</h2>
-            <p>
-                The Instagram Bot Control Panel seamlessly integrates with your Instagram account, monitoring incoming messages in real-time. When a new message is detected, it analyzes the content and generates an appropriate response using advanced natural language processing techniques. The bot can handle various types of interactions, from simple greetings to complex queries, ensuring your followers always receive prompt and relevant replies.
-            </p>
-            <p>
-                With its intuitive web interface, you can easily manage the bot's operations, view logs, and adjust settings on the fly. The system is designed to be both powerful and user-friendly, making it an invaluable tool for influencers, businesses, and social media managers looking to enhance their Instagram presence and engagement.
-            </p>
-        </div>
-        <div class="download-button">
-    <a href="https://example.com/path/to/your/bot/file.zip" download>Download the Bot</a>
-</div>
-
+        </section>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('.hero');
+            
+            hero.addEventListener('mousemove', (e) => {
+                const { offsetWidth: width, offsetHeight: height } = hero;
+                const { clientX: x, clientY: y } = e;
+                
+                const moveX = (x - width / 2) / 25;
+                const moveY = (y - height / 2) / 25;
+                
+                hero.style.backgroundPosition = `${moveX}px ${moveY}px`;
+            });
+        });
+    </script>
 </body>
 </html>
