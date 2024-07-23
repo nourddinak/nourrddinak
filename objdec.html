@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Cool Object Detection with Audio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #4a4e69;
+            --secondary-color: #9a8c98;
+            --accent-color: #c9ada7;
+            --background-color: #22223b;
+            --text-color: #f2e9e4;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        #keycode-container, #app-container, #custom-training-container, #history-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        #keycode-container {
+            text-align: center;
+        }
+
+        #keycode-input {
+            font-size: 1.2em;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        #app-container {
+            display: none;
+        }
+
+        #video-container {
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #webcam, #canvas {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #object-list {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #object-list h2 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        #detected-objects {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #detected-objects li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #detected-objects li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .btn {
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        #start-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #stop-button {
+            background-color: #f44336;
+            color: white;
+            display: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #audio-toggle {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #flip-camera {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        #screenshot-button {
+            background-color: #9C27B0;
+            color: white;
+        }
+
+        #export-button {
+            background-color: #795548;
+            color: white;
+        }
+
+        #record-button {
+            background-color: #E91E63;
+            color: white;
+        }
+
+        #dark-mode-toggle {
+            background-color: #607D8B;
+            color: white;
+        }
+
+        #threshold-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        #language-select {
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #custom-object-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        #performance-metrics {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #history-chart {
+            width: 100%;
+            height: 300px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 680px) {
+            h1 { font-size: 2em; }
+            .btn { font-size: 0.9em; padding: 8px 16px; }
+        }
+
+        .dark-mode {
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --primary-color: #bb86fc;
+            --secondary-color: #03dac6;
+            --accent-color: #cf6679;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enhanced Cool Object Detection with Audio</h1>
+    
+    <div id="keycode-container">
+        <input type="password" id="keycode-input" placeholder="Enter key code">
+        <button id="keycode-button" class="btn">Access App</button>
+    </div>
+
+    <div id="app-container">
+        <button id="start-button" class="btn">Start Detection</button>
+        <button id="stop-button" class="btn">Stop Detection</button>
+        <button id="audio-toggle" class="btn">Mute Audio</button>
+        <button id="flip-camera" class="btn">Flip Camera</button>
+        <button id="screenshot-button" class="btn">Take Screenshot</button>
+        <button id="export-button" class="btn">Export Data</button>
+        <button id="record-button" class="btn">Start Recording</button>
+        <button id="dark-mode-toggle" class="btn">Toggle Dark Mode</button>
+        <select id="language-select">
+            <option value="en-US">English</option>
+            <option value="es-ES">Español</option>
+            <option value="fr-FR">Français</option>
+        </select>
+        <input type="range" id="threshold-slider" min="0" max="100" value="66">
+        <span id="threshold-value">Threshold: 66%</span>
+        <div id="video-container">
+            <video id="webcam" width="640" height="480" autoplay muted></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </div>
+        <div id="object-list">
+            <h2>Detected Objects</h2>
+            <ul id="detected-objects"></ul>
+        </div>
+        <div id="performance-metrics">
+            <span id="fps">FPS: 0</span>
+            <span id="latency">Latency: 0ms</span>
+        </div>
+    </div>
+
+    <div id="custom-training-container">
+        <h2>Custom Object Detection</h2>
+        <input type="file" id="custom-object-input" accept="image/*">
+        <button id="train-custom-object" class="btn">Train Custom Object</button>
+    </div>
+
+    <div id="history-container">
+        <h2>Detection History</h2>
+        <div id="history-chart"></div>
+    </div>
+
+    <div id="status">Enter the key code to access the app</div>
+
+    <script>
+        const keyCodeInput = document.getElementById('keycode-input');
+        const keyCodeButton = document.getElementById('keycode-button');
+        const keyCodeContainer = document.getElementById('keycode-container');
+        const appContainer = document.getElementById('app-container');
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const objectList = document.getElementById('detected-objects');
+        const statusElement = document.getElementById('status');
+        const startButton = document.getElementById('start-button');
+        const stopButton = document.getElementById('stop-button');
+        const audioToggle = document.getElementById('audio-toggle');
+        const flipCamera = document.getElementById('flip-camera');
+        const screenshotButton = document.getElementById('screenshot-button');
+        const exportButton = document.getElementById('export-button');
+        const recordButton = document.getElementById('record-button');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const languageSelect = document.getElementById('language-select');
+        const thresholdSlider = document.getElementById('threshold-slider');
+        const thresholdValue = document.getElementById('threshold-value');
+        const customObjectInput = document.getElementById('custom-object-input');
+        const trainCustomObjectButton = document.getElementById('train-custom-object');
+        const fpsElement = document.getElementById('fps');
+        const latencyElement = document.getElementById('latency');
+
+        let model;
+        let detectedObjects = new Map();
+        let isDetecting = false;
+        let isAudioEnabled = true;
+        const KEYCODE = '1234'; // Set your desired key code here
+        const synth = window.speechSynthesis;
+        let currentStream = null;
+        let facingMode = "user"; // Start with front camera
+        let detectionThreshold = 0.66;
+        let mediaRecorder;
+        let recordedChunks = [];
+        let isRecording = false;
+        let customObjects = new Set();
+        let lastFrameTime = 0;
+        let frameCount = 0;
+        let detectionHistory = {};
+
+        keyCodeButton.addEventListener('click', () => {
+            if (keyCodeInput.value === KEYCODE) {
+                keyCodeContainer.style.display = 'none';
+                appContainer.style.display = 'block';
+                statusElement.textContent = 'Loading model...';
+                loadModel();
+            } else {
+                statusElement.textContent = 'Incorrect key code. Try again.';
+                keyCodeInput.value = '';
+                keyCodeInput.classList.add('pulse');
+                setTimeout(() => keyCodeInput.classList.remove('pulse'), 1000);
+            }
+        });
+
+        function loadModel() {
+            cocoSsd.load().then(loadedModel => {
+                model = loadedModel;
+                statusElement.textContent = 'Model loaded. Click "Start Detection" to begin.';
+                startButton.disabled = false;
+            }).catch(err => {
+                console.error('Failed to load model:', err);
+                statusElement.textContent = 'Error: Failed to load model.';
+            });
+        }
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            stopButton.style.display = 'inline-block';
+            isDetecting = true;
+            startVideo();
+        });
+
+        stopButton.addEventListener('click', () => {
+            stopButton.style.display = 'none';
+            startButton.style.display = 'inline-block';
+            isDetecting = false;
+            stopVideo();
+        });
+
+        audioToggle.addEventListener('click', () => {
+            isAudioEnabled = !isAudioEnabled;
+            audioToggle.textContent = isAudioEnabled ? 'Mute Audio' : 'Unmute Audio';
+        });
+
+        flipCamera.addEventListener('click', () => {
+            facingMode = facingMode === "user" ? "environment" : "user";
+            if (isDetecting) {
+                stopVideo();
+                startVideo();
+            }
+        });
+
+        screenshotButton.addEventListener('click', () => {
+            const screenshot = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = screenshot;
+            link.download = 'object_detection_screenshot.png';
+            link.click();
+        });
+
+        exportButton.addEventListener('click', () => {
+            const data = JSON.stringify(Array.from(detectedObjects));
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'detected_objects.json';
+            link.click();
+        });
+
+        recordButton.addEventListener('click', () => {
+            if (!isRecording) {
+                startRecording();
+                recordButton.textContent = 'Stop Recording';
+            } else {
+                stopRecording();
+                recordButton.textContent = 'Start Recording';
+            }
+            isRecording = !isRecording;
+        });
+
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        languageSelect.addEventListener('change', () => {
+            // Update language for speech synthesis
+            synth.cancel();
+        });
+
+        thresholdSlider.addEventListener('input', () => {
+            detectionThreshold = thresholdSlider.value / 100;
+            thresholdValue.textContent = `Threshold: ${thresholdSlider.value}%`;
+        });
+
+        trainCustomObjectButton.addEventListener('click', () => {
+            const file = customObjectInput.files[0];
+            if (file) {
+                const objectName = prompt("Enter a name for this object:");
+                if (objectName) {
+                    customObjects.add(objectName);
+                    alert(`Custom object "${objectName}" added for detection!`);
+                    // In a real application, you would train the model here
+                }
+            } else {
+                alert("Please select an image first.");
+            }
+        });
+
+        function startVideo() {
+            if (currentStream) {
+                stopVideo();
+            }
+
+            const constraints = {
+                video: { facingMode: facingMode }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(stream => {
+                    currentStream = stream;
+                    video.srcObject = stream;
+                    video.addEventListener('loadeddata', predictObjects);
+                    statusElement.textContent = 'Camera started. Detecting objects...';
+                })
+                .catch(err => {
+                    console.error('Error accessing the camera:', err);
+                    statusElement.textContent = 'Error: Could not access the camera.';
+                    startButton.disabled = false;
+                });
+        }
+
+        function stopVideo() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+            }
+            video.srcObject = null;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            statusElement.textContent = 'Detection stopped. Click "Start Detection" to begin again.';
+        }
+
+        function predictObjects() {
+            if (!model || !isDetecting) return;
+
+            const startTime = performance.now();
+
+            model.detect(video).then(predictions => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                predictions.forEach(prediction => {
+                    if (prediction.score > detectionThreshold) {
+                        const [x, y, width, height] = prediction.bbox;
+                        ctx.strokeStyle = getRandomColor();
+                        ctx.lineWidth = 4;
+                        ctx.strokeRect(x, y, width, height);
+
+                        ctx.fillStyle = 'white';
+                        ctx.font = '16px Roboto';
+                        ctx.fillText(`${prediction.class} (${Math.round(prediction.score * 100)}%)`, x, y > 20 ? y - 5 : 20);
+
+                        if (!detectedObjects.has(prediction.class)) {
+                            detectedObjects.set(prediction.class, new Date().toLocaleTimeString());
+                            updateObjectList();
+                            speakObject(prediction.class);
+                        }
+
+                        // Update detection history
+                        if (!detectionHistory[prediction.class]) {
+                            detectionHistory[prediction.class] = [];
+                        }
+                        detectionHistory[prediction.class].push({
+                            time: new Date(),
+                            confidence: prediction.score
+                        });
+                    }
+                });
+
+                // Object tracking (simplified)
+                ctx.beginPath();
+                ctx.strokeStyle = 'yellow';
+                ctx.lineWidth = 2;
+                predictions.forEach((prediction, index) => {
+                    if (index > 0) {
+                        const [prevX, prevY] = predictions[index - 1].bbox;
+                        const [currX, currY] = prediction.bbox;
+                        ctx.moveTo(prevX, prevY);
+                        ctx.lineTo(currX, currY);
+                    }
+                });
+                ctx.stroke();
+
+                // Update performance metrics
+                const endTime = performance.now();
+                updatePerformanceMetrics(startTime, endTime);
+
+                // Update history chart
+                updateHistoryChart();
+
+                requestAnimationFrame(predictObjects);
+            });
+        }
+
+        function updateObjectList() {
+            objectList.innerHTML = '';
+            detectedObjects.forEach((time, object) => {
+                const li = document.createElement('li');
+                li.textContent = `${object} (first detected at ${time})`;
+                li.style.borderLeft = `5px solid ${getRandomColor()}`;
+                li.style.paddingLeft = '10px';
+                objectList.appendChild(li);
+            });
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function speakObject(object) {
+            if (isAudioEnabled) {
+                const utterance = new SpeechSynthesisUtterance(`Detected ${object}`);
+                utterance.lang = languageSelect.value;
+                synth.speak(utterance);
+            }
+        }
+
+        function startRecording() {
+            recordedChunks = [];
+            const stream = canvas.captureStream(30);
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'object_detection_recording.webm';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            };
+
+            mediaRecorder.start();
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+        }
+
+        function updatePerformanceMetrics(startTime, endTime) {
+            const currentTime = performance.now();
+            const elapsed = currentTime - lastFrameTime;
+            frameCount++;
+
+            if (elapsed > 1000) {
+                const fps = Math.round((frameCount * 1000) / elapsed);
+                fpsElement.textContent = `FPS: ${fps}`;
+                frameCount = 0;
+                lastFrameTime = currentTime;
+            }
+
+            const latency = Math.round(endTime - startTime);
+            latencyElement.textContent = `Latency: ${latency}ms`;
+        }
+
+        function updateHistoryChart() {
+            const traces = Object.keys(detectionHistory).map(objectClass => ({
+                x: detectionHistory[objectClass].map(d => d.time),
+                y: detectionHistory[objectClass].map(d => d.confidence),
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: objectClass
+            }));
+
+            const layout = {
+                title: 'Object Detection History',
+                xaxis: { title: 'Time' },
+                yaxis: { title: 'Confidence' }
+            };
+
+            Plotly.newPlot('history-chart', traces, layout);
+        }
+
+    </script>
+</body>
+</html>
