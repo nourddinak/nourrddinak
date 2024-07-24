@@ -210,16 +210,27 @@
         height: 300px;
       }
 
-      @media (max-width: 1200px) {
+      @media (max-width: 768px) {
         body {
           grid-template-columns: 1fr;
           grid-template-rows: auto auto 1fr auto auto auto;
+          gap: 10px;
         }
 
         .controls,
         #video-container,
         #object-list {
           grid-column: 1 / -1;
+        }
+
+        .btn {
+          padding: 15px 20px;
+          font-size: 16px;
+        }
+
+        #video-container {
+          padding-top: 75%;
+          /* 4:3 Aspect Ratio for mobile */
         }
       }
     </style>
@@ -285,7 +296,7 @@
       let isAudioEnabled = true;
       const synth = window.speechSynthesis;
       let currentStream = null;
-      let facingMode = "user";
+      let facingMode = "environment";
       let detectionThreshold = 0.66;
       let mediaRecorder;
       let recordedChunks = [];
@@ -293,8 +304,11 @@
       let lastFrameTime = 0;
       let frameCount = 0;
       let detectionHistory = {};
+      // Load the model immediately
+      loadModel();
 
       function loadModel() {
+        statusElement.textContent = 'Loading model...';
         cocoSsd.load().then(loadedModel => {
           model = loadedModel;
           statusElement.textContent = 'Model loaded. Click "Start Detection" to begin.';
@@ -305,6 +319,10 @@
         });
       }
       startButton.addEventListener('click', () => {
+        if (!model) {
+          statusElement.textContent = 'Please wait for the model to load.';
+          return;
+        }
         startButton.style.display = 'none';
         stopButton.style.display = 'inline-block';
         isDetecting = true;
@@ -369,13 +387,24 @@
         }
         const constraints = {
           video: {
-            facingMode: facingMode
+            facingMode: facingMode,
+            width: {
+              ideal: 1280
+            },
+            height: {
+              ideal: 720
+            }
           }
         };
         navigator.mediaDevices.getUserMedia(constraints).then(stream => {
           currentStream = stream;
           video.srcObject = stream;
-          video.addEventListener('loadeddata', predictObjects);
+          video.play();
+          video.addEventListener('loadedmetadata', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            predictObjects();
+          });
           statusElement.textContent = 'Camera started. Detecting objects...';
         }).catch(err => {
           console.error('Error accessing the camera:', err);
@@ -398,6 +427,7 @@
         const startTime = performance.now();
         model.detect(video).then(predictions => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           predictions.forEach(prediction => {
             if (prediction.score > detectionThreshold) {
               const [x, y, width, height] = prediction.bbox;
@@ -422,25 +452,17 @@
               });
             }
           });
-          // Object tracking (simplified)
-          ctx.beginPath();
-          ctx.strokeStyle = 'yellow';
-          ctx.lineWidth = 2;
-          predictions.forEach((prediction, index) => {
-            if (index > 0) {
-              const [prevX, prevY] = predictions[index - 1].bbox;
-              const [currX, currY] = prediction.bbox;
-              ctx.moveTo(prevX, prevY);
-              ctx.lineTo(currX, currY);
-            }
-          });
-          ctx.stroke();
           // Update performance metrics
           const endTime = performance.now();
           updatePerformanceMetrics(startTime, endTime);
           // Update history chart
           updateHistoryChart();
+          // Request the next frame
           requestAnimationFrame(predictObjects);
+        }).catch(error => {
+          console.error('Error during object detection:', error);
+          statusElement.textContent = 'Error during object detection. Retrying...';
+          setTimeout(predictObjects, 1000);
         });
       }
 
@@ -535,9 +557,19 @@
           },
           yaxis: {
             title: 'Confidence'
-          }
+          },
+          margin: {
+            t: 50,
+            l: 50,
+            r: 50,
+            b: 50
+          },
+          height: 300,
+          responsive: true
         };
-        Plotly.newPlot('history-chart', traces, layout);
+        Plotly.newPlot('history-chart', traces, layout, {
+          responsive: true
+        });
       }
     </script>
   </body>
