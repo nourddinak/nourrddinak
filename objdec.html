@@ -3,108 +3,133 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Cool Object Detection with Audio</title>
+    <title>Futuristic Object Detection</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
       :root {
-        --primary-color: #4a4e69;
-        --secondary-color: #9a8c98;
-        --accent-color: #c9ada7;
-        --background-color: #22223b;
-        --text-color: #f2e9e4;
+        --primary-color: #00ffff;
+        --secondary-color: #ff00ff;
+        --background-color: #0a0a0a;
+        --text-color: #ffffff;
+        --accent-color: #ff9900;
       }
 
       body {
-        font-family: 'Roboto', sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        font-family: 'Orbitron', sans-serif;
         background-color: var(--background-color);
         color: var(--text-color);
         margin: 0;
-        padding: 20px;
+        padding: 0;
         min-height: 100vh;
-        transition: background-color 0.5s ease;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 20px;
+        overflow-x: hidden;
       }
 
-      h1,
-      h2 {
-        color: var(--accent-color);
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 1s ease-out;
-      }
-
-      #keycode-container,
-      #app-container,
-      #custom-training-container,
-      #history-container {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+      .header {
+        grid-column: 1 / -1;
         padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        width: 100%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      h1 {
+        font-size: 3em;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        animation: glitch 5s infinite;
+      }
+
+      @keyframes glitch {
+        0% {
+          transform: skew(0deg);
+        }
+
+        20% {
+          transform: skew(3deg);
+        }
+
+        40% {
+          transform: skew(-3deg);
+        }
+
+        60% {
+          transform: skew(2deg);
+        }
+
+        80% {
+          transform: skew(-2deg);
+        }
+
+        100% {
+          transform: skew(0deg);
+        }
+      }
+
+      .controls {
+        grid-column: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+      }
+
+      .btn {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        border: none;
+        padding: 10px 20px;
+        font-family: 'Orbitron', sans-serif;
+        text-transform: uppercase;
+        cursor: pointer;
         transition: all 0.3s ease;
       }
 
-      #keycode-container {
-        text-align: center;
-      }
-
-      #keycode-input {
-        font-size: 1.2em;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-right: 10px;
-        background-color: var(--primary-color);
-        color: var(--text-color);
-      }
-
-      #app-container {
-        display: none;
+      .btn:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
       }
 
       #video-container {
+        grid-column: 2 / 3;
         position: relative;
-        margin-bottom: 20px;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        padding-top: 56.25%;
+        /* 16:9 Aspect Ratio */
+        background: linear-gradient(45deg, #000, #333);
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
       }
 
       #webcam,
       #canvas {
-        width: 100%;
-        height: auto;
-        border-radius: 15px;
-      }
-
-      #canvas {
         position: absolute;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      #canvas {
+        z-index: 10;
       }
 
       #object-list {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+        grid-column: 3 / 4;
         padding: 20px;
-        margin-top: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      #object-list h2 {
-        margin-top: 0;
-        color: var(--accent-color);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        border: 1px solid var(--secondary-color);
+        box-shadow: 0 0 10px var(--secondary-color);
       }
 
       #detected-objects {
@@ -118,6 +143,7 @@
         background-color: rgba(255, 255, 255, 0.05);
         border-radius: 5px;
         transition: background-color 0.3s ease;
+        border-left: 3px solid var(--accent-color);
       }
 
       #detected-objects li:hover {
@@ -125,97 +151,58 @@
       }
 
       #status {
-        margin-top: 20px;
-        font-weight: bold;
-        color: var(--secondary-color);
+        grid-column: 1 / -1;
         text-align: center;
-      }
-
-      .btn {
-        font-size: 1em;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin: 5px;
-      }
-
-      #start-button {
-        background-color: #4CAF50;
-        color: white;
-      }
-
-      #stop-button {
-        background-color: #f44336;
-        color: white;
-        display: none;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .btn:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-      }
-
-      #audio-toggle {
-        background-color: #2196F3;
-        color: white;
-      }
-
-      #flip-camera {
-        background-color: #FF9800;
-        color: white;
-      }
-
-      #screenshot-button {
-        background-color: #9C27B0;
-        color: white;
-      }
-
-      #export-button {
-        background-color: #795548;
-        color: white;
-      }
-
-      #record-button {
-        background-color: #E91E63;
-        color: white;
-      }
-
-      #dark-mode-toggle {
-        background-color: #607D8B;
-        color: white;
+        padding: 20px;
+        font-size: 1.2em;
+        color: var(--accent-color);
       }
 
       #threshold-slider {
+        -webkit-appearance: none;
         width: 100%;
-        margin: 10px 0;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity .2s;
       }
 
-      #language-select {
-        margin: 10px 0;
-        padding: 5px;
-        border-radius: 5px;
+      #threshold-slider:hover {
+        opacity: 1;
       }
 
-      #custom-object-input {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 5px;
+      #threshold-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
+      }
+
+      #threshold-slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
       }
 
       #performance-metrics {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-around;
         padding: 10px;
-        margin-top: 20px;
-        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+      }
+
+      #history-container {
+        grid-column: 1 / -1;
+        padding: 20px;
       }
 
       #history-chart {
@@ -223,106 +210,58 @@
         height: 300px;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
+      @media (max-width: 1200px) {
+        body {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto 1fr auto auto auto;
         }
 
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .controls,
+        #video-container,
+        #object-list {
+          grid-column: 1 / -1;
         }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-
-        50% {
-          transform: scale(1.05);
-        }
-
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      .pulse {
-        animation: pulse 2s infinite;
-      }
-
-      @media (max-width: 680px) {
-        h1 {
-          font-size: 2em;
-        }
-
-        .btn {
-          font-size: 0.9em;
-          padding: 8px 16px;
-        }
-      }
-
-      .dark-mode {
-        --background-color: #121212;
-        --text-color: #ffffff;
-        --primary-color: #bb86fc;
-        --secondary-color: #03dac6;
-        --accent-color: #cf6679;
       }
     </style>
   </head>
   <body>
-    <h1>Enhanced Cool Object Detection with Audio</h1>
-    <div id="keycode-container">
-      <input type="password" id="keycode-input" placeholder="Enter key code">
-      <button id="keycode-button" class="btn">Access App</button>
+    <div class="header">
+      <h1>Futuristic Object Detection</h1>
     </div>
-    <div id="app-container">
+    <div class="controls">
       <button id="start-button" class="btn">Start Detection</button>
-      <button id="stop-button" class="btn">Stop Detection</button>
+      <button id="stop-button" class="btn" style="display: none;">Stop Detection</button>
       <button id="audio-toggle" class="btn">Mute Audio</button>
       <button id="flip-camera" class="btn">Flip Camera</button>
       <button id="screenshot-button" class="btn">Take Screenshot</button>
       <button id="export-button" class="btn">Export Data</button>
       <button id="record-button" class="btn">Start Recording</button>
-      <button id="dark-mode-toggle" class="btn">Toggle Dark Mode</button>
-      <select id="language-select">
+      <select id="language-select" class="btn">
         <option value="en-US">English</option>
         <option value="es-ES">Español</option>
         <option value="fr-FR">Français</option>
       </select>
       <input type="range" id="threshold-slider" min="0" max="100" value="66">
       <span id="threshold-value">Threshold: 66%</span>
-      <div id="video-container">
-        <video id="webcam" width="640" height="480" autoplay muted></video>
-        <canvas id="canvas" width="640" height="480"></canvas>
-      </div>
-      <div id="object-list">
-        <h2>Detected Objects</h2>
-        <ul id="detected-objects"></ul>
-      </div>
-      <div id="performance-metrics">
-        <span id="fps">FPS: 0</span>
-        <span id="latency">Latency: 0ms</span>
-      </div>
     </div>
-    <div id="custom-training-container">
-      <h2>Custom Object Detection</h2>
-      <input type="file" id="custom-object-input" accept="image/*">
-      <button id="train-custom-object" class="btn">Train Custom Object</button>
+    <div id="video-container">
+      <video id="webcam" autoplay muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
+    <div id="object-list">
+      <h2>Detected Objects</h2>
+      <ul id="detected-objects"></ul>
+    </div>
+    <div id="performance-metrics">
+      <span id="fps">FPS: 0</span>
+      <span id="latency">Latency: 0ms</span>
     </div>
     <div id="history-container">
       <h2>Detection History</h2>
       <div id="history-chart"></div>
     </div>
-    <div id="status">Enter the key code to access the app</div>
+    <div id="status">Ready to detect objects</div>
     <script>
-      const keyCodeInput = document.getElementById('keycode-input');
-      const keyCodeButton = document.getElementById('keycode-button');
-      const keyCodeContainer = document.getElementById('keycode-container');
-      const appContainer = document.getElementById('app-container');
       const video = document.getElementById('webcam');
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
@@ -335,43 +274,25 @@
       const screenshotButton = document.getElementById('screenshot-button');
       const exportButton = document.getElementById('export-button');
       const recordButton = document.getElementById('record-button');
-      const darkModeToggle = document.getElementById('dark-mode-toggle');
       const languageSelect = document.getElementById('language-select');
       const thresholdSlider = document.getElementById('threshold-slider');
       const thresholdValue = document.getElementById('threshold-value');
-      const customObjectInput = document.getElementById('custom-object-input');
-      const trainCustomObjectButton = document.getElementById('train-custom-object');
       const fpsElement = document.getElementById('fps');
       const latencyElement = document.getElementById('latency');
       let model;
       let detectedObjects = new Map();
       let isDetecting = false;
       let isAudioEnabled = true;
-      const KEYCODE = '1234'; // Set your desired key code here
       const synth = window.speechSynthesis;
       let currentStream = null;
-      let facingMode = "user"; // Start with front camera
+      let facingMode = "user";
       let detectionThreshold = 0.66;
       let mediaRecorder;
       let recordedChunks = [];
       let isRecording = false;
-      let customObjects = new Set();
       let lastFrameTime = 0;
       let frameCount = 0;
       let detectionHistory = {};
-      keyCodeButton.addEventListener('click', () => {
-        if (keyCodeInput.value === KEYCODE) {
-          keyCodeContainer.style.display = 'none';
-          appContainer.style.display = 'block';
-          statusElement.textContent = 'Loading model...';
-          loadModel();
-        } else {
-          statusElement.textContent = 'Incorrect key code. Try again.';
-          keyCodeInput.value = '';
-          keyCodeInput.classList.add('pulse');
-          setTimeout(() => keyCodeInput.classList.remove('pulse'), 1000);
-        }
-      });
 
       function loadModel() {
         cocoSsd.load().then(loadedModel => {
@@ -434,29 +355,12 @@
         }
         isRecording = !isRecording;
       });
-      darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-      });
       languageSelect.addEventListener('change', () => {
-        // Update language for speech synthesis
         synth.cancel();
       });
       thresholdSlider.addEventListener('input', () => {
         detectionThreshold = thresholdSlider.value / 100;
         thresholdValue.textContent = `Threshold: ${thresholdSlider.value}%`;
-      });
-      trainCustomObjectButton.addEventListener('click', () => {
-        const file = customObjectInput.files[0];
-        if (file) {
-          const objectName = prompt("Enter a name for this object:");
-          if (objectName) {
-            customObjects.add(objectName);
-            alert(`Custom object "${objectName}" added for detection!`);
-            // In a real application, you would train the model here
-          }
-        } else {
-          alert("Please select an image first.");
-        }
       });
 
       function startVideo() {
@@ -501,7 +405,7 @@
               ctx.lineWidth = 4;
               ctx.strokeRect(x, y, width, height);
               ctx.fillStyle = 'white';
-              ctx.font = '16px Roboto';
+              ctx.font = '16px Orbitron';
               ctx.fillText(`${prediction.class} (${Math.round(prediction.score * 100)}%)`, x, y > 20 ? y - 5 : 20);
               if (!detectedObjects.has(prediction.class)) {
                 detectedObjects.set(prediction.class, new Date().toLocaleTimeString());
