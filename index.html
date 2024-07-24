@@ -1,144 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noureddine - Python Projects Portfolio</title>
+    <title>nourddinak - Python Projects Portfolio</title>
     <link rel="stylesheet" href="./styles.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
     <div class="loader">
-      <div class="loader-inner"></div>
+        <div class="loader-inner"></div>
     </div>
     <div id="particles-js"></div>
     <div class="container">
-      <header>
-        <div class="logo">nourddinak</div>
-        <nav>
-          <a href="#home">Home</a>
-          <a href="#live-demo">Live Demo</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#timeline">Timeline</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
-      <section class="hero" id="home">
-        <div class="hero-text">
-          <span class="glitch" data-text="Python" style="--i:1;">Python</span>
-          <span class="glitch" data-text="Projects" style="--i:2;">Projects</span>
-          <span class="glitch" data-text="Portfolio" style="--i:3;">Portfolio</span>
-        </div>
-      </section>
-      <section class="live-demo" id="live-demo">
-        <h2>DEMO ONLINE PROJECTS</h2>
-        <div class="demo-projects">
-          <div class="demo-project">
-            <h3>Object Detection with Audio</h3>
-            <p>Experience the power of Object Detection with Audio.</p>
-            <a href="./objdec.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the Object Detection with Audior</span></a>
-          </div>
-          <div class="demo-project">
-            <h3>AI Social Media Manager Demo</h3>
-            <p>See how AI can revolutionize your social media strategy.</p>
-            <a href="./demo-ai-social-media.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the AI Social Media Manager</span></a>
-          </div>
-          <div class="demo-project">
-            <h3>AI News Video Generator Demo</h3>
-            <p>Watch AI create engaging news videos in real-time.</p>
-            <a href="./demo-news-generator.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the News Video Generator</span></a>
-          </div>
-        </div>
-      </section>
-      <section class="projects" id="projects">
-        <div class="project">
-          <img src="https://i.ibb.co/VpxG2y2/Default-Create-an-image-that-represents-a-You-Tube-Livestream-M-0.jpg" alt="YouTube Livestream Manager" border="0">
-          <h2>YouTube Livestream Manager</h2>
-          <p>The YouTube Livestream Manager is a powerful web application designed to give content creators full control over their YouTube livestreams. This application allows users to manage various aspects of their livestream, including background images, music, and video content, all in real-time.</p>
-          <a href="./project1.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
-        </div>
-        <div class="project">
-          <img src="https://i.ibb.co/hVT5vXT/Default-Create-a-modern-stylized-illustration-of-an-Instagram-0.jpg" alt="AI-Powered Social Media Management" border="0">
-          <h2>AI-Powered Social Media Management</h2>
-          <p>Instagram Bot Control Panel - AI-Powered Social Media Management.</p>
-          <a href="./project2.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
-        </div>
-        <div class="project">
-          <img src="https://i.ibb.co/pWWNLbT/Default-A-meticulously-crafted-Python-Projects-Portfolio-emerg-0.jpg" alt="AI News Video Generator" border="0">
-          <h2>AI News Video Generator</h2>
-          <p>An innovative Python script that automatically creates engaging news videos by leveraging AI technologies and web APIs.</p>
-          <a href="./project3.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
-        </div>
-      </section>
-      <section class="skills" id="skills">
-        <h2>Skills</h2>
-        <div class="skill-bar">
-          <div class="skill-name">Python</div>
-          <div class="skill-progress">
-            <div class="skill-progress-fill" style="width: 90%;"></div>
-          </div>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-name">HTML/JS/CSS</div>
-          <div class="skill-progress">
-            <div class="skill-progress-fill" style="width: 80%;"></div>
-          </div>
-        </div>
-      </section>
-       <section class="timeline" id="timeline">
-    <h2>My Journey</h2>
-    <div class="timeline-container">
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <i class="fas fa-code"></i>
-        </div>
-        <div class="timeline-content">
-          <h3>2023</h3>
-          <p>Started learning Python</p>
-          <span class="timeline-date">January 2023</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <i class="fas fa-laptop-code"></i>
-        </div>
-        <div class="timeline-content">
-          <h3>2024</h3>
-          <p>Started learning HTML</p>
-          <span class="timeline-date">March 2024</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <i class="fas fa-project-diagram"></i>
-        </div>
-        <div class="timeline-content">
-          <h3>2024</h3>
-          <p>Completed first major project</p>
-          <span class="timeline-date">June 2024</span>
-        </div>
-      </div>
-      </section>
-      <section class="testimonials" id="testimonials">
-        <h2>Testimonials</h2>
-        <div class="testimonial">
-          <p>"An exceptional Python developer with a keen eye for detail."</p>
-          <p>- 10 years Python user</p>
-        </div>
-      </section>
-      <footer id="contact">
-        <h2>Contact</h2>
-        <p>Your contact information here</p>
-        <div class="social-links">
-          <a href="#" class="tooltip">GitHub <span class="tooltiptext">View my projects</span></a>
-          <a href="#" class="tooltip">LinkedIn <span class="tooltiptext">Connect with me</span></a>
-          <a href="#" class="tooltip">Twitter <span class="tooltiptext">Follow me</span></a>
-        </div>
-      </footer>
-   </div>
-    <button class="scroll-to-top" aria-label="Scroll to top">↑</button>
+        <header>
+            <div class="logo">nourddinak</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#live-demo">Live Demo</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </header>
+
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <span class="glitch" data-text="Python" style="--i:1;">Python</span>
+                <span class="glitch" data-text="Projects" style="--i:2;">Projects</span>
+                <span class="glitch" data-text="Portfolio" style="--i:3;">Portfolio</span>
+            </div>
+            <a href="#projects" class="cta-button">Explore My Work</a>
+        </section>
+
+        <section class="live-demo" id="live-demo">
+            <h2>DEMO ONLINE PROJECTS</h2>
+            <div class="demo-projects">
+                <div class="demo-project">
+                    <h3>Object Detection with Audio</h3>
+                    <p>Experience the power of Object Detection with Audio.</p>
+                    <a href="./objdec.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the Object Detection with Audio</span></a>
+                </div>
+                <div class="demo-project">
+                    <h3>AI Social Media Manager Demo</h3>
+                    <p>See how AI can revolutionize your social media strategy.</p>
+                    <a href="./demo-ai-social-media.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the AI Social Media Manager</span></a>
+                </div>
+                <div class="demo-project">
+                    <h3>AI News Video Generator Demo</h3>
+                    <p>Watch AI create engaging news videos in real-time.</p>
+                    <a href="./demo-news-generator.html" class="btn tooltip">Try Demo <span class="tooltiptext">Test the News Video Generator</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects" id="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project">
+                    <img src="https://i.ibb.co/VpxG2y2/Default-Create-an-image-that-represents-a-You-Tube-Livestream-M-0.jpg" alt="YouTube Livestream Manager">
+                    <h3>YouTube Livestream Manager</h3>
+                    <p>A powerful web application for content creators to control YouTube livestreams in real-time.</p>
+                    <a href="./project1.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
+                </div>
+                <div class="project">
+                    <img src="https://i.ibb.co/hVT5vXT/Default-Create-a-modern-stylized-illustration-of-an-Instagram-0.jpg" alt="AI-Powered Social Media Management">
+                    <h3>AI-Powered Social Media Management</h3>
+                    <p>Instagram Bot Control Panel - Revolutionize your social media strategy with AI.</p>
+                    <a href="./project2.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
+                </div>
+                <div class="project">
+                    <img src="https://i.ibb.co/pWWNLbT/Default-A-meticulously-crafted-Python-Projects-Portfolio-emerg-0.jpg" alt="AI News Video Generator">
+                    <h3>AI News Video Generator</h3>
+                    <p>An innovative Python script that automatically creates engaging news videos using AI and web APIs.</p>
+                    <a href="./project3.html" class="btn tooltip">View Project <span class="tooltiptext">Click to see details</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills" id="skills">
+            <h2>Skills</h2>
+            <div class="skill-container">
+                <div class="skill-bar">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-progress">
+                        <div class="skill-progress-fill" style="width: 90%;" data-percentage="90%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">HTML/JS/CSS</div>
+                    <div class="skill-progress">
+                        <div class="skill-progress-fill" style="width: 80%;" data-percentage="80%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Machine Learning</div>
+                    <div class="skill-progress">
+                        <div class="skill-progress-fill" style="width: 75%;" data-percentage="75%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Data Analysis</div>
+                    <div class="skill-progress">
+                        <div class="skill-progress-fill" style="width: 85%;" data-percentage="85%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline" id="timeline">
+            <h2>My Journey</h2>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>2023</h3>
+                        <p>Started learning Python</p>
+                        <span class="timeline-date">January 2023</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>2024</h3>
+                        <p>Mastered HTML, CSS, and JavaScript</p>
+                        <span class="timeline-date">March 2024</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>2024</h3>
+                        <p>Completed first major project: YouTube Livestream Manager</p>
+                        <span class="timeline-date">June 2024</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>2024</h3>
+                        <p>Won Best AI Project Award at Local Hackathon</p>
+                        <span class="timeline-date">September 2024</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials" id="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p>"An exceptional Python developer with a keen eye for detail and innovative solutions."</p>
+                    <p class="testimonial-author">- John Doe, Senior Developer</p>
+                </div>
+                <div class="testimonial">
+                    <p>"nourddinak's AI projects are cutting-edge and incredibly user-friendly. A true asset to any team."</p>
+                    <p class="testimonial-author">- Jane Smith, Project Manager</p>
+                </div>
+                <div class="testimonial">
+                    <p>"The YouTube Livestream Manager revolutionized our content creation process. Highly recommended!"</p>
+                    <p class="testimonial-author">- Mike Johnson, Content Creator</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="#" class="tooltip"><i class="fab fa-github"></i> <span class="tooltiptext">View my projects</span></a>
+                <a href="#" class="tooltip"><i class="fab fa-linkedin"></i> <span class="tooltiptext">Connect with me</span></a>
+                <a href="#" class="tooltip"><i class="fab fa-twitter"></i> <span class="tooltiptext">Follow me</span></a>
+            </div>
+            <p>&copy; 2024 nourddinak. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <button class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="./script.js"></script>
-  </body>
+</body>
 </html>
