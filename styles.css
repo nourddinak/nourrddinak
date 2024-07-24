@@ -415,13 +415,27 @@ footer::before {
   opacity: 0.3;
 }
 
+/* ... (previous CSS styles remain the same) ... */
+
+/* Updated Timeline Styles */
 .timeline {
   position: relative;
   max-width: 1200px;
   margin: 60px auto;
+  padding: 20px;
 }
 
-.timeline::after {
+.timeline h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.timeline-container {
+  position: relative;
+}
+
+.timeline-container::after {
   content: '';
   position: absolute;
   width: 6px;
@@ -436,7 +450,16 @@ footer::before {
   padding: 10px 40px;
   position: relative;
   background-color: inherit;
-  width: 50%;
+  width: calc(50% - 40px);
+  box-sizing: border-box;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
 }
 
 .timeline-item::after {
@@ -452,15 +475,7 @@ footer::before {
   z-index: 1;
 }
 
-.timeline-item-left {
-  left: 0;
-}
-
-.timeline-item-right {
-  left: 50%;
-}
-
-.timeline-item-right::after {
+.timeline-item:nth-child(even)::after {
   left: -16px;
 }
 
@@ -469,7 +484,83 @@ footer::before {
   background-color: rgba(255, 255, 255, 0.05);
   position: relative;
   border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+}
+
+.timeline-content h3 {
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.timeline-date {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-radius: 20px;
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+
+.timeline-icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: -25px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  top: 15px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-color);
+  font-size: 1.5em;
+}
+
+.timeline-item:nth-child(even) .timeline-icon {
+  left: -25px;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline-container::after {
+    left: 31px;
+  }
+  
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+  
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+  
+  .timeline-item::after {
+    left: 15px;
+  }
+  
+  .timeline-item:nth-child(even)::after {
+    left: 15px;
+  }
+  
+  .timeline-icon {
+    left: 0;
+  }
+  
+  .timeline-item:nth-child(even) .timeline-icon {
+    left: 0;
+  }
+}
+
+/* ... (rest of the CSS remains the same) ... */
 
 #particles-js {
   position: fixed;
