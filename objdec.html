@@ -80,7 +80,6 @@
         flex-direction: column;
         gap: 10px;
         padding: 20px;
-        position: relative;
       }
 
       .btn {
@@ -234,32 +233,6 @@
           /* 4:3 Aspect Ratio for mobile */
         }
       }
-
-      .tooltip {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.75);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        font-size: 0.9em;
-        text-align: center;
-        visibility: hidden;
-        transition: visibility 0.3s ease, opacity 0.3s ease;
-        opacity: 0;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-bottom: 10px;
-      }
-
-      .btn-wrapper {
-        position: relative;
-      }
-
-      .btn-wrapper.show-tooltip .tooltip {
-        visibility: visible;
-        opacity: 1;
-      }
     </style>
   </head>
   <body>
@@ -267,10 +240,7 @@
       <h1>Futuristic Object Detection</h1>
     </div>
     <div class="controls">
-      <div id="start-button-wrapper" class="btn-wrapper">
-        <button id="start-button" class="btn">Start Detection</button>
-        <div class="tooltip">Please wait for the model to load</div>
-      </div>
+      <button id="start-button" class="btn">Start Detection</button>
       <button id="stop-button" class="btn" style="display: none;">Stop Detection</button>
       <button id="audio-toggle" class="btn">Mute Audio</button>
       <button id="flip-camera" class="btn">Flip Camera</button>
@@ -289,10 +259,9 @@
       <video id="webcam" autoplay muted></video>
       <canvas id="canvas"></canvas>
     </div>
-    <div id="object-list"></div>
-    </div>
-    <h2>Detected Objects</h2>
-    <ul id="detected-objects"></ul>
+    <div id="object-list">
+      <h2>Detected Objects</h2>
+      <ul id="detected-objects"></ul>
     </div>
     <div id="performance-metrics">
       <span id="fps">FPS: 0</span>
@@ -605,4 +574,3 @@
     </script>
   </body>
 </html>
-<html lang="en">
