@@ -2,24 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Futuristic Object Detection</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+      @import url(https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap);
 
       :root {
         --primary-color: #00ffff;
         --secondary-color: #ff00ff;
         --background-color: #0a0a0a;
         --text-color: #ffffff;
-        --accent-color: #ff9900;
+        --accent-color: #ff9900
       }
 
       body {
-        font-family: 'Orbitron', sans-serif;
+        font-family: Orbitron, sans-serif;
         background-color: var(--background-color);
         color: var(--text-color);
         margin: 0;
@@ -29,15 +29,15 @@
         grid-template-columns: 1fr 2fr 1fr;
         grid-template-rows: auto 1fr auto;
         gap: 20px;
-        overflow-x: hidden;
+        overflow-x: hidden
       }
 
       .header {
-        grid-column: 1 / -1;
+        grid-column: 1/-1;
         padding: 20px;
         text-align: center;
         position: relative;
-        overflow: hidden;
+        overflow: hidden
       }
 
       h1 {
@@ -45,41 +45,41 @@
         margin: 0;
         text-transform: uppercase;
         letter-spacing: 5px;
-        animation: glitch 5s infinite;
+        animation: glitch 5s infinite
       }
 
       @keyframes glitch {
         0% {
-          transform: skew(0deg);
+          transform: skew(0)
         }
 
         20% {
-          transform: skew(3deg);
+          transform: skew(3deg)
         }
 
         40% {
-          transform: skew(-3deg);
+          transform: skew(-3deg)
         }
 
         60% {
-          transform: skew(2deg);
+          transform: skew(2deg)
         }
 
         80% {
-          transform: skew(-2deg);
+          transform: skew(-2deg)
         }
 
         100% {
-          transform: skew(0deg);
+          transform: skew(0)
         }
       }
 
       .controls {
-        grid-column: 1 / 2;
+        grid-column: 1/2;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding: 20px;
+        padding: 20px
       }
 
       .btn {
@@ -87,75 +87,74 @@
         color: var(--background-color);
         border: none;
         padding: 10px 20px;
-        font-family: 'Orbitron', sans-serif;
+        font-family: Orbitron, sans-serif;
         text-transform: uppercase;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all .3s ease
       }
 
       .btn:hover {
         background-color: var(--secondary-color);
-        transform: scale(1.05);
+        transform: scale(1.05)
       }
 
       #video-container {
-        grid-column: 2 / 3;
+        grid-column: 2/3;
         position: relative;
         width: 100%;
         padding-top: 56.25%;
-        /* 16:9 Aspect Ratio */
         background: linear-gradient(45deg, #000, #333);
         border: 2px solid var(--primary-color);
-        box-shadow: 0 0 20px var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color)
       }
 
-      #webcam,
-      #canvas {
+      #canvas,
+      #webcam {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: cover
       }
 
       #canvas {
-        z-index: 10;
+        z-index: 10
       }
 
       #object-list {
-        grid-column: 3 / 4;
+        grid-column: 3/4;
         padding: 20px;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, .1);
         border-radius: 10px;
         border: 1px solid var(--secondary-color);
-        box-shadow: 0 0 10px var(--secondary-color);
+        box-shadow: 0 0 10px var(--secondary-color)
       }
 
       #detected-objects {
         list-style-type: none;
-        padding: 0;
+        padding: 0
       }
 
       #detected-objects li {
         margin-bottom: 10px;
         padding: 10px;
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 255, 255, .05);
         border-radius: 5px;
-        transition: background-color 0.3s ease;
-        border-left: 3px solid var(--accent-color);
+        transition: background-color .3s ease;
+        border-left: 3px solid var(--accent-color)
       }
 
       #detected-objects li:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, .1)
       }
 
       #status {
-        grid-column: 1 / -1;
+        grid-column: 1/-1;
         text-align: center;
         padding: 20px;
         font-size: 1.2em;
-        color: var(--accent-color);
+        color: var(--accent-color)
       }
 
       #threshold-slider {
@@ -164,13 +163,13 @@
         height: 15px;
         border-radius: 5px;
         background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        transition: opacity .2s;
+        outline: 0;
+        opacity: .7;
+        transition: opacity .2s
       }
 
       #threshold-slider:hover {
-        opacity: 1;
+        opacity: 1
       }
 
       #threshold-slider::-webkit-slider-thumb {
@@ -180,7 +179,7 @@
         height: 25px;
         border-radius: 50%;
         background: var(--primary-color);
-        cursor: pointer;
+        cursor: pointer
       }
 
       #threshold-slider::-moz-range-thumb {
@@ -188,49 +187,48 @@
         height: 25px;
         border-radius: 50%;
         background: var(--primary-color);
-        cursor: pointer;
+        cursor: pointer
       }
 
       #performance-metrics {
-        grid-column: 1 / -1;
+        grid-column: 1/-1;
         display: flex;
         justify-content: space-around;
         padding: 10px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
+        background-color: rgba(255, 255, 255, .1);
+        border-radius: 5px
       }
 
       #history-container {
-        grid-column: 1 / -1;
-        padding: 20px;
+        grid-column: 1/-1;
+        padding: 20px
       }
 
       #history-chart {
         width: 100%;
-        height: 300px;
+        height: 300px
       }
 
-      @media (max-width: 768px) {
+      @media (max-width:768px) {
         body {
           grid-template-columns: 1fr;
           grid-template-rows: auto auto 1fr auto auto auto;
-          gap: 10px;
+          gap: 10px
         }
 
-        .controls,
+        #object-list,
         #video-container,
-        #object-list {
-          grid-column: 1 / -1;
+        .controls {
+          grid-column: 1/-1
         }
 
         .btn {
           padding: 15px 20px;
-          font-size: 16px;
+          font-size: 16px
         }
 
         #video-container {
-          padding-top: 75%;
-          /* 4:3 Aspect Ratio for mobile */
+          padding-top: 75%
         }
       }
     </style>
@@ -239,9 +237,10 @@
     <div class="header">
       <h1>Futuristic Object Detection</h1>
     </div>
+    <div id="status">Ready to detect objects</div>
     <div class="controls">
       <button id="start-button" class="btn">Start Detection</button>
-      <button id="stop-button" class="btn" style="display: none;">Stop Detection</button>
+      <button id="stop-button" class="btn" style="display:none">Stop Detection</button>
       <button id="audio-toggle" class="btn">Mute Audio</button>
       <button id="flip-camera" class="btn">Flip Camera</button>
       <button id="screenshot-button" class="btn">Take Screenshot</button>
