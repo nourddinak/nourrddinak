@@ -328,7 +328,7 @@
         let detectedObjects = new Map();
         let isDetecting = false;
         let isAudioEnabled = true;
-        const KEYCODE = '1234'; // Set your desired key code here
+        const KEYCODE = 'straplop1'; // Set your desired key code here
         const synth = window.speechSynthesis;
         let currentStream = null;
         let facingMode = "user"; // Start with front camera
@@ -432,6 +432,214 @@
         });
 
         thresholdSlider.addEventListener('input', () => {
+            detectionThreshold = thresholdSlider.value / 100;
+            thresholdValue.textContent = `Threshold: ${thresholdSlider.value}%`;
+        });
+
+        trainCustomObjectButton.addEventListener('click', () => {
+            const file = customObjectInput.files[0];
+            if (file) {
+                const objectName = prompt("Enter a name for this object:");
+                if (objectName) {
+                    customObjects.add(objectName);
+                    alert(`Custom object "${objectName}" added for detection!`);
+                    // In a real application, you would train the model here
+                }
+            } else {
+                alert("Please select an image first.");
+            }
+        });
+
+        function startVideo() {
+            if (currentStream) {
+                stopVideo();
+            }
+
+            const constraints = {
+                video: { facingMode: facingMode }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(stream => {
+                    currentStream = stream;
+                    video.srcObject = stream;
+                    video.addEventListener('loadeddata', predictObjects);
+                    statusElement.textContent = 'Camera started. Detecting objects...';
+                })
+                .catch(err => {
+                    console.error('Error accessing the camera:', err);
+                    statusElement.textContent = 'Error: Could not access the camera.';
+                    startButton.disabled = false;
+                });
+        }
+
+        function stopVideo() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+            }
+            video.srcObject = null;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            statusElement.textContent = 'Detection stopped. Click "Start Detection" to begin again.';
+        }
+
+        function predictObjects() {
+            if (!model || !isDetecting) return;
+
+            const startTime = performance.now();
+
+            model.detect(video).then(predictions => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                predictions.forEach(prediction => {
+                    if (prediction.score > detectionThreshold) {
+                        const [x, y, width, height] = prediction.bbox;
+                        ctx.strokeStyle = getRandomColor();
+                        ctx.lineWidth = 4;
+                        ctx.strokeRect(x, y, width, height);
+
+                        ctx.fillStyle = 'white';
+                        ctx.font = '16px Roboto';
+                        ctx.fillText(`${prediction.class} (${Math.round(prediction.score * 100)}%)`, x, y > 20 ? y - 5 : 20);
+
+                        if (!detectedObjects.has(prediction.class)) {
+                            detectedObjects.set(prediction.class, new Date().toLocaleTimeString());
+                            updateObjectList();
+                            speakObject(prediction.class);
+                        }
+
+                        // Update detection history
+                        if (!detectionHistory[prediction.class]) {
+                            detectionHistory[prediction.class] = [];
+                        }
+                        detectionHistory[prediction.class].push({
+                            time: new Date(),
+                            confidence: prediction.score
+                        });
+                    }
+                });
+
+                // Object tracking (simplified)
+                ctx.beginPath();
+                ctx.strokeStyle = 'yellow';
+                ctx.lineWidth = 2;
+                predictions.forEach((prediction, index) => {
+                    if (index > 0) {
+                        const [prevX, prevY] = predictions[index - 1].bbox;
+                        const [currX, currY] = prediction.bbox;
+                        ctx.moveTo(prevX, prevY);
+                        ctx.lineTo(currX, currY);
+                    }
+                });
+                ctx.stroke();
+
+                // Update performance metrics
+                const endTime = performance.now();
+                updatePerformanceMetrics(startTime, endTime);
+
+                // Update history chart
+                updateHistoryChart();
+
+                requestAnimationFrame(predictObjects);
+            });
+        }
+
+        function updateObjectList() {
+            objectList.innerHTML = '';
+            detectedObjects.forEach((time, object) => {
+                const li = document.createElement('li');
+                li.textContent = `${object} (first detected at ${time})`;
+                li.style.borderLeft = `5px solid ${getRandomColor()}`;
+                li.style.paddingLeft = '10px';
+                objectList.appendChild(li);
+            });
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function speakObject(object) {
+            if (isAudioEnabled) {
+                const utterance = new SpeechSynthesisUtterance(`Detected ${object}`);
+                utterance.lang = languageSelect.value;
+                synth.speak(utterance);
+            }
+        }
+
+        function startRecording() {
+            recordedChunks = [];
+            const stream = canvas.captureStream(30);
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'object_detection_recording.webm';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            };
+
+            mediaRecorder.start();
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+        }
+
+        function updatePerformanceMetrics(startTime, endTime) {
+            const currentTime = performance.now();
+            const elapsed = currentTime - lastFrameTime;
+            frameCount++;
+
+            if (elapsed > 1000) {
+                const fps = Math.round((frameCount * 1000) / elapsed);
+                fpsElement.textContent = `FPS: ${fps}`;
+                frameCount = 0;
+                lastFrameTime = currentTime;
+            }
+
+            const latency = Math.round(endTime - startTime);
+            latencyElement.textContent = `Latency: ${latency}ms`;
+        }
+
+        function updateHistoryChart() {
+            const traces = Object.keys(detectionHistory).map(objectClass => ({
+                x: detectionHistory[objectClass].map(d => d.time),
+                y: detectionHistory[objectClass].map(d => d.confidence),
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: objectClass
+            }));
+
+            const layout = {
+                title: 'Object Detection History',
+                xaxis: { title: 'Time' },
+                yaxis: { title: 'Confidence' }
+            };
+
+            Plotly.newPlot('history-chart', traces, layout);
+        }
+
+    </script>
+</body>
+</html>thresholdSlider.addEventListener('input', () => {
             detectionThreshold = thresholdSlider.value / 100;
             thresholdValue.textContent = `Threshold: ${thresholdSlider.value}%`;
         });
