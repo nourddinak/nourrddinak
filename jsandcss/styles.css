@@ -103,16 +103,18 @@ nav a:hover::after {
 }
 
 .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 20px;
-}
+            position: relative;
+            background-image: url('https://source.unsplash.com/random/1920x1080?technology');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
 
 .hero::before {
     content: '';
