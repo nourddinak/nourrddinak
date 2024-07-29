@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Fact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f3ec78, #af4261);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            transition: background 0.3s;
+        }
+        .card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 500px;
+        }
+        .button {
+            background: #6366f1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s;
+            margin: 0.25rem;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button:hover, .button:focus {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+        .floating-circle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            top: 10%;
+            left: 15%;
+            animation-duration: 8s;
+        }
+        .circle2 {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.3);
+            bottom: 10%;
+            right: 15%;
+            animation-duration: 12s;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #2e2e2e, #3a3a3a);
+        }
+        .dark-mode .card {
+            background: #2e2e2e;
+            color: white;
+            border-color: #444;
+        }
+        .dark-mode .button {
+            background: #4f46e5;
+        }
+        .dark-mode .button:hover, .dark-mode .button:focus {
+            background: #6366f1;
+        }
+        #loading {
+            display: none;
+        }
+        .emoji {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="floating-circle circle1"></div>
+    <div class="floating-circle circle2"></div>
+    <div class="card p-6">
+        <h1 class="mb-4 text-3xl font-bold tracking-tight">🎲 Random Fact</h1>
+        <p id="fact" class="mb-4 text-lg"></p>
+        <p id="fact-length" class="mb-4 text-sm text-gray-600"></p>
+        <div id="loading" class="mb-4 text-center">
+            <svg class="animate-spin h-5 w-5 mx-auto text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 mb-4">
+            <button onclick="fetchRandomFact()" class="button"><span class="emoji">🔄</span>Load Another</button>
+            <button onclick="translateFact()" class="button"><span class="emoji">🌐</span>Translate</button>
+            <button onclick="copyFact()" class="button"><span class="emoji">📋</span>Copy</button>
+            <button onclick="shareFact()" class="button"><span class="emoji">🔗</span>Share</button>
+            <button onclick="rateFact()" class="button"><span class="emoji">⭐</span>Rate</button>
+            <button onclick="saveFact()" class="button"><span class="emoji">💾</span>Save</button>
+            <button onclick="toggleDarkMode()" class="button"><span class="emoji">🌓</span>Dark Mode</button>
+            <button onclick="downloadFact()" class="button"><span class="emoji">📥</span>Download</button>
+            <button onclick="viewSavedFacts()" class="button"><span class="emoji">📚</span>View Saved</button>
+            <button onclick="speakFact()" class="button"><span class="emoji">🔊</span>Speak</button>
+            <button onclick="changeFontSize()" class="button"><span class="emoji">🔠</span>Font Size</button>
+        </div>
+        <select id="language" class="block w-full p-2 border border-gray-300 rounded-md mb-4">
+            <option value="en|es">🇪🇸 Spanish</option>
+            <option value="en|fr">🇫🇷 French</option>
+            <option value="en|de">🇩🇪 German</option>
+            <option value="en|it">🇮🇹 Italian</option>
+            <option value="en|ja">🇯🇵 Japanese</option>
+            <option value="en|zh-CN">🇨🇳 Chinese (Simplified)</option>
+        </select>
+    </div>
+
+    <script>
+        const factElement = document.getElementById('fact');
+        const factLengthElement = document.getElementById('fact-length');
+        const loadingElement = document.getElementById('loading');
+        let originalFact = '';
+
+        async function fetchRandomFact() {
+            try {
+                showLoading(true);
+                const response = await fetch('https://uselessfacts.jsph.pl/random.json?language=en');
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                originalFact = data.text || "Sorry, couldn't fetch a fact.";
+                factElement.textContent = originalFact;
+                factLengthElement.textContent = `Fact length: ${originalFact.length} characters`;
+            } catch (error) {
+                factElement.textContent = "Failed to load fact. Please try again.";
+                console.error("Error fetching fact:", error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function translateFact() {
+            try {
+                showLoading(true);
+                const factText = originalFact || factElement.textContent;
+                const langPair = document.getElementById('language').value;
+                const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(factText)}&langpair=${langPair}`);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                const translatedText = data.responseData.translatedText;
+                factElement.textContent = translatedText;
+            } catch (error) {
+                console.error("Error translating fact:", error);
+                alert('Failed to translate fact. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function copyFact() {
+            const factText = factElement.textContent;
+            navigator.clipboard.writeText(factText).then(() => {
+                alert('Fact copied to clipboard! 📋');
+            }).catch(err => {
+                console.error('Could not copy fact: ', err);
+                alert('Failed to copy fact. Please try again.');
+            });
+        }
+
+        function shareFact() {
+            const factText = factElement.textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Random Fact',
+                    text: factText,
+                    url: window.location.href
+                }).catch(err => {
+                    console.error('Error sharing fact: ', err);
+                    alert('Failed to share fact. Please try again.');
+                });
+            } else {
+                alert('Sharing is not supported on this device/browser. 😕');
+            }
+        }
+
+        function rateFact() {
+            const rating = prompt("Rate this fact from 1 to 5 stars ⭐:");
+            if (rating && !isNaN(rating) && rating >= 1 && rating <= 5) {
+                alert(`Thank you for rating this fact ${rating} stars! ${'⭐'.repeat(rating)}`);
+            } else {
+                alert('Invalid rating. Please rate between 1 and 5 stars. ❌');
+            }
+        }
+
+        function saveFact() {
+            const factText = factElement.textContent;
+            const savedFacts = JSON.parse(localStorage.getItem('savedFacts') || '[]');
+            savedFacts.push(factText);
+            localStorage.setItem('savedFacts', JSON.stringify(savedFacts));
+            alert('Fact saved! 📚');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function downloadFact() {
+            const factText = factElement.textContent;
+            const blob = new Blob([factText], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'random_fact.txt';
+            link.click();
+        }
+
+        function viewSavedFacts() {
+            const savedFacts = JSON.parse(localStorage.getItem('savedFacts') || '[]');
+            if (savedFacts.length > 0) {
+                alert(`📚 Saved Facts:\n\n${savedFacts.join('\n\n')}`);
+            } else {
+                alert('No saved facts yet. 📭');
+            }
+        }
+
+        function speakFact() {
+            const factText = factElement.textContent;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(factText);
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Text-to-speech is not supported on this device/browser. 🔇');
+            }
+        }
+
+        function changeFontSize() {
+            const currentSize = parseInt(window.getComputedStyle(factElement).fontSize);
+            const newSize = prompt("Enter new font size (px):", currentSize);
+            if (newSize && !isNaN(newSize)) {
+                factElement.style.fontSize = `${newSize}px`;
+            }
+        }
+
+        function showLoading(isLoading) {
+            loadingElement.style.display = isLoading ? 'block' : 'none';
+            factElement.style.display = isLoading ? 'none' : 'block';
+        }
+
+        // Fetch a random fact when the page loads
+        window.onload = fetchRandomFact;
+    </script>
+</body>
+</html>
