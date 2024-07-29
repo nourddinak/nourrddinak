@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Futuristic Object Detection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      @import url(https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap);
+
+      :root {
+        --primary-color: #00ffff;
+        --secondary-color: #ff00ff;
+        --background-color: #0a0a0a;
+        --text-color: #ffffff;
+        --accent-color: #ff9900
+      }
+
+      body {
+        font-family: Orbitron, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 20px;
+        overflow-x: hidden
+      }
+
+      .header {
+        grid-column: 1/-1;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden
+      }
+
+      h1 {
+        font-size: 3em;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        animation: glitch 5s infinite
+      }
+
+      @keyframes glitch {
+        0% {
+          transform: skew(0)
+        }
+
+        20% {
+          transform: skew(3deg)
+        }
+
+        40% {
+          transform: skew(-3deg)
+        }
+
+        60% {
+          transform: skew(2deg)
+        }
+
+        80% {
+          transform: skew(-2deg)
+        }
+
+        100% {
+          transform: skew(0)
+        }
+      }
+
+      .controls {
+        grid-column: 1/2;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px
+      }
+
+      .btn {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        border: none;
+        padding: 10px 20px;
+        font-family: Orbitron, sans-serif;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all .3s ease
+      }
+
+      .btn:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05)
+      }
+
+      #video-container {
+        grid-column: 2/3;
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        background: linear-gradient(45deg, #000, #333);
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color)
+      }
+
+      #canvas,
+      #webcam {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+      }
+
+      #canvas {
+        z-index: 10
+      }
+
+      #object-list {
+        grid-column: 3/4;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, .1);
+        border-radius: 10px;
+        border: 1px solid var(--secondary-color);
+        box-shadow: 0 0 10px var(--secondary-color)
+      }
+
+      #detected-objects {
+        list-style-type: none;
+        padding: 0
+      }
+
+      #detected-objects li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, .05);
+        border-radius: 5px;
+        transition: background-color .3s ease;
+        border-left: 3px solid var(--accent-color)
+      }
+
+      #detected-objects li:hover {
+        background-color: rgba(255, 255, 255, .1)
+      }
+
+      #status {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 20px;
+        font-size: 1.2em;
+        color: var(--accent-color)
+      }
+
+      #threshold-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: 0;
+        opacity: .7;
+        transition: opacity .2s
+      }
+
+      #threshold-slider:hover {
+        opacity: 1
+      }
+
+      #threshold-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer
+      }
+
+      #threshold-slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer
+      }
+
+      #performance-metrics {
+        grid-column: 1/-1;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, .1);
+        border-radius: 5px
+      }
+
+      #history-container {
+        grid-column: 1/-1;
+        padding: 20px
+      }
+
+      #history-chart {
+        width: 100%;
+        height: 300px
+      }
+
+      @media (max-width:768px) {
+        body {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto 1fr auto auto auto;
+          gap: 10px
+        }
+
+        #object-list,
+        #video-container,
+        .controls {
+          grid-column: 1/-1
+        }
+
+        .btn {
+          padding: 15px 20px;
+          font-size: 16px
+        }
+
+        #video-container {
+          padding-top: 75%
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Futuristic Object Detection</h1>
+    </div>
+    <div class="header">!!attention!! if it doesn't work for u you might need to download it</div>
+    <div id="status">Ready to detect objects</div>
+    <div class="controls">
+      <button id="start-button" class="btn">Start Detection</button>
+      <button id="stop-button" class="btn" style="display:none">Stop Detection</button>
+      <button id="audio-toggle" class="btn">Mute Audio</button>
+      <button id="flip-camera" class="btn">Flip Camera</button>
+      <button id="screenshot-button" class="btn">Take Screenshot</button>
+      <button id="export-button" class="btn">Export Data</button>
+      <button id="record-button" class="btn">Start Recording</button>
+      <select id="language-select" class="btn">
+        <option value="en-US">English</option>
+        <option value="es-ES">Español</option>
+        <option value="fr-FR">Français</option>
+      </select>
+      <input type="range" id="threshold-slider" min="0" max="100" value="66">
+      <span id="threshold-value">Threshold: 66%</span>
+    </div>
+    <div id="video-container">
+      <video id="webcam" autoplay muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
+    <div id="object-list">
+      <h2>Detected Objects</h2>
+      <ul id="detected-objects"></ul>
+    </div>
+    <div id="performance-metrics">
+      <span id="fps">FPS: 0</span>
+      <span id="latency">Latency: 0ms</span>
+    </div>
+    <div id="history-container">
+      <h2>Detection History</h2>
+      <div id="history-chart"></div>
+    </div>
+    <div id="status">Ready to detect objects</div>
+    <script>
+      const video = document.getElementById('webcam');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const objectList = document.getElementById('detected-objects');
+      const statusElement = document.getElementById('status');
+      const startButton = document.getElementById('start-button');
+      const stopButton = document.getElementById('stop-button');
+      const audioToggle = document.getElementById('audio-toggle');
+      const flipCamera = document.getElementById('flip-camera');
+      const screenshotButton = document.getElementById('screenshot-button');
+      const exportButton = document.getElementById('export-button');
+      const recordButton = document.getElementById('record-button');
+      const languageSelect = document.getElementById('language-select');
+      const thresholdSlider = document.getElementById('threshold-slider');
+      const thresholdValue = document.getElementById('threshold-value');
+      const fpsElement = document.getElementById('fps');
+      const latencyElement = document.getElementById('latency');
+      let model;
+      let detectedObjects = new Map();
+      let isDetecting = false;
+      let isAudioEnabled = true;
+      const synth = window.speechSynthesis;
+      let currentStream = null;
+      let facingMode = "environment";
+      let detectionThreshold = 0.66;
+      let mediaRecorder;
+      let recordedChunks = [];
+      let isRecording = false;
+      let lastFrameTime = 0;
+      let frameCount = 0;
+      let detectionHistory = {};
+      // Load the model immediately
+      loadModel();
+
+      function loadModel() {
+        statusElement.textContent = 'Loading model...';
+        cocoSsd.load().then(loadedModel => {
+          model = loadedModel;
+          statusElement.textContent = 'Model loaded. Click "Start Detection" to begin.';
+          startButton.disabled = false;
+        }).catch(err => {
+          console.error('Failed to load model:', err);
+          statusElement.textContent = 'Error: Failed to load model.';
+        });
+      }
+      startButton.addEventListener('click', () => {
+        if (!model) {
+          statusElement.textContent = 'Please wait for the model to load.';
+          return;
+        }
+        startButton.style.display = 'none';
+        stopButton.style.display = 'inline-block';
+        isDetecting = true;
+        startVideo();
+      });
+      stopButton.addEventListener('click', () => {
+        stopButton.style.display = 'none';
+        startButton.style.display = 'inline-block';
+        isDetecting = false;
+        stopVideo();
+      });
+      audioToggle.addEventListener('click', () => {
+        isAudioEnabled = !isAudioEnabled;
+        audioToggle.textContent = isAudioEnabled ? 'Mute Audio' : 'Unmute Audio';
+      });
+      flipCamera.addEventListener('click', () => {
+        facingMode = facingMode === "user" ? "environment" : "user";
+        if (isDetecting) {
+          stopVideo();
+          startVideo();
+        }
+      });
+      screenshotButton.addEventListener('click', () => {
+        const screenshot = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = screenshot;
+        link.download = 'object_detection_screenshot.png';
+        link.click();
+      });
+      exportButton.addEventListener('click', () => {
+        const data = JSON.stringify(Array.from(detectedObjects));
+        const blob = new Blob([data], {
+          type: 'application/json'
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'detected_objects.json';
+        link.click();
+      });
+      recordButton.addEventListener('click', () => {
+        if (!isRecording) {
+          startRecording();
+          recordButton.textContent = 'Stop Recording';
+        } else {
+          stopRecording();
+          recordButton.textContent = 'Start Recording';
+        }
+        isRecording = !isRecording;
+      });
+      languageSelect.addEventListener('change', () => {
+        synth.cancel();
+      });
+      thresholdSlider.addEventListener('input', () => {
+        detectionThreshold = thresholdSlider.value / 100;
+        thresholdValue.textContent = `Threshold: ${thresholdSlider.value}%`;
+      });
+
+      function startVideo() {
+        if (currentStream) {
+          stopVideo();
+        }
+        const constraints = {
+          video: {
+            facingMode: facingMode,
+            width: {
+              ideal: 1280
+            },
+            height: {
+              ideal: 720
+            }
+          }
+        };
+        navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+          currentStream = stream;
+          video.srcObject = stream;
+          video.play();
+          video.addEventListener('loadedmetadata', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            predictObjects();
+          });
+          statusElement.textContent = 'Camera started. Detecting objects...';
+        }).catch(err => {
+          console.error('Error accessing the camera:', err);
+          statusElement.textContent = 'Error: Could not access the camera.';
+          startButton.disabled = false;
+        });
+      }
+
+      function stopVideo() {
+        if (currentStream) {
+          currentStream.getTracks().forEach(track => track.stop());
+        }
+        video.srcObject = null;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        statusElement.textContent = 'Detection stopped. Click "Start Detection" to begin again.';
+      }
+
+      function predictObjects() {
+        if (!model || !isDetecting) return;
+        const startTime = performance.now();
+        model.detect(video).then(predictions => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          predictions.forEach(prediction => {
+            if (prediction.score > detectionThreshold) {
+              const [x, y, width, height] = prediction.bbox;
+              ctx.strokeStyle = getRandomColor();
+              ctx.lineWidth = 4;
+              ctx.strokeRect(x, y, width, height);
+              ctx.fillStyle = 'white';
+              ctx.font = '16px Orbitron';
+              ctx.fillText(`${prediction.class} (${Math.round(prediction.score * 100)}%)`, x, y > 20 ? y - 5 : 20);
+              if (!detectedObjects.has(prediction.class)) {
+                detectedObjects.set(prediction.class, new Date().toLocaleTimeString());
+                updateObjectList();
+                speakObject(prediction.class);
+              }
+              // Update detection history
+              if (!detectionHistory[prediction.class]) {
+                detectionHistory[prediction.class] = [];
+              }
+              detectionHistory[prediction.class].push({
+                time: new Date(),
+                confidence: prediction.score
+              });
+            }
+          });
+          // Update performance metrics
+          const endTime = performance.now();
+          updatePerformanceMetrics(startTime, endTime);
+          // Update history chart
+          updateHistoryChart();
+          // Request the next frame
+          requestAnimationFrame(predictObjects);
+        }).catch(error => {
+          console.error('Error during object detection:', error);
+          statusElement.textContent = 'Error during object detection. Retrying...';
+          setTimeout(predictObjects, 1000);
+        });
+      }
+
+      function updateObjectList() {
+        objectList.innerHTML = '';
+        detectedObjects.forEach((time, object) => {
+          const li = document.createElement('li');
+          li.textContent = `${object} (first detected at ${time})`;
+          li.style.borderLeft = `5px solid ${getRandomColor()}`;
+          li.style.paddingLeft = '10px';
+          objectList.appendChild(li);
+        });
+      }
+
+      function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      function speakObject(object) {
+        if (isAudioEnabled) {
+          const utterance = new SpeechSynthesisUtterance(`Detected ${object}`);
+          utterance.lang = languageSelect.value;
+          synth.speak(utterance);
+        }
+      }
+
+      function startRecording() {
+        recordedChunks = [];
+        const stream = canvas.captureStream(30);
+        mediaRecorder = new MediaRecorder(stream, {
+          mimeType: 'video/webm'
+        });
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) {
+            recordedChunks.push(e.data);
+          }
+        };
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordedChunks, {
+            type: 'video/webm'
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = 'object_detection_recording.webm';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+          }, 100);
+        };
+        mediaRecorder.start();
+      }
+
+      function stopRecording() {
+        mediaRecorder.stop();
+      }
+
+      function updatePerformanceMetrics(startTime, endTime) {
+        const currentTime = performance.now();
+        const elapsed = currentTime - lastFrameTime;
+        frameCount++;
+        if (elapsed > 1000) {
+          const fps = Math.round((frameCount * 1000) / elapsed);
+          fpsElement.textContent = `FPS: ${fps}`;
+          frameCount = 0;
+          lastFrameTime = currentTime;
+        }
+        const latency = Math.round(endTime - startTime);
+        latencyElement.textContent = `Latency: ${latency}ms`;
+      }
+
+      function updateHistoryChart() {
+        const traces = Object.keys(detectionHistory).map(objectClass => ({
+          x: detectionHistory[objectClass].map(d => d.time),
+          y: detectionHistory[objectClass].map(d => d.confidence),
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: objectClass
+        }));
+        const layout = {
+          title: 'Object Detection History',
+          xaxis: {
+            title: 'Time'
+          },
+          yaxis: {
+            title: 'Confidence'
+          },
+          margin: {
+            t: 50,
+            l: 50,
+            r: 50,
+            b: 50
+          },
+          height: 300,
+          responsive: true
+        };
+        Plotly.newPlot('history-chart', traces, layout, {
+          responsive: true
+        });
+      }
+    </script>
+  </body>
+</html>
