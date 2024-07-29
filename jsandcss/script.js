@@ -1,0 +1,205 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Fade out loader
+  const loader = document.querySelector('.loader');
+  loader.classList.add('fade-out');
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 500);
+
+  // Particle effect
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: false },
+      size: { value: 3, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ffffff",
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 6,
+        direction: "none",
+        random: false,
+        straight: false,
+        out_mode: "out",
+        bounce: false
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "repulse" },
+        onclick: { enable: true, mode: "push" },
+        resize: true
+      },
+      modes: {
+        grab: { distance: 400, line_linked: { opacity: 1 } },
+        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+        repulse: { distance: 200, duration: 0.4 },
+        push: { particles_nb: 4 },
+        remove: { particles_nb: 2 }
+      }
+    },
+    retina_detect: true
+  });
+
+  // Projects animation
+  const projects = document.querySelectorAll('.project');
+  const observerOptions = {
+    threshold: 0.1
+  };
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  projects.forEach(project => {
+    project.style.opacity = 0;
+    project.style.transform = 'translateY(50px)';
+    project.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(project);
+  });
+
+  // Skill bars animation
+  const skillBars = document.querySelectorAll('.skill-progress-fill');
+  const skillObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.getAttribute('style').split(':')[1];
+      }
+    });
+  }, observerOptions);
+  skillBars.forEach(bar => {
+    bar.style.width = '0';
+    skillObserver.observe(bar);
+  });
+
+  // Scroll to top button
+  const scrollToTopButton = document.querySelector('.scroll-to-top');
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 100) {
+      scrollToTopButton.classList.add('visible');
+    } else {
+      scrollToTopButton.classList.remove('visible');
+    }
+  });
+  scrollToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Particles.js initialization
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#ffffff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: false },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
+            move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+            modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+        },
+        retina_detect: true
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Scroll to top button
+    const scrollToTopButton = document.querySelector('.scroll-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) {
+            scrollToTopButton.classList.add('visible');
+        } else {
+            scrollToTopButton.classList.remove('visible');
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+    });
+
+    // Animate elements on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            if (elementPosition < screenPosition) {
+                element.classList.add('animated');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Initialize animations
+    animateOnScroll();
+
+    // Form submission
+    const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Add your form submission logic here
+        alert('Form submitted successfully!');
+        form.reset();
+    });
+
+    // Skill bar animation
+    const skillBars = document.querySelectorAll('.skill-progress-fill');
+    skillBars.forEach(bar => {
+        const targetWidth = bar.getAttribute('data-percentage');
+        bar.style.width = targetWidth;
+    });
+
+    // Remove loader when page is fully loaded
+    window.addEventListener('load', () => {
+        const loader = document.querySelector('.loader');
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+    });
+});
