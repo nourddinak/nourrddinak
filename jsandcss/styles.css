@@ -310,6 +310,7 @@ nav a:hover::after {
     font-weight: bold;
     margin-bottom: 10px;
     font-size: 1.2em;
+    color: var(--tertiary-color);
 }
 
 .skill-bar .skill-progress {
@@ -322,7 +323,7 @@ nav a:hover::after {
 
 .skill-bar .skill-progress-fill {
     height: 100%;
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
     width: 0;
     transition: width 1s ease;
     position: relative;
@@ -336,8 +337,8 @@ nav a:hover::after {
     transform: translateY(-50%);
     font-size: 0.8em;
     color: var(--bg-color);
+    font-weight: bold;
 }
-
 .timeline {
     position: relative;
     max-width: 1200px;
@@ -629,6 +630,10 @@ footer::before {
         display: block;
     }
 
+    .timeline-container::after {
+        left: 31px;
+    }
+
     .timeline-item {
         width: 100%;
         padding-left: 70px;
@@ -647,6 +652,14 @@ footer::before {
         left: 0;
         right: auto;
     }
+
+    .timeline-content {
+        padding: 20px;
+    }
+
+    .timeline-date {
+        font-size: 0.8em;
+    }
 }
 
 @media (max-width: 480px) {
@@ -660,6 +673,20 @@ footer::before {
 
     .skill-container {
         grid-template-columns: 1fr;
+    }
+
+    .timeline h2 {
+        font-size: 2em;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.2em;
+    }
+
+    .timeline-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
     }
 }
 
