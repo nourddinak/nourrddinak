@@ -75,10 +75,11 @@
       <input type="text" id="name" name="name" placeholder="Your Name" required>
       <input type="email" id="email" name="email" placeholder="Your Email" required>
       <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+      <input type="file" id="image" name="image" accept="image/*">
       <button type="submit">Send Message</button>
       <button type="button" class="back-button" onclick="window.history.back();">Back</button>
     </form>
-    <div id="response" style="margin-top: 10px;"></div>
+    <div id="response"></div>
   </div>
 
   <script>
@@ -87,28 +88,41 @@
       e.preventDefault();
       document.getElementById('response').innerText = 'Sending...';
 
+      const fileInput = document.getElementById('image');
+      const file = fileInput.files[0];
+      const reader = new FileReader();
 
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value
+      reader.onloadend = function () {
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+          image: file ? reader.result : null // Include the base64 header if the file exists
+        };
+
+        fetch('https://script.google.com/macros/s/AKfycbyfKypqw3ZPUlQWSEHAEz9oGtdB9f27OXSyn36DMaJbTC3PVk-ISss7OUBFwBVgEuMn/exec', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+          if (result.status === 'success') {
+            document.getElementById('response').innerText = 'Thank you for the contact!';
+            form.reset();
+          } else {
+            document.getElementById('response').innerText = 'Failed to send message.';
+          }
+        })
+        .catch(error => {
+          document.getElementById('response').innerText = 'Error: ' + error.message;
+        });
       };
 
-      fetch('https://script.google.com/macros/s/AKfycbyhLEcKsBoNOZ4Vz7Ba0lJcE36lewSnEEF4vEbxm03qGtjuJN4B64x2gbrPrZlPEwZi/exec', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        if (result.status === 'success') {
-          document.getElementById('response').innerText = 'Message sent successfully!';
-        } else {
-          document.getElementById('response').innerText = 'Failed to send message.';
-        }
-      })
-      .catch(error => {
-        document.getElementById('response').innerText = 'Error: ' + error.message;
-      });
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        reader.onloadend(); // Call onloadend directly if no file is selected
+      }
     });
   </script>
 </body>
