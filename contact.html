@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,65 +6,39 @@
   <title>Contact Me</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
     .contact-form {
       background: #fff;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .contact-form h2 {
-      color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .contact-form input, .contact-form textarea {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin: 5px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 3px;
     }
     .contact-form button {
       padding: 10px 20px;
       background: #28a745;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 3px;
       cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
     }
     .contact-form button:hover {
       background: #218838;
-    }
-    .back-button {
-      padding: 10px 20px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .back-button:hover {
-      background: #0056b3;
-    }
-    #response {
-      margin-top: 10px;
-      color: #333;
-      font-size: 16px;
     }
   </style>
 </head>
@@ -77,10 +51,9 @@
       <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
       <button type="submit">Send Message</button>
     </form>
-     <button type="button" class="back-button" onclick="window.history.back();">Back</button>
-    </form>
-    <div id="response"></div>
+    <div id="response" style="margin-top: 10px;"></div>
   </div>
+
   <script>
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', function (e) {
@@ -92,7 +65,7 @@
         message: form.message.value
       };
 
-      fetch('https://script.google.com/macros/s/AKfycbwI4gvTwxlVfS_hrsgN7EcFAgfQPNGF6jKoLbTjrE8iAg8Zksgb8Gn1XLpYUQH0r2jBDg/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbyhLEcKsBoNOZ4Vz7Ba0lJcE36lewSnEEF4vEbxm03qGtjuJN4B64x2gbrPrZlPEwZi/exec', {
         method: 'POST',
         body: JSON.stringify(data)
       })
