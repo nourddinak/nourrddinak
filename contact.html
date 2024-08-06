@@ -85,6 +85,8 @@
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      document.getElementById('response').innerText = 'Sending...';
+
 
       const data = {
         name: form.name.value,
