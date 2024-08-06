@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -76,11 +76,11 @@
       <input type="email" id="email" name="email" placeholder="Your Email" required>
       <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
       <button type="submit">Send Message</button>
-      <button type="button" class="back-button" onclick="window.history.back();">Back</button>
+    </form>
+     <button type="button" class="back-button" onclick="window.history.back();">Back</button>
     </form>
     <div id="response"></div>
   </div>
-
   <script>
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', function (e) {
@@ -99,8 +99,7 @@
       .then(response => response.json())
       .then(result => {
         if (result.status === 'success') {
-          document.getElementById('response').innerText = 'Thank you for the contact!';
-          form.reset();
+          document.getElementById('response').innerText = 'Message sent successfully!';
         } else {
           document.getElementById('response').innerText = 'Failed to send message.';
         }
