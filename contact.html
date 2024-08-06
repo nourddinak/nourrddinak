@@ -6,66 +6,109 @@
   <title>Contact Me</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #ff7e5f, #feb47b);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .contact-form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
-    .contact-form h2 {
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    .contact-form button {
-      padding: 10px 20px;
-      background: #28a745;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .contact-form button:hover {
-      background: #218838;
-    }
-    .back-button {
-      padding: 10px 20px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .back-button:hover {
-      background: #0056b3;
-    }
-    #response {
-      margin-top: 10px;
-      color: #333;
-      font-size: 16px;
-    }
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.contact-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, var(--primary-color), transparent 30%);
+  animation: rotate 4s linear infinite;
+  opacity: 0.1;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+.contact-form h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2em;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.contact-form button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-form button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+.back-button {
+  padding: 12px 24px;
+  background-color: var(--tertiary-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-button:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-3px);
+}
+
+#response {
+  margin-top: 10px;
+  color: var(--primary-color);
+  font-size: 16px;
+}
   </style>
 </head>
 <body>
