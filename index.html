@@ -73,6 +73,7 @@
         .hero-content {
             text-align: center;
             z-index: 2;
+            position: relative;
         }
         
         h1 {
@@ -92,6 +93,7 @@
             text-transform: uppercase;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
         
         .cta-button::after {
@@ -115,6 +117,7 @@
         .cta-button:hover {
             background-color: var(--secondary);
             transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent);
         }
         
         @keyframes glitch {
@@ -169,13 +172,18 @@
             border-radius: 50%;
             background: var(--text);
             opacity: 0.5;
-            animation: twinkle 1.5s infinite ease-in-out;
+            animation: twinkle 1.5s infinite ease-in-out, particle-trail 2s infinite linear;
         }
         
         @keyframes twinkle {
             0% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.5); opacity: 0.8; }
             100% { transform: scale(1); opacity: 0.5; }
+        }
+        
+        @keyframes particle-trail {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); opacity: 0; }
         }
         
         .shooting-star {
@@ -220,19 +228,23 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1;
-            background: url('https://www.example.com/nebula-background.jpg') no-repeat center center fixed;
+            background: url('https://www.example.com/nebula.gif') no-repeat center center fixed;
             background-size: cover;
-            transform: translateZ(-1px) scale(1.5);
+            z-index: -1;
+            animation: move 30s linear infinite;
+        }
+        
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
         }
         
         .planet {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--text), transparent);
-            width: 100px;
-            height: 100px;
-            animation: rotate 20s linear infinite;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
+            animation: rotate 60s linear infinite;
+            filter: drop-shadow(0 0 10px var(--accent));
         }
         
         @keyframes rotate {
@@ -240,13 +252,55 @@
             100% { transform: rotate(360deg); }
         }
         
-        .planet:hover {
-            transform: rotate(360deg) scale(1.1);
-        }
-        
         #background-music {
             position: absolute;
             display: none;
+        }
+        
+        .custom-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            z-index: 9999;
+        }
+        
+        .custom-cursor.hovered {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .space-station {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: url('https://www.example.com/space-station.png') no-repeat center center;
+            background-size: contain;
+            z-index: 2;
+            animation: rotate 120s linear infinite;
+        }
+        
+        @keyframes warp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .warp-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: warp 3s infinite;
+            pointer-events: none;
+            z-index: 3;
         }
     </style>
 </head>
@@ -268,15 +322,24 @@
         <div class="planet" style="top: 20%; left: 30%; width: 150px; height: 150px;"></div>
         <div class="planet" style="top: 70%; left: 50%; width: 120px; height: 120px;"></div>
         
+        <!-- Space Station -->
+        <div class="space-station" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+        
+        <!-- Warp Effect -->
+        <div class="warp-effect"></div>
+        
         <!-- Background Music -->
-        <audio id="background-music" src="https://pixabay.com/music/pulses-perfect-beauty-191271/" loop></audio>
+        <audio id="background-music" src="https://www.example.com/space-music.mp3" loop></audio>
+        
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const starfield = document.getElementById('starfield');
-            const numStars = 150;
-            const numShootingStars = 5;
+            const numStars = 200;
+            const numShootingStars = 10;
             
             // Create stars
             for (let i = 0; i < numStars; i++) {
@@ -307,6 +370,20 @@
             // Play background music
             document.getElementById('background-music').play();
 
+            // Custom cursor
+            const cursor = document.querySelector('.custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+            
+            // Cursor hover effect
+            const elements = document.querySelectorAll('.cta-button, .planet');
+            elements.forEach(el => {
+                el.addEventListener('mouseover', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseout', () => cursor.classList.remove('hovered'));
+            });
+            
             // Interactive particles
             document.addEventListener('mousemove', (e) => {
                 const particle = document.createElement('div');
