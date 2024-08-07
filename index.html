@@ -221,7 +221,7 @@
             height: 100%;
             top: 0;
             left: 0;
-            background: url('https://www.example.com/nebula.gif') no-repeat center center fixed;
+            background: url('https://cdn.pixabay.com/photo/2015/12/01/20/28/space-1075660_960_720.jpg') no-repeat center center fixed;
             background-size: cover;
             z-index: -1;
             animation: move 30s linear infinite;
@@ -239,7 +239,7 @@
             position: absolute;
             width: 150px;
             height: 150px;
-            background: url('https://www.example.com/space-station.png') no-repeat center center;
+            background: url('https://cdn.pixabay.com/photo/2014/12/18/11/23/space-570817_960_720.jpg') no-repeat center center;
             background-size: contain;
             z-index: 2;
             animation: rotate 120s linear infinite;
@@ -264,7 +264,7 @@
             height: 100%;
             top: 0;
             left: 0;
-            background: url('https://www.example.com/galaxy.gif') no-repeat center center;
+            background: url('https://media.giphy.com/media/6yD9bChdDHdQ8/giphy.gif') no-repeat center center;
             background-size: cover;
             z-index: -2;
             opacity: 0.5;
@@ -274,7 +274,7 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background: url('https://www.example.com/alien.png') no-repeat center center;
+            background: url('https://cdn.pixabay.com/photo/2017/06/13/12/35/alien-2403493_960_720.png') no-repeat center center;
             background-size: contain;
             z-index: 2;
             animation: float 5s ease-in-out infinite;
@@ -296,6 +296,22 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 2em;
             animation: float 5s ease-in-out infinite;
+        }
+        
+        .custom-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.2s ease;
+            transform: scale(1);
+        }
+        
+        .custom-cursor.hovered {
+            transform: scale(1.5);
+            background: var(--secondary);
         }
     </style>
 </head>
@@ -336,7 +352,7 @@
         <div class="interactive-text" style="top: 80%; left: 10%;">Zero Gravity Text</div>
         
         <!-- Background Music -->
-        <audio id="background-music" src="https://www.example.com/space-music.mp3" loop></audio>
+        <audio id="background-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
         
         <!-- Custom Cursor -->
         <div class="custom-cursor"></div>
