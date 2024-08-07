@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Website Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #0a0a0a;
+            --text: #ffffff;
+            --accent: #00ffff;
+            --secondary: #ff00ff;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: glitch 5s infinite;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: var(--background);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--secondary),
+                    -0.025em 0.05em 0 var(--accent);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--secondary),
+                    -0.025em 0.05em 0 var(--accent);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--secondary),
+                    -0.05em -0.05em 0 var(--accent);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--secondary),
+                    -0.05em -0.05em 0 var(--accent);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--secondary),
+                    0 -0.05em 0 var(--accent);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--secondary),
+                    0 -0.05em 0 var(--accent);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--accent), -0.025em -0.025em 0 var(--secondary),
+                    -0.025em -0.05em 0 var(--accent);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">    
+        <section class="hero">
+            <div class="hero-content">
+                <h1>COOMING BACK SOON ;)</h1>
+                <a href="#" class="cta-button">CINTACT ME</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('.hero');
+            
+            hero.addEventListener('mousemove', (e) => {
+                const { offsetWidth: width, offsetHeight: height } = hero;
+                const { clientX: x, clientY: y } = e;
+                
+                const moveX = (x - width / 2) / 25;
+                const moveY = (y - height / 2) / 25;
+                
+                hero.style.backgroundPosition = `${moveX}px ${moveY}px`;
+            });
+        });
+    </script>
+</body>
+</html>
