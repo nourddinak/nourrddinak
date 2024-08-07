@@ -5,117 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Me</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #ff7e5f, #feb47b);
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #ff00ff;
+      --tertiary-color: #ffff00;
+      --bg-color: #000;
+      --text-color: #fff;
+      --accent-color: #ff4500;
+      --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+    }
+
+    body, html {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
+
     .contact-form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .contact-form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+    }
+
     .contact-form h2 {
-      color: #333;
+      color: var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
       margin-bottom: 20px;
+      font-size: 2em;
+      text-transform: uppercase;
     }
+
     .contact-form input, .contact-form textarea {
       width: 100%;
-      padding: 10px;
+      padding: 15px;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
       border-radius: 5px;
+      color: var(--text-color);
       font-size: 16px;
+      transition: all 0.3s ease;
     }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+
     .contact-form button {
-      padding: 10px 20px;
-      background: #28a745;
-      color: #fff;
+      width: 100%;
+      padding: 15px;
+      background: var(--gradient);
+      color: var(--bg-color);
       border: none;
-      border-radius: 5px;
+      border-radius: 30px;
       cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .contact-form button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.6s;
+    }
+
+    .contact-form button:hover::before {
+      left: 100%;
+    }
+
     .contact-form button:hover {
-      background: #218838;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
     }
-    .back-button {
-      padding: 10px 20px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .back-button:hover {
-      background: #0056b3;
-    }
+
     #response {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--tertiary-color);
+      font-weight: bold;
+    }
+
+    .back-button {
+      background: var(--secondary-color);
       margin-top: 10px;
-      color: #333;
-      font-size: 16px;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0) }
+      20% { transform: translate(-2px, 2px) }
+      40% { transform: translate(-2px, -2px) }
+      60% { transform: translate(2px, 2px) }
+      80% { transform: translate(2px, -2px) }
+      100% { transform: translate(0) }
+    }
+
+    .glitch {
+      animation: glitch 1s infinite;
     }
   </style>
 </head>
 <body>
-    <div class="contact-form">
-      <h2>Contact Me</h2>
-      <form id="contactForm">
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
-        <input type="email" id="email" name="email" placeholder="Your Email" required>
-        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-        <input type="file" id="image" name="image" accept="image/*">
-        <button type="submit">Send Message</button>
-        <button type="button" class="back-button" onclick="window.history.back();">Back</button>
-      </form>
-      <div id="response"></div>
-    </div>
-    <script>
-      const form = document.getElementById('contactForm');
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        document.getElementById('response').innerText = 'Sending...';
-        const fileInput = document.getElementById('image');
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-        reader.onloadend = function() {
-          const data = {
-            name: form.name.value,
-            email: form.email.value,
-            message: form.message.value,
-            image: file ? reader.result : null // Include the base64 header if the file exists
-          };
-          fetch('https://script.google.com/macros/s/AKfycbyfKypqw3ZPUlQWSEHAEz9oGtdB9f27OXSyn36DMaJbTC3PVk-ISss7OUBFwBVgEuMn/exec', {
-            method: 'POST',
-            body: JSON.stringify(data)
-          }).then(response => response.json()).then(result => {
-            if (result.status === 'success') {
-              document.getElementById('response').innerText = 'Thank you for the contact!';
-              form.reset();
-            } else {
-              document.getElementById('response').innerText = 'Failed to send message.';
-            }
-          }).catch(error => {
-            document.getElementById('response').innerText = 'Error: ' + error.message;
-          });
+  <div class="contact-form">
+    <h2 class="glitch">Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+      <input type="file" id="image" name="image" accept="image/*">
+      <button type="submit">Send Message</button>
+      <button type="button" class="back-button" onclick="window.history.back();">Back</button>
+    </form>
+    <div id="response"></div>
+  </div>
+  <script>
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('response').innerText = 'Sending...';
+      const fileInput = document.getElementById('image');
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+          image: file ? reader.result : null
         };
-        if (file) {
-          reader.readAsDataURL(file);
-        } else {
-          reader.onloadend(); // Call onloadend directly if no file is selected
-        }
-      });
-    </script>
-  </body>
+        fetch('https://script.google.com/macros/s/AKfycbyfKypqw3ZPUlQWSEHAEz9oGtdB9f27OXSyn36DMaJbTC3PVk-ISss7OUBFwBVgEuMn/exec', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        }).then(response => response.json()).then(result => {
+          if (result.status === 'success') {
+            document.getElementById('response').innerText = 'Thank you for the contact!';
+            form.reset();
+          } else {
+            document.getElementById('response').innerText = 'Failed to send message.';
+          }
+        }).catch(error => {
+          document.getElementById('response').innerText = 'Error: ' + error.message;
+        });
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        reader.onloadend();
+      }
+    });
+  </script>
+</body>
 </html>
