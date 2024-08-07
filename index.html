@@ -20,7 +20,7 @@
             background-color: var(--background);
             color: var(--text);
             height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         
         .container {
@@ -64,6 +64,9 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(45deg, var(--accent), var(--secondary), var(--background));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
         
         .hero-content {
@@ -92,6 +95,12 @@
         .cta-button:hover {
             background-color: var(--secondary);
             transform: scale(1.05);
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         
         @keyframes glitch {
@@ -130,26 +139,10 @@
     <div class="container">    
         <section class="hero">
             <div class="hero-content">
-                <h1>COOMING BACK SOON ;)</h1>
+                <h1>COMING BACK SOON ;)</h1>
                 <a href="contact.html" class="cta-button">Contact Me</a>
             </div>
         </section>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hero = document.querySelector('.hero');
-            
-            hero.addEventListener('mousemove', (e) => {
-                const { offsetWidth: width, offsetHeight: height } = hero;
-                const { clientX: x, clientY: y } = e;
-                
-                const moveX = (x - width / 2) / 25;
-                const moveY = (y - height / 2) / 25;
-                
-                hero.style.backgroundPosition = `${moveX}px ${moveY}px`;
-            });
-        });
-    </script>
 </body>
 </html>
