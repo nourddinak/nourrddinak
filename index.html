@@ -80,7 +80,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 4em;
             margin-bottom: 20px;
-            animation: glitch 5s infinite, glow 1.5s ease-in-out infinite, float 5s ease-in-out infinite;
+            animation: glitch 5s infinite, glow 1.5s ease-in-out infinite;
         }
         
         .cta-button {
@@ -157,27 +157,6 @@
             100% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent); }
         }
         
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-        
-        @keyframes particle-trail {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); opacity: 0; }
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes move {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
-        }
-        
         #starfield {
             position: absolute;
             width: 100%;
@@ -196,6 +175,17 @@
             animation: twinkle 1.5s infinite ease-in-out, particle-trail 2s infinite linear;
         }
         
+        @keyframes twinkle {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        
+        @keyframes particle-trail {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); opacity: 0; }
+        }
+        
         .shooting-star {
             position: absolute;
             width: 2px;
@@ -204,6 +194,17 @@
             transform: rotate(45deg);
             opacity: 0;
             animation: shoot 2s linear infinite;
+        }
+        
+        @keyframes shoot {
+            0% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
         }
         
         .floating-element {
@@ -215,16 +216,27 @@
             animation: float 5s ease-in-out infinite;
         }
         
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        
         .parallax {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            background: url('https://cdn.pixabay.com/photo/2015/12/01/20/28/space-1075660_960_720.jpg') no-repeat center center fixed;
+            background: url('https://www.example.com/nebula.gif') no-repeat center center fixed;
             background-size: cover;
             z-index: -1;
             animation: move 30s linear infinite;
+        }
+        
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
         }
         
         .planet {
@@ -235,14 +247,47 @@
             filter: drop-shadow(0 0 10px var(--accent));
         }
         
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #background-music {
+            position: absolute;
+            display: none;
+        }
+        
+        .custom-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            z-index: 9999;
+        }
+        
+        .custom-cursor.hovered {
+            width: 30px;
+            height: 30px;
+        }
+        
         .space-station {
             position: absolute;
             width: 150px;
             height: 150px;
-            background: url('https://cdn.pixabay.com/photo/2014/12/18/11/23/space-570817_960_720.jpg') no-repeat center center;
+            background: url('https://www.example.com/space-station.png') no-repeat center center;
             background-size: contain;
             z-index: 2;
             animation: rotate 120s linear infinite;
+        }
+        
+        @keyframes warp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .warp-effect {
@@ -257,68 +302,11 @@
             pointer-events: none;
             z-index: 3;
         }
-        
-        .galaxy-background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: url('https://media.giphy.com/media/6yD9bChdDHdQ8/giphy.gif') no-repeat center center;
-            background-size: cover;
-            z-index: -2;
-            opacity: 0.5;
-        }
-        
-        .space-alien {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: url('https://cdn.pixabay.com/photo/2017/06/13/12/35/alien-2403493_960_720.png') no-repeat center center;
-            background-size: contain;
-            z-index: 2;
-            animation: float 5s ease-in-out infinite;
-        }
-        
-        .floating-widget {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            z-index: 2;
-            animation: rotate 30s linear infinite;
-        }
-        
-        .interactive-text {
-            position: absolute;
-            color: var(--accent);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2em;
-            animation: float 5s ease-in-out infinite;
-        }
-        
-        .custom-cursor {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            transition: transform 0.2s ease;
-            transform: scale(1);
-        }
-        
-        .custom-cursor.hovered {
-            transform: scale(1.5);
-            background: var(--secondary);
-        }
     </style>
 </head>
 <body>
     <div class="parallax"></div>
     <div id="starfield"></div>
-    <div class="galaxy-background"></div>
     <div class="container">
         <section class="hero">
             <div class="hero-content">
@@ -326,7 +314,6 @@
                 <a href="contact.html" class="cta-button">Contact Me</a>
             </div>
         </section>
-        
         <!-- Floating Elements -->
         <div class="floating-element" style="top: 10%; left: 15%;"></div>
         <div class="floating-element" style="top: 60%; left: 70%;"></div>
@@ -341,18 +328,8 @@
         <!-- Warp Effect -->
         <div class="warp-effect"></div>
         
-        <!-- Space Aliens -->
-        <div class="space-alien" style="top: 20%; left: 20%;"></div>
-        <div class="space-alien" style="top: 70%; left: 80%;"></div>
-        
-        <!-- Floating Widgets -->
-        <div class="floating-widget" style="top: 40%; left: 40%;"></div>
-        
-        <!-- Interactive Text -->
-        <div class="interactive-text" style="top: 80%; left: 10%;"></div>
-        
         <!-- Background Music -->
-        <audio id="background-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+        <audio id="background-music" src="https://www.example.com/space-music.mp3" loop></audio>
         
         <!-- Custom Cursor -->
         <div class="custom-cursor"></div>
