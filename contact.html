@@ -14,6 +14,7 @@
       --bg-color: #000;
       --text-color: #fff;
       --accent-color: #ff4500;
+      --button-hover-color: #32cd32;
       --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
     }
 
@@ -31,19 +32,19 @@
     }
 
     .contact-form {
-      background-color: rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
       max-width: 500px;
       width: 90%;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .contact-form:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
     }
 
     .contact-form h2 {
@@ -51,8 +52,20 @@
       font-family: 'Orbitron', sans-serif;
       text-align: center;
       margin-bottom: 20px;
-      font-size: 2em;
+      font-size: 2.2em;
       text-transform: uppercase;
+      position: relative;
+    }
+
+    .contact-form h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 2px;
+      background: var(--primary-color);
     }
 
     .contact-form input, .contact-form textarea {
@@ -107,7 +120,8 @@
 
     .contact-form button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+      background: var(--button-hover-color);
     }
 
     #response {
@@ -122,6 +136,21 @@
       margin-top: 10px;
     }
 
+    .glitch {
+      animation: glitch 1s infinite;
+    }
+
+    .input-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
     @keyframes glitch {
       0% { transform: translate(0) }
       20% { transform: translate(-2px, 2px) }
@@ -131,8 +160,14 @@
       100% { transform: translate(0) }
     }
 
-    .glitch {
-      animation: glitch 1s infinite;
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
     }
   </style>
 </head>
@@ -140,11 +175,23 @@
   <div class="contact-form">
     <h2 class="glitch">Contact Me</h2>
     <form id="contactForm">
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-      <input type="file" id="image" name="image" accept="image/*">
-      <button type="submit">Send Message</button>
+      <div class="input-icon">
+        <img src="https://img.icons8.com/color/48/000000/user.png" alt="Name Icon">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+      </div>
+      <div class="input-icon">
+        <img src="https://img.icons8.com/color/48/000000/email.png" alt="Email Icon">
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+      </div>
+      <div class="input-icon">
+        <img src="https://img.icons8.com/color/48/000000/sms.png" alt="Message Icon">
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+      </div>
+      <div class="input-icon">
+        <img src="https://img.icons8.com/color/48/000000/image.png" alt="Image Icon">
+        <input type="file" id="image" name="image" accept="image/*">
+      </div>
+      <button type="submit" class="float-animation">Send Message</button>
       <button type="button" class="back-button" onclick="window.history.back();">Back</button>
     </form>
     <div id="response"></div>
