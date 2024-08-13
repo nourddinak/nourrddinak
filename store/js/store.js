@@ -45,8 +45,8 @@ function addProduct() {
 function loadProducts() {
     // Simulate loading products from a server or Google Sheets
     var products = [
-        {id: 1, name: 'Product 1', price: '$10', imageUrl: 'https://via.placeholder.com/200'},
-        {id: 2, name: 'Product 2', price: '$20', imageUrl: 'https://via.placeholder.com/200'}
+        {id: 1, name: 'YOUTUBE STREAM source code with exe', price: '$15', imageUrl: 'https://ibb.co/n334L6y'},
+        {id: 2, name: 'Product 2', price: '$20', imageUrl: 'img'}
     ];
 
     products.forEach(function(product) {
