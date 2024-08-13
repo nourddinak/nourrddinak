@@ -21,7 +21,7 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
         password: document.getElementById('password').value
     };
     
-    fetch('https://script.google.com/macros/s/AKfycbzmFbZJbiSaKqa7fKntxcwmyfvulHu_MQG7sdbbLt8WvoxrqpYmEJskcRAl18895JG_1A/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbxn25Htflu4L7IP7jJtKzvbwozTfRcVDPixhLFqMca7oUsauNXnmXo6dKAUQZiGG9GQ4A/exec', {
         method: 'POST',
         contentType: 'application/json',
         body: JSON.stringify(data)
