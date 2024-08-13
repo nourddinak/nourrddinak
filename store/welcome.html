@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Futuristic Store</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .index-container {
+            text-align: center;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(74, 144, 226, 0.7);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+            animation: softPulse 2s infinite;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .btn {
+            text-decoration: none;
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background-color: #3a7bc8;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+            }
+            50% {
+                text-shadow: 0 0 15px #4a90e2, 0 0 25px #4a90e2;
+            }
+            100% {
+                text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="index-container">
+        <h1>Welcome to Futuristic Store</h1>
+        <p>Step into the future of shopping. Create an account or log in to explore our cutting-edge products!</p>
+        <div class="buttons">
+            <a href="signup.html" class="btn">Sign Up</a>
+            <a href="login.html" class="btn">Login</a>
+            <a href="login.html" class="btn">BACK to home page</a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Welcome to the future of shopping!');
+            // Add any additional JavaScript functionality here if needed.
+        });
+    </script>
+</body>
+</html>
