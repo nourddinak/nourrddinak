@@ -13,6 +13,7 @@ for (let i = 0; i < starCount; i++) {
 
 document.getElementById('signup-form').addEventListener('submit', function(e) {
     e.preventDefault();
+
     var data = {
         action: 'signup',
         name: document.getElementById('name').value,
@@ -20,7 +21,13 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
         username: document.getElementById('username').value,
         password: document.getElementById('password').value
     };
-    
+
+    // Check if the password is strong
+    if (!isStrongPassword(data.password)) {
+        alert("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+        return;
+    }
+
     fetch('https://script.google.com/macros/s/AKfycbz6ggriH0SRiOWVBHAm1eyIrfr8ONqtOBZN9XkRqzAvzibYRnfSVGCRxYeuVNeflqbxUg/exec', {
         method: 'POST',
         contentType: 'application/json',
@@ -36,3 +43,9 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
         alert('An error occurred. Please try again.');
     });
 });
+
+// Function to check password strength
+function isStrongPassword(password) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+}
