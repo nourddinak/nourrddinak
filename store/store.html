@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Store</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #111;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        h1, h2 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+        }
+
+        .product, .cart-item {
+            border: 2px solid #4a90e2;
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+            vertical-align: top;
+            background-color: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .product:hover, .cart-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(74, 144, 226, 0.7);
+        }
+
+        .product img {
+            max-width: 200px;
+            height: auto;
+            border: 2px solid #4a90e2;
+            transition: all 0.3s ease;
+        }
+
+        .product img:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        #cart {
+            margin-top: 40px;
+            border: 2px solid #4a90e2;
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        #checkout-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid #4a90e2;
+            z-index: 1000;
+            box-shadow: 0 0 50px rgba(74, 144, 226, 0.5);
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3a7bc8;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+        }
+
+        input {
+            background-color: #333;
+            border: 2px solid #4a90e2;
+            color: #e0e0e0;
+            padding: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 5px 0;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+            }
+            50% {
+                text-shadow: 0 0 15px #4a90e2, 0 0 25px #4a90e2;
+            }
+            100% {
+                text-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2;
+            }
+        }
+
+        .pulse-text {
+            animation: softPulse 2s infinite;
+        }
+
+        #user-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 10px;
+            border: 2px solid #4a90e2;
+        }
+
+        #products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="pulse-text">Futuristic Store</h1>
+    
+    <div id="user-info">
+        <p>Email: <span id="user-email"></span></p>
+        <p>Username: <span id="user-username"></span></p>
+        <button onclick="logout()">Logout</button>
+    </div>
+    
+    <h2 class="pulse-text">Products</h2>
+    <div id="products">
+        <!-- Products will be listed here -->
+    </div>
+    
+    <h2 class="pulse-text">Cart</h2>
+    <div id="cart">
+        <!-- Cart items will be listed here -->
+    </div>
+    <button id="checkout-button" onclick="checkout()">Checkout</button>
+
+    <div id="checkout-modal">
+        <h2 class="pulse-text">Checkout</h2>
+        <p>Please enter your password to complete the order:</p>
+        <input type="password" id="checkout-password" placeholder="Enter your password">
+        <button onclick="confirmOrder()">Confirm Order</button>
+        <button onclick="closeCheckout()">Cancel</button>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var email = localStorage.getItem('email');
+            var username = localStorage.getItem('username');
+
+            if (!email || !username) {
+                window.location.href = 'login.html'; // Redirect to login page if not signed in
+            }
+
+            document.getElementById('user-email').textContent = email;
+            document.getElementById('user-username').textContent = username;
+
+            // Load products
+            loadProducts();
+        });
+
+        var cart = [];
+
+        function addProduct() {
+            var name = document.getElementById('product-name').value;
+            var price = document.getElementById('product-price').value;
+            var imageUrl = document.getElementById('product-image').value;
+
+            if (!name || !price || !imageUrl) {
+                alert('Please fill in all product details.');
+                return;
+            }
+
+            var product = {
+                id: Date.now(), // Unique ID for product
+                name: name,
+                price: price,
+                imageUrl: imageUrl
+            };
+
+            // Save product to server or Google Sheets (not shown here)
+            // For demonstration, we'll add it directly
+            displayProduct(product);
+
+            // Clear inputs
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('product-image').value = '';
+        }
+
+        function loadProducts() {
+            // Simulate loading products from a server or Google Sheets
+            var products = [
+                {id: 1, name: 'Product 1', price: '$10', imageUrl: 'https://via.placeholder.com/200'},
+                {id: 2, name: 'Product 2', price: '$20', imageUrl: 'https://via.placeholder.com/200'}
+            ];
+
+            products.forEach(function(product) {
+                displayProduct(product);
+            });
+        }
+
+        function displayProduct(product) {
+            var productsDiv = document.getElementById('products');
+            var productDiv = document.createElement('div');
+            productDiv.classList.add('product');
+            productDiv.innerHTML = `
+                <img src="${product.imageUrl}" alt="${product.name}">
+                <h2>${product.name}</h2>
+                <p>Price: ${product.price}</p>
+                <button onclick="addToCart(${product.id}, '${product.name}', '${product.price}')">Add to Cart</button>
+            `;
+            productsDiv.appendChild(productDiv);
+        }
+
+        function addToCart(productId, productName, productPrice) {
+            cart.push({id: productId, name: productName, price: productPrice});
+            updateCart();
+        }
+
+        function updateCart() {
+            var cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = '';
+            cart.forEach(function(item, index) {
+                var cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+                cartItemDiv.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>Price: ${item.price}</p>
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartDiv.appendChild(cartItemDiv);
+            });
+            // Show or hide the checkout button based on cart content
+            document.getElementById('checkout-button').style.display = cart.length > 0 ? 'inline-block' : 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function checkout() {
+            document.getElementById('checkout-modal').style.display = 'block';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        function confirmOrder() {
+            var password = document.getElementById('checkout-password').value;
+            var email = localStorage.getItem('email');
+            var username = localStorage.getItem('username');
+
+            var data = {
+                action: 'order',
+                email: email,
+                username: username,
+                cart: cart,
+                password: password
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbz8ceTeN9kJ2JYwjAvTrYoIRTk4h8iAoCjNjbVVB_kUs8OrQdivwh9ZiZT2PAioAc0chg/exec', {
+                method: 'POST',
+                contentType: 'application/json',
+                body: JSON.stringify(data)
+            }).then(response => response.json()).then(result => {
+                if (result.status === 'success') {
+                    alert('Order placed successfully. We will contact you via email for more information.');
+                    cart = []; // Clear cart after successful order
+                    updateCart();
+                } else {
+                    alert(result.message);
+                }
+            });
+            closeCheckout();
+        }
+
+        function logout() {
+            localStorage.removeItem('email');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html'; // Redirect to login page
+        }
+    </script>
+</body>
+</html>

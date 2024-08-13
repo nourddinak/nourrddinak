@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --tertiary-color: #ffff00;
+            --bg-color: #120458;
+            --text-color: #fff;
+            --accent-color: #ff4500;
+            --neon-glow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 15px var(--primary-color), 0 0 20px var(--primary-color);
+            --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            scroll-behavior: smooth;
+            font-size: 16px;
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #120458, #000000, #120458);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: containerPulse 4s infinite alternate;
+        }
+
+        @keyframes containerPulse {
+            0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.5); }
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--secondary-color), transparent 30%);
+            animation: rotate 4s linear infinite;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: rgba(18, 4, 88, 0.9);
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg) }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: var(--neon-glow);
+            position: relative;
+            z-index: 1;
+            animation: textFlicker 1.5s infinite alternate;
+        }
+
+        @keyframes textFlicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px var(--secondary-color), 0 0 80px var(--secondary-color), 0 0 90px var(--secondary-color), 0 0 100px var(--secondary-color), 0 0 150px var(--secondary-color);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 5px var(--primary-color);
+        }
+
+        input {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        button {
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255, 255, 255, 0.3), transparent 30%);
+            animation: rotate 4s linear infinite;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .signup-link {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signup-link a {
+            color: var(--tertiary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--tertiary-color);
+        }
+
+        .signup-link a:hover {
+            color: var(--primary-color);
+            text-shadow: var(--neon-glow);
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="login-form">
+            <label for="username">Username or Email:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            <a href="signup.html">New user? Sign up here</a>
+        </div>
+    </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.querySelector('.stars');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var data = {
+                action: 'login',
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+            
+            fetch('https://script.google.com/macros/s/AKfycbz8ceTeN9kJ2JYwjAvTrYoIRTk4h8iAoCjNjbVVB_kUs8OrQdivwh9ZiZT2PAioAc0chg/exec', {
+                method: 'POST',
+                contentType: 'application/json',
+                body: JSON.stringify(data)
+            }).then(response => response.json()).then(result => {
+                if (result.status === 'success') {
+                    localStorage.setItem('email', result.email);
+                    localStorage.setItem('username', result.username);
+                    window.location.href = 'store.html'; // Redirect to store page
+                } else {
+                    alert(result.message);
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
