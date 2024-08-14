@@ -1,3 +1,436 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-/* General Styles / body { margin: 0; font-family: 'Inter', sans-serif; color: #fff; background: #000; overflow-x: hidden; } a { text-decoration: none; color: #fff; } .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; } / Header / header { display: flex; justify-content: space-between; align-items: center; padding: 20px; position: fixed; width: 100%; top: 0; left: 0; z-index: 10; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); } .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; } nav a { margin: 0 15px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; } nav a:hover { color: #888; } / Hero Section / .hero { display: flex; align-items: center; justify-content: space-between; height: 100vh; padding: 0 50px; } .hero-text { flex: 1; } .hero-image { flex: 1; display: flex; justify-content: flex-end; } .glitch-title { font-size: 72px; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; line-height: 1.2; margin-bottom: 30px; } .glitch-effect { position: relative; display: inline-block; } .glitch-effect::before, .glitch-effect::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; } .glitch-effect::before { left: 2px; text-shadow: -2px 0 #ff00ff; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim-2 3s infinite linear alternate-reverse; } .glitch-effect::after { left: -2px; text-shadow: -2px 0 #00ff00; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse; } @keyframes glitch-anim { 0% { clip: rect(14px, 9999px, 37px, 0); } 100% { clip: rect(71px, 9999px, 13px, 0); } } @keyframes glitch-anim-2 { 0% { clip: rect(61px, 9999px, 97px, 0); } 100% { clip: rect(21px, 9999px, 45px, 0); } } .hero-description { font-size: 18px; line-height: 1.6; margin-bottom: 40px; max-width: 500px; } .cta-button { display: inline-block; padding: 12px 30px; font-size: 16px; font-weight: bold; color: #000; background: #fff; border-radius: 30px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; } .cta-button:hover { background: #888; color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); } / Futuristic Image Styles / .futuristic-image { width: 300px; height: 400px; background: url('path-to-your-image.jpg') no-repeat center center/cover; border-radius: 20px; position: relative; overflow: hidden; } .futuristic-image::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); z-index: 1; } .futuristic-image::after { content: ''; position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%; background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%); transform: rotate(45deg); animation: shine 3s infinite; } @keyframes shine { 0% { transform: translateY(-100%) rotate(45deg); } 100% { transform: translateY(100%) rotate(45deg); } } / Responsive Styles */ @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; padding: 50px 20px; } .hero-image { margin-top: 50px; } .glitch-title { font-size: 48px; } .hero-description { font-size: 16px; } }
-/* General Styles / body { margin: 0; font-family: 'Inter', sans-serif; color: #fff; background: #000; overflow-x: hidden; } a { text-decoration: none; color: #fff; } .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; } / Header / header { display: flex; justify-content: space-between; align-items: center; padding: 20px; position: fixed; width: 100%; top: 0; left: 0; z-index: 10; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); } .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; } nav a { margin: 0 15px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; } nav a:hover { color: #888; } / Hero Section / .hero { display: flex; align-items: center; justify-content: space-between; height: 100vh; padding: 0 50px; } .hero-text { flex: 1; } .hero-image { flex: 1; display: flex; justify-content: flex-end; } .glitch-title { font-size: 72px; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; line-height: 1.2; margin-bottom: 30px; } .glitch-effect { position: relative; display: inline-block; } .glitch-effect::before, .glitch-effect::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; } .glitch-effect::before { left: 2px; text-shadow: -2px 0 #ff00ff; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim-2 3s infinite linear alternate-reverse; } .glitch-effect::after { left: -2px; text-shadow: -2px 0 #00ff00; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse; } @keyframes glitch-anim { 0% { clip: rect(14px, 9999px, 37px, 0); } 100% { clip: rect(71px, 9999px, 13px, 0); } } @keyframes glitch-anim-2 { 0% { clip: rect(61px, 9999px, 97px, 0); } 100% { clip: rect(21px, 9999px, 45px, 0); } } .hero-description { font-size: 18px; line-height: 1.6; margin-bottom: 40px; max-width: 500px; } .cta-button { display: inline-block; padding: 12px 30px; font-size: 16px; font-weight: bold; color: #000; background: #fff; border-radius: 30px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; } .cta-button:hover { background: #888; color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); } / Futuristic Image Styles / .futuristic-image { width: 300px; height: 400px; background: url('path-to-your-image.jpg') no-repeat center center/cover; border-radius: 20px; position: relative; overflow: hidden; } .futuristic-image::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); z-index: 1; } .futuristic-image::after { content: ''; position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%; background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%); transform: rotate(45deg); animation: shine 3s infinite; } @keyframes shine { 0% { transform: translateY(-100%) rotate(45deg); } 100% { transform: translateY(100%) rotate(45deg); } } / Responsive Styles */ @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; padding: 50px 20px; } .hero-image { margin-top: 50px; } .glitch-title { font-size: 48px; } .hero-description { font-size: 16px; } }
+:root {
+    --primary-color: #ff6f61;
+    --background-color: #0a0a0a;
+    --text-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    background: var(--background-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+/* Loader */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader-inner {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    border-top: 5px solid var(--primary-color);
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Particles Background */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav a {
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-text {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.glitch {
+    position: relative;
+    display: inline-block;
+    color: var(--primary-color);
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 2px 0 var(--primary-color), -2px 0 cyan; }
+    25% { text-shadow: -2px 0 var(--primary-color), 2px 0 cyan; }
+    50% { text-shadow: 2px 0 cyan, -2px 0 var(--primary-color); }
+    75% { text-shadow: -2px 0 cyan, 2px 0 var(--primary-color); }
+    100% { text-shadow: 2px 0 var(--primary-color), -2px 0 cyan; }
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--background-color);
+    background: var(--primary-color);
+    border-radius: 30px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    background: #ff8f61;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 111, 97, 0.2);
+}
+
+/* Project Sections */
+.live-demo, .projects {
+    padding: 80px 0;
+}
+
+h2 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.project:hover {
+    transform: translateY(-10px);
+}
+
+.project img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project h3 {
+    font-size: 24px;
+    margin: 20px 0 10px;
+    padding: 0 20px;
+}
+
+.project p {
+    font-size: 16px;
+    margin: 0 0 20px;
+    padding: 0 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 20px 20px;
+    font-size: 16px;
+    color: var(--text-color);
+    background: var(--primary-color);
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #ff8f61;
+}
+
+/* Skills Section */
+.skills {
+    padding: 80px 0;
+}
+
+.skill-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.skill-bar {
+    margin-bottom: 20px;
+}
+
+.skill-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.skill-progress {
+    height: 10px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 1s ease-in-out;
+}
+
+/* Timeline Section */
+.timeline {
+    padding: 80px 0;
+}
+
+.timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline-container::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: var(--primary-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-content {
+    padding: 20px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    position: relative;
+}
+
+.timeline-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(odd) .timeline-icon {
+    right: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-icon {
+    left: -20px;
+}
+
+.timeline-date {
+    display: block;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #999;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background: #1a1a1a;
+}
+
+.testimonial {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.testimonial p {
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.testimonial-author {
+    font-weight: bold;
+}
+
+/* Contact Section */
+#contact {
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background: #1a1a1a;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.social-links a {
+    margin: 0 10px;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: var(--text-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+    outline: none;
+}
+
+.scroll-to-top:hover {
+    background: #ff8f61;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.9);
+        padding: 20px;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .hero-text {
+        font-size: 36px;
+    }
+
+    .timeline-container::after {
+        left: 31px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .timeline-icon {
+        left: 10px;
+    }
+}
