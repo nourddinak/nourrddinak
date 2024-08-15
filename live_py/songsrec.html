@@ -29,6 +29,25 @@
             border: none;
         }
     </style>
+    <script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable keyboard shortcuts for inspect tools (F12, Ctrl+Shift+I, etc.)
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+            }
+            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if ((e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+                (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83))) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body>
     <iframe src="https://nourddinak.pythonanywhere.com/" frameborder="0"></iframe>
