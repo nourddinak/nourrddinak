@@ -1,699 +1,267 @@
-/* General Styles */
-:root {
-    --primary-color: #ff00ff;
-    --secondary-color: #00ffff;
-    --background-color: #0a0a2a;
-    --text-color: #ffffff;
-    --accent-color: #ff00aa;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Orbitron', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header Styles */
-header {
-    background-color: rgba(10, 10, 42, 0.8);
-    backdrop-filter: blur(10px);
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
-}
-
-nav {
-    display: flex;
-}
-
-nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    margin-left: 20px;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: var(--accent-color);
-    text-shadow: 0 0 10px var(--accent-color);
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(45deg, var(--background-color), #1a1a4a);
-    padding: 20px;
-}
-
-.hero-text {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-}
-
-.glitch {
-    position: relative;
-    color: var(--text-color);
-    letter-spacing: 5px;
-    animation: glitch-skew 1s infinite linear alternate-reverse;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 var(--primary-color);
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 var(--secondary-color);
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim {
-    0% {
-        clip: rect(31px, 9999px, 94px, 0);
-        transform: skew(0.85deg);
-    }
-    5% {
-        clip: rect(70px, 9999px, 78px, 0);
-        transform: skew(0.85deg);
-    }
-    /* ... (continue with more keyframes) ... */
-}
-
-@keyframes glitch-anim2 {
-    0% {
-        clip: rect(65px, 9999px, 119px, 0);
-        transform: skew(0.85deg);
-    }
-    5% {
-        clip: rect(34px, 9999px, 94px, 0);
-        transform: skew(0.85deg);
-    }
-    /* ... (continue with more keyframes) ... */
-}
-
-@keyframes glitch-skew {
-    0% {
-        transform: skew(-2deg);
-    }
-    20% {
-        transform: skew(3.5deg);
-    }
-    /* ... (continue with more keyframes) ... */
-}
-
-/* Button Styles */
-.cta-button, .btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-    margin: 10px;
-    position: relative;
-    overflow: hidden;
-    border: none;
-    cursor: pointer;
-}
-
-.cta-button::before, .btn::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0.1) 100%
-    );
-    transform: rotate(45deg);
-    transition: all 0.3s ease;
-}
-
-.cta-button:hover::before, .btn:hover::before {
-    transform: rotate(45deg) translate(50%, 50%);
-}
-
-.cta-button:hover, .btn:hover {
-    background-color: var(--primary-color);
-    box-shadow: 0 0 20px var(--primary-color);
-}
-
-/* Section Styles */
-section {
-    padding: 80px 0;
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: var(--secondary-color);
-    text-shadow: 0 0 10px var(--secondary-color);
-}
-
-/* Live Demo Section */
-.live-demo .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-/* Projects Section */
-.projects .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.project {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.project:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.project img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-}
-
-.project h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
-
-.project p {
-    margin-bottom: 1rem;
-}
-
-/* Skills Section */
-.skill-container {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.skill-bar {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
-
-.skill-name {
-    padding: 5px 10px;
-    color: var(--text-color);
-}
-
-.skill-progress {
-    height: 20px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    width: 0;
-    transition: width 1s ease-out;
-}
-
-/* Timeline Section */
-.timeline-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.timeline-container::after {
-    content: '';
-    position: absolute;
-    width: 2px;
-    background-color: var(--accent-color);
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -1px;
-}
-
-.timeline-item {
-    padding: 10px 40px;
-    position: relative;
-    background-color: inherit;
-    width: 50%;
-}
-
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    right: -17px;
-    background-color: var(--background-color);
-    border: 4px solid var(--accent-color);
-    top: 15px;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-.timeline-item:nth-child(odd) {
-    left: 0;
-}
-
-.timeline-item:nth-child(even) {
-    left: 50%;
-}
-
-.timeline-content {
-    padding: 20px 30px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-
-.timeline-icon {
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    margin-bottom: 10px;
-}
-
-/* Testimonials Section */
-.testimonial-slider {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.testimonial {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 2rem;
-    margin: 2rem 0;
-    position: relative;
-}
-
-.testimonial::before {
-    content: '\201C';
-    font-size: 4rem;
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    color: var(--accent-color);
-    opacity: 0.5;
-}
-
-.testimonial-author {
-    text-align: right;
-    font-style: italic;
-    color: var(--secondary-color);
-}
-
-/* Contact Section */
-#contact {
-    text-align: center;
-}
-
-/* Footer */
-footer {
-    background-color: rgba(10, 10, 42, 0.8);
-    padding: 2rem 0;
-    text-align: center;
-}
-
-.social-links a {
-    color: var(--text-color);
-    font-size: 1.5rem;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: var(--accent-color);
-}
-
-/* Scroll to Top Button */
-.scroll-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.scroll-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.scroll-to-top:hover {
-    background-color: var(--primary-color);
-    box-shadow: 0 0 20px var(--primary-color);
-}
-
-/* Loader */
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-}
-
-.loader-inner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid var(--secondary-color);
-    border-top: 3px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.loader.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Tooltip */
-.tooltip {
-    position: relative;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Cyberpunk Cursor */
-.cyberpunk-cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--accent-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.1s ease;
-    transform: translate(-50%, -50%);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-text {
-        font-size: 2.5rem;
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Particle.js Configuration
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#00ffff" },
+            shape: { type: "triangle" },
+            opacity: { value: 0.5, random: false, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+            size: { value: 3, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+            line_linked: { enable: true, distance: 150, color: "#ff00ff", opacity: 0.4, width: 1 },
+            move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+            modes: {
+                grab: { distance: 400, line_linked: { opacity: 1 } },
+                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                repulse: { distance: 200, duration: 0.4 },
+                push: { particles_nb: 4 },
+                remove: { particles_nb: 2 }
+            }
+        },
+        retina_detect: true
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Scroll to top button functionality
+    const scrollToTopButton = document.querySelector('.scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) {
+            scrollToTopButton.classList.add('visible');
+        } else {
+            scrollToTopButton.classList.remove('visible');
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Glitch effect for hero text
+    const glitchElements = document.querySelectorAll('.glitch');
+
+    function glitchEffect() {
+        glitchElements.forEach(element => {
+            const originalText = element.getAttribute('data-text');
+            const glitchText = originalText.split('').map(char => {
+                if (Math.random() < 0.1) {
+                    return String.fromCharCode(char.charCodeAt(0) + Math.floor(Math.random() * 5) - 2);
+                }
+                return char;
+            }).join('');
+            element.textContent = glitchText;
+        });
     }
 
-    .menu-toggle {
-        display: block;
+    setInterval(glitchEffect, 50);
+
+    // Lightning effect for CTA buttons
+    const ctaButtons = document.querySelectorAll('.cta-button, .btn');
+
+    ctaButtons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.style.boxShadow = `0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff`;
+        });
+
+        button.addEventListener('mouseout', () => {
+            button.style.boxShadow = '';
+        });
+    });
+
+    // Typing effect for skill names
+    const skillNames = document.querySelectorAll('.skill-name');
+
+    function typeSkillNames() {
+        skillNames.forEach(skillName => {
+            const text = skillName.textContent;
+            skillName.textContent = '';
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < text.length) {
+                    skillName.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 100);
+        });
     }
 
-    nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: rgba(10, 10, 42, 0.9);
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        display: none;
+    // Animate skill bars
+    function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const percentage = bar.getAttribute('data-percentage');
+            bar.style.width = percentage;
+        });
     }
 
-    nav.active {
-        display: flex;
+    // Trigger typing effect and skill bar animation when skills section is in view
+    const skillsSection = document.querySelector('#skills');
+    let skillsAnimationTriggered = false;
+
+    window.addEventListener('scroll', () => {
+        if (!skillsAnimationTriggered && isElementInViewport(skillsSection)) {
+            typeSkillNames();
+            animateSkillBars();
+            skillsAnimationTriggered = true;
+        }
+    });
+
+    // Check if an element is in the viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
     }
 
-    nav a {
-        margin: 10px 0;
+    // Timeline animation
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    function animateTimeline() {
+        timelineItems.forEach(item => {
+            if (isElementInViewport(item)) {
+                item.classList.add('animate');
+            }
+        });
     }
 
-    .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
+    window.addEventListener('scroll', animateTimeline);
+
+    // Project hover effect
+    const projects = document.querySelectorAll('.project');
+
+    projects.forEach(project => {
+        project.addEventListener('mousemove', (e) => {
+            const { left, top } = project.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+
+            project.style.setProperty('--x', `${x}px`);
+            project.style.setProperty('--y', `${y}px`);
+        });
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+
+    // Cyberpunk cursor effect
+    const cursor = document.createElement('div');
+    cursor.classList.add('cyberpunk-cursor');
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // Neon text effect for headings
+    const headings = document.querySelectorAll('h2');
+
+    headings.forEach(heading => {
+        heading.innerHTML = `<span>${heading.textContent}</span>`;
+        heading.classList.add('neon-text');
+    });
+
+    // Loading animation
+    window.addEventListener('load', () => {
+        const loader = document.querySelector('.loader');
+        loader.classList.add('hidden');
+    });
+
+    // Initialize AOS (Animate on Scroll) library
+    AOS.init({
+        duration: 1000,
+        once: true,
+    });
+
+    // Cyberpunk-style console log
+    console.log('%c> WELCOME TO THE CYBERNET_', 'color: #ff00ff; font-family: monospace; font-size: 18px; text-shadow: 0 0 5px #ff00ff;');
+    console.log('%c> INITIALIZING NEURAL INTERFACE...', 'color: #00ffff; font-family: monospace; font-size: 14px;');
+
+    // Testimonial slider
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial');
+    const totalTestimonials = testimonials.length;
+
+    function showTestimonial(index) {
+        testimonials.forEach((testimonial, i) => {
+            testimonial.style.display = i === index ? 'block' : 'none';
+        });
     }
 
-    .timeline-item::before {
-        left: 60px;
-        border: medium solid white;
-        border-width: 10px 10px 10px 0;
-        border-color: transparent white transparent transparent;
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+        showTestimonial(currentTestimonial);
     }
 
-    .timeline-item::after {
-        left: 15px;
+    function previousTestimonial() {
+        currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+        showTestimonial(currentTestimonial);
     }
 
-    .timeline-item:nth-child(even) {
-        left: 0%;
+    // Initialize testimonial slider
+    showTestimonial(currentTestimonial);
+
+    // Add event listeners for testimonial navigation if you have navigation buttons
+    // document.querySelector('.next-testimonial').addEventListener('click', nextTestimonial);
+    // document.querySelector('.prev-testimonial').addEventListener('click', previousTestimonial);
+
+    // Auto-rotate testimonials every 5 seconds
+    setInterval(nextTestimonial, 5000);
+
+    // Form submission handling (if you have a contact form)
+    const contactForm = document.querySelector('#contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            console.log('Form submitted');
+            // You can add AJAX request to send form data to server
+        });
     }
 
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Particles.js Container */
-#particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-/* Neon Text Effect */
-.neon-text {
-    color: #fff;
-    text-shadow:
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 40px var(--primary-color),
-        0 0 80px var(--primary-color),
-        0 0 90px var(--primary-color),
-        0 0 100px var(--primary-color),
-        0 0 150px var(--primary-color);
-}
-
-/* AOS (Animate On Scroll) custom animations */
-[data-aos] {
-    opacity: 0;
-    transition-property: opacity, transform;
-}
-
-[data-aos="fade-up"] {
-    transform: translateY(100px);
-}
-
-[data-aos="fade-down"] {
-    transform: translateY(-100px);
-}
-
-[data-aos="fade-right"] {
-    transform: translateX(-100px);
-}
-
-[data-aos="fade-left"] {
-    transform: translateX(100px);
-}
-
-[data-aos].aos-animate {
-    opacity: 1;
-    transform: translate(0);
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--background-color);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
-
-/* Additional responsive adjustments */
-@media (max-width: 480px) {
-    .hero-text {
-        font-size: 2rem;
+    // Cyberpunk-style typing effect for a specific element (e.g., a subtitle)
+    function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
     }
 
-    h2 {
-        font-size: 2rem;
+    const subtitle = document.querySelector('.subtitle');
+    if (subtitle) {
+        typeWriter(subtitle, "Welcome to the future of web development");
     }
-
-    .cta-button, .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-
-    .project {
-        padding: 1rem;
-    }
-
-    .timeline-content {
-        padding: 15px;
-    }
-
-    .testimonial {
-        padding: 1.5rem;
-    }
-}
-
-/* Accessibility improvements */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Focus styles for better keyboard navigation */
-a:focus, button:focus, input:focus, textarea:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-}
-
-/* Print styles */
-@media print {
-    body {
-        background-color: #fff;
-        color: #000;
-    }
-
-    .hero, .live-demo, #particles-js, .scroll-to-top, .cyberpunk-cursor {
-        display: none;
-    }
-
-    .container {
-        width: 100%;
-        max-width: none;
-    }
-
-    a {
-        text-decoration: underline;
-        color: #000;
-    }
-
-    h2 {
-        color: #000;
-        text-shadow: none;
-    }
-
-    .project, .timeline-item, .testimonial {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-}
+});
