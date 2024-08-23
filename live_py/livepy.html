@@ -100,7 +100,7 @@
             background-origin: border-box;
             background-clip: padding-box, border-box, border-box;
             background-size: 200%;
-            animation: animate 2s infinite linear;
+            animation: animateButtonBackground 2s infinite linear;
         }
 
         .btn::before {
@@ -112,15 +112,15 @@
             bottom: -20%;
             z-index: -5;
             background-size: 200%;
-            animation: animate 2s infinite linear;
+            animation: animateButtonBackground 2s infinite linear;
             filter: blur(calc(0.8 * var(--m)));
         }
 
         .btn:hover, .btn:hover::before {
-            animation: animate 0.5s infinite linear;
+            animation: animateButtonBackground 0.5s infinite linear;
         }
 
-        @keyframes animate {
+        @keyframes animateButtonBackground {
             0% {background-position: 0}
             100% {background-position: 200%}
         }
@@ -130,8 +130,6 @@
                 --m: 0.8rem;
             }
         }
-
-        /* Rest of the existing styles... */
 
         /* SWIPER */
         .swiper {
@@ -336,6 +334,19 @@
         .cart-info p {
             margin: 10px 0;
             font-size: 0.9rem;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
         }
     </style>
 </head>
