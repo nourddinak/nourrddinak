@@ -1,139 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI News Video Generator</title>
+    <title>404 Page</title>
     <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        color: #e94560;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
-      .download-button {
-        text-align: center;
-        margin-top: 2rem;
-      }
+        :root {
+            --c0: #71a1ff;
+            --c1: #4d85f6;
+            --c2: #3b72e2;
+            --c3: #336de2;
+            --c4: #2151af;
+            --c5: #244483;
+            --c6: #103071;
+            --clr: 1; /* change color from 1 to 12 */
+            --hue: calc(30deg - (30deg * var(--clr))); 
+        }
 
-      .download-button a {
-        display: inline-block;
-        padding: 0.75rem 2rem;
-        font-size: 1.2rem;
-        color: var(--text-color);
-        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-        border: none;
-        border-radius: 8px;
-        text-decoration: none;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000vmin;
+            font-family: 'Varela Round', Arial, Helvetica, serif;
+            background: var(--c0);
+        }
 
-      .download-button a:hover {
-        background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        transform: translateY(-2px);
-      }
+        body * {
+            transform-style: preserve-3d;
+        }
 
-      .container {
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);
-        max-width: 800px;
-        width: 90%;
-      }
+        .cuboid {
+            --size: 250;
+            --height: var(--size);
+            --width: var(--size);
+            --depth: var(--size);
+            height: calc(var(--size) * 1vmin);
+            width: calc(var(--size) * 1vmin);
+            position: absolute;
+            transform: rotateX(50deg) rotate(45deg);
+            pointer-events: none;
+        }
 
-      h1 {
-        font-size: 3em;
-        text-align: center;
-        margin-bottom: 30px;
-        text-shadow: 0 0 10px #e94560;
-      }
+        .cuboid .side {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 100%;
+            width: 100%;
+            border-radius: 2px;
+            box-shadow: 0vmin 0vmin 0.5vmin 0 var(--c0) inset, 0 0 5vmin 0 var(--c0);
+        }
 
-      h2 {
-        font-size: 1.8em;
-        border-bottom: 2px solid #e94560;
-        padding-bottom: 10px;
-        margin-top: 30px;
-      }
+        .cuboid .side:nth-of-type(1) {
+            transform: translate3d(-50%, -50%, calc(var(--size) * -0.5vmin)) rotateY(180deg);
+            background: radial-gradient(circle at 100% 0%, var(--c4), #fff0 45vmin),radial-gradient(circle at 100% 0%, var(--c1), var(--c4));
+        }
 
-      p {
-        font-size: 1.1em;
-        line-height: 1.6;
-        color: #a2a2a2;
-      }
+        .cuboid .side:nth-of-type(2) {
+            width: calc(var(--size) * 1vmin);
+            transform: translate(-50%, -50%) rotateY(-90deg) translate3d(0, 0, calc(var(--size) * 0.5vmin));
+            background: radial-gradient(circle at 0% 0%, var(--c4), #fff0 45vmin),radial-gradient(circle at 0% 0%, var(--c2), var(--c5));
+        }
 
-      .feature {
-        background: rgba(233, 69, 96, 0.1);
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 20px;
-      }
+        .cuboid .side:nth-of-type(3) {
+            height: calc(var(--size) * 1vmin);
+            transform: translate(-50%, -50%) rotateX(90deg) translate3d(0, 0, calc(var(--size) * 0.5vmin));
+            background: radial-gradient(circle at 0% 0%, var(--c4), #fff0 45vmin), radial-gradient(circle at 0% 0%, var(--c1), var(--c6));
+        }
 
-      .feature h3 {
-        color: #0f3460;
-        margin-top: 0;
-      }
+        .room {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            filter: hue-rotate(var(--hue));
+        }
 
-      .tech {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 30px;
-      }
+        .oops {
+            width: 100%;
+            text-align: center;
+            font-size: 2.25vmin;
+            transform: rotateX(21deg);
+            transform-origin: 100% 50%;
+            top: 10%;
+            position: absolute;
+            left: 0;
+        }
 
-      .tech-item {
-        background: #0f3460;
-        color: #e94560;
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-weight: bold;
-      }
+        .oops h2 {
+            color: #fff2;
+            float: left;
+            transform-origin: 100% 50%;
+            transform: rotateY(-60deg) scaleX(1.5);
+            margin: -5vmin 0 0 -5vmin;
+            font-size: 14vmin;
+            width: 50%;
+            text-shadow: 0px 2px 1px #94B5FF, -1px 1px 2px #94b5ff80, -1px -1px 2px var(--c4), -2px -2px 2px var(--c4), -3px -3px 2px var(--c4), -4px -4px 2px var(--c4), -5px -5px 2px var(--c4), -6px -6px 2px var(--c4), -7px -7px 2px var(--c4), -8px -8px 2px var(--c4), -9px -9px 2px var(--c4), -10px -10px 2px var(--c4), -11px -11px 2px var(--c4), -12px -12px 2px var(--c4), -13px -13px 2px var(--c4), -14px -14px 2px var(--c4), -15px -15px 2px var(--c4), -16px -16px 2px var(--c4), -16px -16px 2px var(--c6), -10px -10px 8px var(--c6), -6px -15px 13px var(--c6);
+        }
+
+        .oops p {
+            float: right;
+            color: #fff4;
+            transform-origin: 0% 50%;
+            transform: rotateY(60deg) scaleX(1.5);
+            margin-top: -4vmin;
+            margin-right: -2vmin;
+            font-size: 5vmin;
+            max-width: 50vmin;
+            width: 50%;
+            text-shadow: 0px 2px 1px #94B5FF, -1px 1px 2px #94b5ff80, 1px -1px 2px var(--c4), 2px -2px 2px var(--c4), 3px -3px 2px var(--c4), 4px -4px 2px var(--c4), 5px -5px 2px var(--c4), 6px -6px 2px var(--c4), 7px -7px 2px var(--c4), 8px -8px 2px var(--c4), 6px -6px 7px var(--c6), 6px -6px 7px var(--c6);
+        }
+
+        .center-line {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .hole {
+            width: 28vmin;
+            height: 20vmin;
+            background: 
+                radial-gradient(circle at 50% 0%, var(--c2), #fff0 45%), 
+                radial-gradient(circle at 30% 100%, #061b43, #fff0 77%), 
+                radial-gradient(circle at 20% 100%, var(--c3), var(--c2), var(--c2));
+            border-radius: 100%;
+            box-shadow: 0 -2px 4px -2px #fffc, 0 2px 3px -3px #fffc inset, 0 2px 6px -4px #000;
+            overflow: hidden;
+            position: relative;
+            margin-top: 30vmin;
+        }
+
+        .ladder,
+        .ladder-shadow {
+            --shadow: #0008;
+            background: 
+                linear-gradient(180deg, #fff0 33%, var(--shadow), #000), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.5vmin, #fff0 0 100%), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.75vmin, #fff0 0 calc(100% - 1.75vmin)), 
+                repeating-linear-gradient(0deg, #cec3b9 0 1.2vmin, #e7dbcf 0 1.75vmin, #fff0 0 6.75vmin), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.75vmin, #fff0 0 calc(100% - 1.75vmin));
+            width: 10vmin;
+            height: 30vmin;
+            margin-left: 14vmin;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-12deg);
+            border-radius: 5px;
+        }
+
+        .ladder-shadow {
+            background: 
+                linear-gradient(180deg, #fff0 33%, #0008, #000), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.5vmin, #fff0 0 100%), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.75vmin, #fff0 0 calc(100% - 1.75vmin)), 
+                repeating-linear-gradient(0deg, #cec3b9 0 1.2vmin, #e7dbcf 0 1.75vmin, #fff0 0 6.75vmin), 
+                linear-gradient(90deg, #cec3b9 0 1.2vmin, #b3aba2 0 1.75vmin, #fff0 0 calc(100% - 1.75vmin));
+            box-shadow: 0 2px 3px -1px #000;
+            opacity: 0.2;
+        }
+
+        .ladder-shadow {
+            top: 100%;
+            transform: translate(-50%, -120%) rotate(-15deg);
+            width: calc(2vmin + 10vmin);
+            height: calc(2vmin + 30vmin);
+            margin: 0;
+            border-radius: 2px;
+            background: radial-gradient(circle at 50% 0%, var(--c3), var(--c4)), radial-gradient(circle at 0% 100%, var(--c5), var(--c4)), radial-gradient(circle at 100% 100%, var(--c4), var(--c5)), radial-gradient(circle at 50% 50%, var(--c2), var(--c3));
+        }
+
+        .ladder:before {
+            content: "";
+            position: absolute;
+            left: -0.5vmin;
+            top: -0.5vmin;
+            width: calc(100% + 1vmin);
+            height: calc(100% + 1vmin);
+            border-radius: 5px;
+            border: 1px solid var(--c2);
+            z-index: 1;
+        }
+
+        .ladder:after {
+            content: "";
+            position: absolute;
+            left: -0.5vmin;
+            top: -0.5vmin;
+            width: calc(100% + 1vmin);
+            height: calc(100% + 1vmin);
+            border-radius: 5px;
+            border: 1px solid var(--c3);
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10%;
+            height: 10%;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 4px 0 #000;
+        }
+
+        .dot:nth-of-type(1) { top: 10%; left: 10%; }
+        .dot:nth-of-type(2) { top: 10%; left: 90%; }
+        .dot:nth-of-type(3) { top: 90%; left: 10%; }
+        .dot:nth-of-type(4) { top: 90%; left: 90%; }
+
+        .cat {
+            background: radial-gradient(circle at 50% 20%, var(--c4), #fff0 45%), radial-gradient(circle at 50% 20%, var(--c2), var(--c3));
+            border-radius: 50%;
+            position: absolute;
+            width: 10%;
+            height: 10%;
+            left: 45%;
+            top: 40%;
+        }
+
+        .cat:before {
+            content: "";
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 20%, var(--c3), var(--c4));
+        }
+
+        .cat:after {
+            content: "";
+            position: absolute;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle at 50% 50%, var(--c5), #fff0);
+            border-radius: 50%;
+            left: 35%;
+            top: 35%;
+            box-shadow: 0 0 4px 0 var(--c5);
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>AI News Video Generator</h1>
-      <p>An innovative Python script that automatically creates engaging news videos by leveraging AI technologies and web APIs.</p>
-      <h2>Key Features</h2>
-      <div class="feature">
-        <h3>Trending News Fetching</h3>
-        <p>Utilizes the Google News API to retrieve the latest trending news articles.</p>
-      </div>
-      <div class="feature">
-        <h3>Text-to-Speech Conversion</h3>
-        <p>Employs ElevenLabs API to convert news text into natural-sounding speech.</p>
-      </div>
-      <div class="feature">
-        <h3>Dynamic Image Scraping</h3>
-        <p>Scrapes relevant images from news articles to visually enhance the video content.</p>
-      </div>
-      <div class="feature">
-        <h3>Automated Video Creation</h3>
-        <p>Combines audio narration, scraped images, and text overlays to produce a complete news video.</p>
-      </div>
-      <h2>How It Works</h2>
-      <p>The script fetches a random trending news article, converts its title and description to speech, downloads relevant images, and compiles everything into a dynamic video presentation.</p>
-      <h2>Technologies Used</h2>
-      <div class="tech">
-        <span class="tech-item">Python</span>
-        <span class="tech-item">Google News API</span>
-        <span class="tech-item">ElevenLabs API</span>
-        <span class="tech-item">BeautifulSoup</span>
-        <span class="tech-item">MoviePy</span>
-        <span class="tech-item">Pillow</span>
-      </div>
-      <div class="download-button">
-        <a href="https://example.com/path/to/your/bot/file.zip" download>Download the Bot</a>
-      </div>
+</head>
+<body>
+    <div class="room">
+        <div class="cuboid">
+            <div class="side"></div>
+            <div class="side"></div>
+            <div class="side"></div>
+        </div>
+        <div class="oops">
+            <h2>Oops</h2>
+            <p>We can't find the page you're looking for.</p>
+        </div>
+        <div class="center-line">
+            <div class="hole">
+                <div class="ladder-shadow"></div>
+                <div class="ladder"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="cat"></div>
+            </div>
+        </div>
     </div>
-  </body>
+</body>
 </html>
