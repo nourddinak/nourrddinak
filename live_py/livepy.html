@@ -82,6 +82,7 @@
             box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
+            position: relative;
         }
 
         .btn:hover,
@@ -277,58 +278,55 @@
 
         @keyframes animate {
             0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-                border-radius: 0;
+                transform: translateY(0) rotate(0);
+                opacity: 0.6;
             }
-
+            50% {
+                opacity: 0.8;
+                transform: translateY(-300px) rotate(720deg);
+            }
             100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
+                opacity: 0.6;
+                transform: translateY(0) rotate(0);
             }
         }
 
+        /* Hover Effect */
         .swiper-slide {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             position: relative;
         }
 
-        .card-info {
+        .cart-info {
             position: absolute;
             bottom: 10px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .card-info h2 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .card-info a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 15px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: #fff;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.8);
-            border-radius: 5px;
-            transition: background 0.3s;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            width: 200px;
+            text-align: center;
+            z-index: 20;
         }
 
-        .card-info a:hover {
-            background: rgba(0, 0, 0, 0.6);
+        .swiper-slide:hover .cart-info {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-info h2 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .cart-info p {
+            margin: 10px 0;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -336,7 +334,7 @@
     <section>
         <div class="content">
             <div class="info">
-                <h1>LivePython Projects</h1>
+                <h1>Live Python Projects</h1>
                 <p>Select a project to view more details or access it directly.</p>
                 <a href="songsrec" class="btn">Project 1</a>
                 <a href="#project2" class="btn">Project 2</a>
@@ -345,29 +343,29 @@
             <div class="swiper-container swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide card">
-                        <a href="https://example.com/project1">
+                        <a href="songsrec">
                             <img src="https://i.ibb.co/MPS7zr9/a30ee53f-ff38-44eb-bc5c-db8e0b31adf8.jpg" alt="Project 1">
-                            <div class="card-info">
+                            <div class="cart-info">
                                 <h2>Project 1</h2>
-                                <a href="songsrec">View Project</a>
+                                <p>click for More details about Project 1.</p>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide card">
                         <a href="https://example.com/project2">
                             <img src="https://via.placeholder.com/250x150?text=Project+2" alt="Project 2">
-                            <div class="card-info">
+                            <div class="cart-info">
                                 <h2>Project 2</h2>
-                                <a href="https://example.com/project2">View Project</a>
+                                <p>More details about Project 2.</p>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide card">
                         <a href="https://example.com/project3">
                             <img src="https://via.placeholder.com/250x150?text=Project+3" alt="Project 3">
-                            <div class="card-info">
+                            <div class="cart-info">
                                 <h2>Project 3</h2>
-                                <a href="https://example.com/project3">View Project</a>
+                                <p>More details about Project 3.</p>
                             </div>
                         </a>
                     </div>
