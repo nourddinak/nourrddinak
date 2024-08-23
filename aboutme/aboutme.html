@@ -130,6 +130,10 @@
             background-color: #1b1b1b;
             height: 100vh;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         section .title {
             max-width: 60%;
@@ -176,101 +180,29 @@
         .section h1 {
             color: light gray;
         }
-        @-moz-keyframes pop {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
+
+        .button {
+            background-color: #f7ca18;
+            color: #1b1b1b;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
         }
-        @-webkit-keyframes pop {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
+        .button:hover {
+            background-color: #e6b800;
         }
-        @-o-keyframes pop {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
+        .back-button {
+            background-color: #0b0b0b;
+            color: #fff;
         }
-        @keyframes pop {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @-moz-keyframes byBottom {
-            0% {
-                transform: translateY(150%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @-webkit-keyframes byBottom {
-            0% {
-                transform: translateY(150%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @-o-keyframes byBottom {
-            0% {
-                transform: translateY(150%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @keyframes byBottom {
-            0% {
-                transform: translateY(150%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @-moz-keyframes linkAfter {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 30px;
-            }
-        }
-        @-webkit-keyframes linkAfter {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 30px;
-            }
-        }
-        @-o-keyframes linkAfter {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 30px;
-            }
-        }
-        @keyframes linkAfter {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 30px;
-            }
+        .back-button:hover {
+            background-color: #1a1a1a;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -293,14 +225,26 @@
     </script>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="Salfia.co">Home</a></li>
+            <li>About me</li>
+            <li>Portfolio</li>
+            <li>Blog</li>
+            <li>Contact me</li>
+            <li class="slide"></li>
+        </ul>
+    </nav>
     <section>
         <div class="title">
             <span>About Me</span>
-            <span>href="https://en.wikipedia.org/wiki/Web_developer">Web Developer</a>
-                <h3><br>Hello, my name is noureddine. I am intressted in knowing more about HTML, CSS, JavaScript,and python.</h3>
+            <span>Graphic Designer and <a target="_blank" href="salfia.com">Web Developer</a>
+                <h3><br>Hello, my name is Jack Salfia. I am proficient in HTML, CSS, JavaScript, Ruby, PHP, and MySQL.</h3>
                 <p>Social Links</p>
             </span>
         </div>
+        <button class="button" onclick="window.location.href='donate.html'">Donate</button>
+        <button class="button back-button" onclick="window.location.href='Salfia.co'">Back to Home</button>
     </section>
 </body>
 </html>
