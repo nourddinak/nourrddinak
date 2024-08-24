@@ -94,3 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize the first page
   showPage('#species');
 });
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded');
+});
+  
