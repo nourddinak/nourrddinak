@@ -64,3 +64,33 @@ document.addEventListener("DOMContentLoaded", () => {
   switchSlide(0);
   autoSlide();
 });
+// JavaScript for navigation
+document.addEventListener('DOMContentLoaded', function() {
+  // Cache DOM elements
+  const navLinks = document.querySelectorAll('nav a');
+  const pages = document.querySelectorAll('.page');
+
+  // Function to handle page transitions
+  function showPage(targetId) {
+    // Hide all pages
+    pages.forEach(page => page.style.display = 'none');
+    // Show the target page
+    document.querySelector(targetId).style.display = 'block';
+  }
+
+  // Add click event listeners to navigation links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      const targetId = link.getAttribute('href');
+      showPage(targetId);
+
+      // Update active link
+      navLinks.forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Initialize the first page
+  showPage('#species');
+});
