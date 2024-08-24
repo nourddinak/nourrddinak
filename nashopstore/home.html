@@ -1,72 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NASHOP</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Add ARIA roles for better accessibility -->
-  <header role="banner">
-    <div class="inner">
-      <div class="logo">
-        <img src="https://i.ibb.co/BKK55F6/70c82a8c44cadd3f0ccd280f42b139e7.png" alt="NASHOP Logo">
-      </div>
-      <button class="burger" aria-label="Toggle Navigation"></button>
-      <nav role="navigation">
-        <a class="active" href="#">Species</a>
-        <a href="#">About Us</a>
-        <a href="#">Our Work</a>
-        <a href="#">Get Involved</a>
-      </nav>
-      <a href="#" class="donate-link">Donate</a>
-    </div>
-  </header>
-
-  <main role="main">
-    <div id="slider" class="slider">
-      <div class="slider-inner">
-        <div id="slider-content" class="slider-content">
-          <div class="meta">ofeers</div>
-          <h2 id="slide-title"> <br>gift cards</h2>
-          <span data-slide-title="0">Amur </span>
-          <span data-slide-title="1">Asiatic </span>
-          <span data-slide-title="2"><br>Tiger</span>
-          <span data-slide-title="3">Brown <br></span>
-    
-          <h2 id="slide-title"> <br>price</h2>
-          <span data-slide-status="0">Critically Endangered</span>
-          <span data-slide-status="1">Endangered</span>
-          <span data-slide-status="2">Endangered</span>
-          <span data-slide-status="3">Least Concern</span>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASHOP</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Header -->
+    <header role="banner">
+      <div class="inner">
+        <div class="logo">
+          <img src="https://i.ibb.co/BKK55F6/70c82a8c44cadd3f0ccd280f42b139e7.png" alt="NASHOP Logo">
         </div>
+        <button class="burger" aria-label="Toggle Navigation"></button>
+        <nav role="navigation">
+          <a href="#species" class="active">Species</a>
+          <a href="#about">About Us</a>
+          <a href="#work">Our Work</a>
+          <a href="#involved">Get Involved</a>
+        </nav>
+        <a href="#" class="donate-link">Donate</a>
       </div>
-      <img src="https://i.ibb.co/30ND2xZ/Leonardo-Phoenix-a-moody-highcontrast-cinematic-photograph-fea-3.jpg" alt="Slide Image 1">
-      <img src="https://i.ibb.co/1ZLkxVV/Leonardo-Phoenix-A-highly-stylized-cinematic-photograph-of-a-G-3.jpg" alt="Slide Image 2">
-      <img src="https://i.ibb.co/vVQSJDx/Leonardo-Phoenix-A-dramatic-highcontrast-black-and-white-photo-0.jpg" alt="Slide Image 3">
-      <img src="https://i.ibb.co/H2nfnQW/Leonardo-Phoenix-a-dramatic-highcontrast-photograph-of-a-ROBLO-3.jpg" alt="Slide Image 4">
-      <div id="pagination" class="pagination">
-        <button class="active" data-slide="0" aria-label="Slide 1"></button>
-        <button data-slide="1" aria-label="Slide 2"></button>
-        <button data-slide="2" aria-label="Slide 3"></button>
-        <button data-slide="3" aria-label="Slide 4"></button>
-      </div>
-    </div>
-  </main>
+    </header>
+    <main role="main">
+      <!-- Sections for each page -->
+      <section id="species" class="page">
+        <div id="slider" class="slider">
+          <div class="slider-inner">
+            <div id="slider-content" class="slider-content">
+              <div class="meta">Offers</div>
+              <h2 id="slide-title">
+                <br>Gift Cards
+              </h2>
+              <span data-slide-title="0">Amur</span>
+              <span data-slide-title="1">Asiatic</span>
+              <span data-slide-title="2">
+                <br>Tiger </span>
+              <span data-slide-title="3">Brown <br>
+              </span>
+              <h2 id="slide-title">
+                <br>Price
+              </h2>
+              <span data-slide-status="0">Critically Endangered</span>
+              <span data-slide-status="1">Endangered</span>
+              <span data-slide-status="2">Endangered</span>
+              <span data-slide-status="3">Least Concern</span>
+              <a href="product1.html" class="button">Learn More</a>
+              <!-- Button -->
+            </div>
+          </div>
+          <img src="https://i.ibb.co/30ND2xZ/Leonardo-Phoenix-a-moody-highcontrast-cinematic-photograph-fea-3.jpg" alt="Slide Image 1">
+          <img src="https://i.ibb.co/1ZLkxVV/Leonardo-Phoenix-A-highly-stylized-cinematic-photograph-of-a-G-3.jpg" alt="Slide Image 2">
+          <img src="https://i.ibb.co/vVQSJDx/Leonardo-Phoenix-A-dramatic-highcontrast-black-and-white-photo-0.jpg" alt="Slide Image 3">
+          <img src="https://i.ibb.co/H2nfnQW/Leonardo-Phoenix-a-dramatic-highcontrast-photograph-of-a-ROBLO-3.jpg" alt="Slide Image 4">
+          <div id="pagination" class="pagination">
+            <button class="active" data-slide="0" aria-label="Slide 1"></button>
+            <button data-slide="1" aria-label="Slide 2"></button>
+            <button data-slide="2" aria-label="Slide 3"></button>
+            <button data-slide="3" aria-label="Slide 4"></button>
+          </div>
+        </div>
+      </section>
+      <section id="about" class="page">
+        <div class="page-content">
+          <div class="section">
+            <h2>About Us</h2>
+            <p>NASHOP is your one-stop destination for exclusive gift cards from top brands. We offer a wide selection of gift cards that make perfect presents for any occasion. Whether you're celebrating a birthday, anniversary, or just want to show appreciation, we have the ideal gift card to suit every need.</p>
+          </div>
+          <div class="section">
+            <h2>Our Vision</h2>
+            <p>Our vision is to simplify gift-giving by providing a diverse range of high-quality gift cards. We aim to make it easy for you to find the perfect gift for your loved ones, with a seamless shopping experience and excellent customer service.</p>
+          </div>
+          <div class="section">
+            <h2>Our Story</h2>
+            <p>NASHOP was founded with the goal of transforming the gift card industry. Since our inception, we have been committed to curating an extensive collection of gift cards from leading brands. Our dedication to providing exceptional service and value has made us a trusted choice for customers around the world.</p>
+          </div>
+      </section>
+      <section id="work" class="page">
+        <div class="page-content">
+          <h1>Our Work</h1>
+          <p>At NASHOP, we take pride in delivering exceptional results for our clients. Our team of experts is dedicated to providing innovative solutions that drive success. Below, you can explore some of our key projects and achievements. or you can visit our website https://nourddinak.online .</p>
+          <div class="projects">
+            <h2>Featured Projects</h2>
+            <div class="project">
+              <h3>SpotProx Crypto</h3>
+              <img src="https://i.ibb.co/30ND2xZ/Leonardo-Phoenix-a-moody-highcontrast-cinematic-photograph-fea-3.jpg" alt="Project Phoenix Image">
+              <p>The SpotProx Crypto project was an ambitious initiative aimed at redefining the user experience of a key customer in the tech industry. Our approach combines cutting-edge technology with user-centered design to deliver a platform that exceeds expectations. But by coincidence we bowed to stop Project SpotProx for many reasons</p>
+            </div>
+      </section>
+      <section id="involved" class="page">
+        <div class="page-content">
+          <div class="section">
+          <h2>Get Involved</h2>
+          <p>At NASHOP, we believe that everyone can make a difference. Whether you're passionate about gift-giving, want to support our mission, or simply want to contribute to our community, there are several ways you can get involved:</p>
+            </div>
+          <div class="section">
+            <h2>Become a Partner</h2>
+            <p>If you're a business or brand interested in partnering with us, we would love to hear from you. Partnering with NASHOP allows you to reach a broader audience and contribute to a meaningful cause. Contact us to explore partnership opportunities and benefits.</p>
+          </div>
+          <div class="section">
+            <h2>Support Our Initiatives</h2>
+            <p>Your support helps us continue to provide exceptional gift card options and improve our services. Consider making a donation or participating in our fundraising events. Every contribution, big or small, makes a significant impact.</p>
+          </div>
+          <div class="section">
+            <h2>Join Our Community</h2>
+            <p>Stay connected with us by joining our community. Follow us on social media, subscribe to our newsletter, and participate in our events. By staying engaged, you can be the first to know about new products, special offers, and company updates.</p>
+          </div>
+          <div class="section">
+            <h2>Volunteer with Us</h2>
+            <p>We are always looking for enthusiastic volunteers to help with various tasks and events. If you're interested in volunteering your time or skills, please get in touch with us. Your involvement will help us enhance our services and support our mission.</p>
+          </div>
+          <div class="social-links">
+            <h2>Connect with Us</h2>
+            <a href="https://facebook.com" class="social-button facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="https://twitter.com" class="social-button twitter" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://instagram.com" class="social-button instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://linkedin.com" class="social-button linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Include scripts at the bottom for better performance -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40525870-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-  <!-- Include scripts at the bottom for better performance -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40525870-5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-40525870-5');
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
-  <script src="script.js"></script>
-</body>
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-40525870-5');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
