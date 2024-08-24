@@ -95,8 +95,13 @@ sub {
   bottom: -0.25em;
 }
 
-img {
-  border: 0;
+.logo img {
+  width: 100px;
+  height: auto;
+}
+
+nav {
+  display: none;
 }
 
 svg:not(:root) {
