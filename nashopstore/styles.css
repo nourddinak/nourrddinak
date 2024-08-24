@@ -158,20 +158,21 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 }
 
 .slider {
   width: 100%;
-  max-width: 1200px;
-  height: 100%;
+  height: 100vh; /* Full height to cover viewport height */
   position: relative;
+  overflow: hidden;
 }
 
 .slider img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; /* Ensures images cover the container while maintaining aspect ratio */
   display: block;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -185,47 +186,79 @@ main {
   color: #FFFFFF;
   text-align: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.7); /* Slightly darker for better contrast */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 700px; /* Adjusted for better visibility on larger screens */
 }
 
 .slider-content .meta {
-  font-size: 12px;
-  letter-spacing: 2px;
+  font-size: 14px;
+  letter-spacing: 1px;
   color: #CCCCCC;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-transform: uppercase;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Adds a subtle shadow for better readability */
 }
 
 .slider-content h2 {
   font-size: 2.5em;
-  line-height: 1.2;
+  line-height: 1.3;
   margin-bottom: 20px;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a more pronounced shadow */
 }
 
 .pagination {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px; /* Increased space for better visibility */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 15px; /* Increased gap for better spacing */
 }
 
 .pagination button {
-  width: 15px;
-  height: 15px;
+  width: 18px; /* Slightly larger for better visibility */
+  height: 18px; /* Slightly larger for better visibility */
   border-radius: 50%;
   background-color: #FFFFFF;
   border: none;
   cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.3s;
+  opacity: 0.6;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .pagination button.active,
 .pagination button:hover {
   opacity: 1;
+  transform: scale(1.1); /* Adds a scaling effect on hover */
+}
+
+/* Additional styles for very small screens */
+@media (max-width: 480px) {
+  header .logo img {
+    width: 40px;
+  }
+
+  header nav a {
+    font-size: 12px;
+  }
+
+  .slider-content {
+    padding: 15px; /* Adjusted padding for smaller screens */
+  }
+
+  .slider-content h2 {
+    font-size: 1.8em; /* Slightly smaller font size for smaller screens */
+  }
+
+  .pagination button {
+    width: 14px;
+    height: 14px;
+  }
 }
