@@ -57,7 +57,7 @@ header nav a {
   font-size: 14px;
   text-decoration: none;
   position: relative;
-  transition: color 0.3s;
+  transition: color 0.3s, letter-spacing 0.3s;
 }
 
 header nav a::after {
@@ -81,6 +81,7 @@ header nav a:hover::after {
 header nav a:hover,
 header nav a.active {
   color: #FF6347;
+  letter-spacing: 1px; /* Added letter-spacing on hover */
 }
 
 header .burger {
@@ -117,12 +118,13 @@ header .donate-link {
   padding: 5px 15px;
   border: 1px solid #FF6347;
   border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 header .donate-link:hover {
   background-color: #FF6347;
   color: #FFFFFF;
+  transform: scale(1.05); /* Subtle scaling on hover */
 }
 
 @media (max-width: 768px) {
@@ -186,11 +188,17 @@ main {
   color: #FFFFFF;
   text-align: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.7); /* Slightly darker for better contrast */
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)); /* Gradient overlay */
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
   width: 90%;
   max-width: 700px; /* Adjusted for better visibility on larger screens */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+}
+
+.slider-content:hover {
+  transform: translate(-50%, -50%) scale(1.02); /* Slight scaling on hover */
+  opacity: 0.9;
 }
 
 .slider-content .meta {
@@ -230,13 +238,14 @@ main {
   border: none;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
 }
 
 .pagination button.active,
 .pagination button:hover {
   opacity: 1;
   transform: scale(1.1); /* Adds a scaling effect on hover */
+  background-color: #FF6347; /* Color change on hover */
 }
 
 /* Additional styles for very small screens */
@@ -261,4 +270,194 @@ main {
     width: 14px;
     height: 14px;
   }
+}
+
+
+/* Button styling learn more */
+/* Button styling */
+.slider-content .button {
+  display: inline-block;
+  background-color: #FF6347; /* Button color */
+  color: #FFFFFF; /* Text color */
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px; /* Space between text and button */
+}
+
+.slider-content .button:hover {
+  background-color: #FF4500; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.slider-content .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.5); /* Focus outline */
+}
+/* Base styling */
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #2c2f36; /* Slightly lighter dark background */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  color: #e3e3e3; /* Light text color for contrast */
+}
+
+/* Section styles */
+.section {
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  color: #FF6347; /* Accent color for headings */
+  border-bottom: 2px solid #FF6347;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+/* Base styling for the "Our Work" section */
+#work .page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #2c2f36; /* Background color matching the dark theme */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  color: #e3e3e3; /* Light text color for contrast */
+}
+
+/* Heading styling */
+#work h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #FF6347; /* Accent color for main headings */
+  border-bottom: 2px solid #FF6347;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Section paragraph */
+#work p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #CCCCCC; /* Slightly lighter color for readability */
+  margin-bottom: 40px;
+}
+
+/* Projects container styling */
+.projects {
+  margin-top: 40px;
+}
+
+.projects h2 {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  color: #FF6347; /* Accent color for section headings */
+  border-bottom: 2px solid #FF6347;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Project styling */
+.project {
+  background-color: #333;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project h3 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #FFFFFF; /* White color for project titles */
+}
+
+.project img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect on images */
+}
+
+.project p {
+  font-size: 1em;
+  color: #CCCCCC; /* Lighter text color for project descriptions */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #work .page-content {
+    padding: 20px;
+  }
+  
+  .project {
+    margin-bottom: 30px;
+  }
+}
+/* Social media button styling */
+.social-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.social-button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+  width: 120px; /* Fixed width for consistent button sizes */
+}
+
+.social-button:hover {
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.facebook {
+  background-color: #3b5998; /* Facebook blue */
+}
+
+.twitter {
+  background-color: #1da1f2; /* Twitter blue */
+}
+
+.instagram {
+  background-color: #e4405f; /* Instagram pink */
+}
+
+.linkedin {
+  background-color: #0077b5; /* LinkedIn blue */
+}
+
+.facebook:hover {
+  background-color: #2d4373; /* Darker shade for hover effect */
+}
+
+.twitter:hover {
+  background-color: #1a91da; /* Darker shade for hover effect */
+}
+
+.instagram:hover {
+  background-color: #d13550; /* Darker shade for hover effect */
+}
+
+.linkedin:hover {
+  background-color: #005b8a; /* Darker shade for hover effect */
 }
