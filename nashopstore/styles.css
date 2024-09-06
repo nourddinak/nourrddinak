@@ -126,7 +126,10 @@ header .donate-link:hover {
   color: #FFFFFF;
   transform: scale(1.05); /* Subtle scaling on hover */
 }
-
+.logo video {
+  width: 100%;
+  height: auto;
+}
 @media (max-width: 768px) {
   header nav {
     display: none;
