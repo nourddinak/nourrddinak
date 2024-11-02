@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Object Detection</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding-top: 80px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        padding: 30px;
+        max-width: 800px;
+        width: 90%;
+        margin: 20px auto;
+        border: 2px solid var(--accent-color);
+      }
+
+      h1, h2 {
+        color: var(--accent-color);
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+        text-shadow: 0 0 10px var(--accent-color);
+        text-transform: uppercase;
+        letter-spacing: 5px;
+      }
+
+      button {
+        background: var(--accent-color);
+        color: var(--bg-color);
+        padding: 12px 24px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 4px;
+      }
+
+      button:hover {
+        background: var(--secondary-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px var(--accent-color);
+      }
+
+      #video-container {
+        position: relative;
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 0 20px var(--accent-color);
+      }
+
+      #webcam, #canvas {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+      }
+
+      select {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid var(--accent-color);
+        padding: 8px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+
+      #threshold-slider {
+        accent-color: var(--accent-color);
+      }
+
+      .header {
+        text-align: center;
+        color: var(--accent-color);
+        margin-bottom: 20px;
+      }
+
+      #detected-objects li {
+        background: rgba(255, 255, 255, 0.1);
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border-left: 3px solid var(--accent-color);
+      }
+
+      .detection-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .object-box {
+        position: absolute;
+        border: 2px solid var(--accent-color);
+        box-shadow: 0 0 10px var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .object-label {
+        background: rgba(0, 0, 0, 0.7);
+        color: var(--accent-color);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 12px;
+        position: absolute;
+        top: -20px;
+        left: 0;
+      }
+
+      #performance-metrics {
+        display: flex;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin: 1rem 0;
+      }
+
+      #performance-metrics span {
+        color: var(--accent-color);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="cool-header">
+      <div class="container">
+        <div class="logo">
+          <span class="logo-text">nourddinak</span>
+          <span class="logo-emoji">👨‍💻</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html" class="nav-link">Home <span class="nav-emoji">🏠</span></a></li>
+            <li><a href="../index.html#about" class="nav-link">About Me <span class="nav-emoji">🤷</span></a></li>
+            <li><a href="../contact.html" class="nav-link">Contact <span class="nav-emoji">📞</span></a></li>
+          </ul>
+        </nav>
+        <button class="hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1>Futuristic Object Detection</h1>
+        <div class="header">!!attention!! if it doesn't work for u you might need to download it</div>
+        <div id="status">Ready to detect objects</div>
+        <div class="controls">
+          <button id="start-button" class="btn">Start Detection</button>
+          <button id="stop-button" class="btn" style="display:none">Stop Detection</button>
+          <button id="audio-toggle" class="btn">Mute Audio</button>
+          <button id="flip-camera" class="btn">Flip Camera</button>
+          <button id="screenshot-button" class="btn">Take Screenshot</button>
+          <button id="export-button" class="btn">Export Data</button>
+          <button id="record-button" class="btn">Start Recording</button>
+          <select id="language-select" class="btn">
+            <option value="en-US">English</option>
+            <option value="es-ES">Español</option>
+            <option value="fr-FR">Français</option>
+          </select>
+          <input type="range" id="threshold-slider" min="0" max="100" value="66">
+          <span id="threshold-value">Threshold: 66%</span>
+        </div>
+        <div id="video-container">
+          <video id="webcam" autoplay muted></video>
+          <canvas id="canvas"></canvas>
+        </div>
+        <div id="object-list">
+          <h2>Detected Objects</h2>
+          <ul id="detected-objects"></ul>
+        </div>
+        <div id="performance-metrics">
+          <span id="fps">FPS: 0</span>
+          <span id="latency">Latency: 0ms</span>
+        </div>
+        <div id="history-container">
+          <h2>Detection History</h2>
+          <div id="history-chart"></div>
+        </div>
+        <div id="status">Ready to detect objects</div>
+      </div>
+    </main>
+
+    <button id="scroll-to-top">
+      <svg class="svgIcon" viewBox="0 0 384 512">
+        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+      </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="objdec.js"></script>
+  </body>
+</html>

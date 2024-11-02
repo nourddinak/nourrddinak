@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Fact</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--accent-color);
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(15px);
+        }
+        .button {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s;
+            margin: 0.25rem;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: var(--secondary-accent);
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: scale(0.95);
+        }
+        .floating-circle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            top: 10%;
+            left: 15%;
+            animation-duration: 8s;
+        }
+        .circle2 {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.3);
+            bottom: 10%;
+            right: 15%;
+            animation-duration: 12s;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #2e2e2e, #3a3a3a);
+        }
+        .dark-mode .card {
+            background: #2e2e2e;
+            color: white;
+            border-color: #444;
+        }
+        .dark-mode .button {
+            background: #4f46e5;
+        }
+        .dark-mode .button:hover, .dark-mode .button:focus {
+            background: #6366f1;
+        }
+        #loading {
+            display: none;
+        }
+        .emoji {
+            margin-right: 0.5rem;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--accent-color);
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        main {
+            padding-top: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+        }
+
+        .card {
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        #fact {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        #language {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        #language option {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        #fact-length {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="cool-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">nourddinak</span>
+                <span class="logo-emoji">👨‍💻</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home <span class="nav-emoji">🏠</span></a></li>
+                    <li><a href="../index.html#about" class="nav-link">About Me <span class="nav-emoji">🤷</span></a></li>
+                    <li><a href="../contact.html" class="nav-link">Contact <span class="nav-emoji">📞</span></a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <h1>🎲 Random Fact Generator</h1>
+            
+            <div id="fact" class="fact-text"></div>
+            <p id="fact-length"></p>
+            
+            <div id="loading" class="loading-indicator">
+                <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+
+            <div class="button-container">
+                <button onclick="fetchRandomFact()" class="button"><span class="emoji">🔄</span>Load Another</button>
+                <button onclick="translateFact()" class="button"><span class="emoji">🌐</span>Translate</button>
+                <button onclick="copyFact()" class="button"><span class="emoji">📋</span>Copy</button>
+                <button onclick="shareFact()" class="button"><span class="emoji">🔗</span>Share</button>
+                <button onclick="rateFact()" class="button"><span class="emoji">⭐</span>Rate</button>
+                <button onclick="saveFact()" class="button"><span class="emoji">💾</span>Save</button>
+                <button onclick="toggleDarkMode()" class="button"><span class="emoji">🌓</span>Dark Mode</button>
+                <button onclick="downloadFact()" class="button"><span class="emoji">📥</span>Download</button>
+                <button onclick="viewSavedFacts()" class="button"><span class="emoji">📚</span>View Saved</button>
+                <button onclick="speakFact()" class="button"><span class="emoji">🔊</span>Speak</button>
+                <button onclick="changeFontSize()" class="button"><span class="emoji">🔠</span>Font Size</button>
+            </div>
+
+            <select id="language" class="language-select">
+                <option value="en|ar">🇸🇦 Arabic</option>
+                <option value="en|es">🇪🇸 Spanish</option>
+                <option value="en|fr">🇫🇷 French</option>
+                <option value="en|de">🇩🇪 German</option>
+                <option value="en|it">🇮🇹 Italian</option>
+                <option value="en|ja">🇯🇵 Japanese</option>
+                <option value="en|ko">🇰🇷 Korean</option>
+                <option value="en|ru">🇷🇺 Russian</option>
+                <option value="en|hi">🇮🇳 Hindi</option>
+                <option value="en|tr">🇹🇷 Turkish</option>
+                <option value="en|pt">🇵🇹 Portuguese</option>
+                <option value="en|nl">🇳🇱 Dutch</option>
+                <option value="en|pl">🇵🇱 Polish</option>
+                <option value="en|vi">🇻🇳 Vietnamese</option>
+                <option value="en|th">🇹🇭 Thai</option>
+                <option value="en|zh-CN">🇨🇳 Chinese (Simplified)</option>
+                <option value="en|zh-TW">🇹🇼 Chinese (Traditional)</option>
+            </select>
+        </div>
+    </main>
+
+    <button id="scroll-to-top">
+        <svg class="svgIcon" viewBox="0 0 384 512">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+        </svg>
+    </button>
+    <script src="fact1f.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'loading-overlay';
+            loadingOverlay.innerHTML = `
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading...</div>
+            `;
+            document.body.appendChild(loadingOverlay);
+            
+            window.addEventListener('load', () => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => loadingOverlay.remove(), 500);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Two-Hand Piano Detection</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            border: 2px solid var(--accent-color);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        #video-container {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        #video, #output {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        button {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 4px;
+        }
+
+        button:hover {
+            background: var(--secondary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        .piano-key {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+
+        .piano-key.active {
+            background: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        #sensitivity {
+            accent-color: var(--accent-color);
+        }
+
+        .header {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+        }
+
+        .loading-text {
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+        }
+
+        .piano-key {
+            width: 40px;
+            height: 120px;
+            margin: 0 2px;
+            transition: all 0.2s ease;
+        }
+
+        .piano-key.active {
+            transform: translateY(5px);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid red;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header class="cool-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">nourddinak</span>
+                <span class="logo-emoji">👨‍💻</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home <span class="nav-emoji">🏠</span></a></li>
+                    <li><a href="../index.html#about" class="nav-link">About Me <span class="nav-emoji">🤷</span></a></li>
+                    <li><a href="../contact.html" class="nav-link">Contact <span class="nav-emoji">📞</span></a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Futuristic Piano Detection</h1>
+            <div class="header">!!attention!! if it doesn't work for u you might need to download it</div>
+            <div id="video-container">
+                <video id="video" playsinline></video>
+                <canvas id="output"></canvas>
+            </div>
+            <div id="controls">
+                <button id="toggleDetection">Start Detection</button>
+                <button id="flipCamera">Flip Camera</button>
+            </div>
+            <div id="piano-keys-left"></div>
+            <div id="piano-keys-right"></div>
+            <div id="stats"></div>
+            <div id="finger-info"></div>
+            <div id="sensitivity-control">
+                <label for="sensitivity">Movement Sensitivity:</label>
+                <input type="range" id="sensitivity" min="1" max="100" value="50">
+            </div>
+        </div>
+    </main>
+
+    <button id="scroll-to-top">
+        <svg class="svgIcon" viewBox="0 0 384 512">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+        </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="handpdec.js"></script>
+</body>
+</html>
