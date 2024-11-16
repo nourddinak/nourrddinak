@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nourddinak - Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/sWQpQTF/dab74eab-f3cf-4019-8dc8-391039dd68b9.jpg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/sWQpQTF/dab74eab-f3cf-4019-8dc8-391039dd68b9.jpg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;1000&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d0fb25e48c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Add the logo to the top of the site -->
+    <div class="site-logo">
+        <span class="logo-text">nourddinak</span>
+        <span class="logo-emoji">👨‍💻</span>
+    </div>
+    
+    <header class="cool-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">nourddinak</span>
+                <span class="logo-emoji">👨‍💻</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#hero" class="nav-link">Home <span class="nav-emoji">🏠</span></a></li>
+                    <li><a href="#about" class="nav-link">About Me <span class="nav-emoji">🤷</span></a></li>
+                    <li><a href="#project-demo" class="nav-link">Projects <span class="nav-emoji">💻</span></a></li>
+                    <li><a href="#skills" class="nav-link">Skills <span class="nav-emoji">📊</span></a></li>
+                    <li><a href="contact.html" class="nav-link">Contact <span class="nav-emoji">📞</span></a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="progress-bar"></div>
+    </header>
+    <main>
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="header-text">
+                            <span class="text-animate">Creative</span>
+                            <span class="text-animate">Python</span>
+                            <span class="text-animate">Portfolio</span>
+                        </h1>
+                        <div class="cta-buttons">
+                            <a href="#store" class="glow-button">
+                                <span>Explore Store</span>
+                                <span class="nav-emoji">🛒</span>
+                            </a>
+                            <a href="#python-projects" class="glow-button">
+                                <span>View Projects</span>
+                                <span class="nav-emoji">🐍</span>
+                            </a>
+                        </div>
+                        <div class="center-content">
+                            <p class="innovative-text">
+                                Innovative & Creative solutions powered by
+                                <span class="python-text">
+                                    <span class="letter">P</span>
+                                    <span class="letter">y</span>
+                                    <span class="letter">t</span>
+                                    <span class="letter">h</span>
+                                    <span class="letter">o</span>
+                                    <span class="letter">n</span>
+                                </span>
+                            </p>
+                            <div class="tech-tags">
+                                <span class="tag">🤖 AI</span>
+                                <span class="tag">🌐 Web Dev</span>
+                                <span class="tag">📊 Data Analysis</span>
+                                <span class="tag">🔧 Automation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg">
+                <div></div>
+                <div></div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://i.ibb.co/sWQpQTF/dab74eab-f3cf-4019-8dc8-391039dd68b9.jpg" alt="Your Name">
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="about-text">
+                        <h3>Hello, I'm <span class="highlight">Noureddine</span></h3>
+                        <p>I'm a new Python developer with a keen interest in creating innovative solutions. My journey in programming started in 2023, and since then, I've been constantly learning and improving my skills.</p>
+                        <p>I specialize in <span class="highlight">web development</span>, <span class="highlight">data analysis</span>, and <span class="highlight">machine learning</span>. My goal is to leverage technology to solve real-world problems and make a positive impact.</p>
+                        <div class="about-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Based in Morocco</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Computer Science </span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-code-branch"></i>
+                                <span>Open for Collaborations</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="glow-button">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="project-demo">
+            <div class="container">
+                <h2 class="section-title">Project Demos</h2>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="https://i.ibb.co/0yKb73R/Default-a-cinematic-photo-of-a-hightech-cyberpunkstyle-room-wi-1.jpg" alt="Object Detection with Audio">
+                                <h3>🎵 Object Detection with Audio</h3>
+                            </div>
+                            <div class="card-back">
+                                <p>Experience the power of Object Detection with Audio.</p>
+                                <a href="./demo/objdec" class="glow-button">Try Demo 🚀</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="https://i.ibb.co/T28zkyj/Default-A-futuristic-neonlit-scene-of-a-person-playing-a-holog-0.jpg" alt="Advanced Two-Hand Piano Detection">
+                                <h3>🎹 Advanced Two-Hand Piano Detection</h3>
+                            </div>
+                            <div class="card-back">
+                                <p>Cutting-edge piano hand detection technology.</p>
+                                <a href="./demo/handpdec" class="glow-button">Try Demo 🚀</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="https://i.ibb.co/nB5CmrW/Default-Create-a-vibrant-and-playful-digital-illustration-repr-3.jpg" alt="Random Fact Generator">
+                                <h3>🎲 Random Fact Generator</h3>
+                            </div>
+                            <div class="card-back">
+                                <p>Random Fact Generator in real-time.</p>
+                                <a href="./demo/fact1f" class="glow-button">Try Demo 🚀</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="featured-projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="https://i.ibb.co/VpxG2y2/Default-Create-an-image-that-represents-a-You-Tube-Livestream-M-0.jpg" alt="YouTube Livestream Manager">
+                        <h3>📺 YouTube Livestream Manager</h3>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://i.ibb.co/hVT5vXT/Default-Create-a-modern-stylized-illustration-of-an-Instagram-0.jpg" alt="AI-Powered Social Media Management">
+                        <h3>🤖 AI-Powered Social Media Management</h3>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://i.ibb.co/pWWNLbT/Default-A-meticulously-crafted-Python-Projects-Portfolio-emerg-0.jpg" alt="AI News Video Generator">
+                        <h3>📰 AI News Video Generator</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+       <section id="skills">
+    <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="skill-bar">
+            <span class="skill-name">Python 🐍</span>
+            <div class="bar">
+                <div class="progress" style="width: 80%;"></div>
+            </div>
+        </div>
+        <div class="skill-bar">
+            <span class="skill-name">HTML/JS/CSS 🌐</span>
+            <div class="bar">
+                <div class="progress" style="width: 55%;"></div>
+            </div>
+        </div>
+        <div class="skill-bar">
+            <span class="skill-name">C Language</span>
+            <div class="bar">
+                <div class="progress" style="width: 50%;"></div>
+            </div>
+        </div>
+    </div>
+       </section>
+        <section id="stats">
+            <div class="container">
+                <h2 class="section-title">Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-circle">
+                            <span class="stat-number" data-target="5">0</span>
+                            <span class="stat-plus">+</span>
+                        </div>
+                        <h3>Projects Completed</h3>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-circle">
+                            <span class="stat-number" data-target="A/N">0</span>
+                            <span class="stat-plus"></span>
+                        </div>
+                        <h3>Client Satisfaction</h3>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-circle">
+                            <span class="stat-number" data-target="24">0</span>
+                            <span class="stat-plus">H</span>
+                        </div>
+                        <h3>Support Available</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="timeline">
+            <div class="container">
+                <h2 class="section-title">My Journey</h2>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🚀</div>
+                    <div class="timeline-content">
+                        <h3>2023</h3>
+                        <p>Started learning Python</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">💻</div>
+                    <div class="timeline-content">
+                        <h3>2024</h3>
+                        <p>HTML, CSS, and JavaScript</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What People Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"a new Python dev, make sure to take a look at all the small details."</p>
+                        <div class="testimonial-author">
+                            <img src="https://www.pngitem.com/pimgs/m/247-2472306_admin-anonymous-person-icon-hd-png-download.png" alt="Client">
+                            <div class="author-info">
+                                <h4></h4>
+                                <span>Anonymus</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more testimonial cards as needed -->
+            </div>
+        </div>
+    </section>
+<!-- Add before the footer -->
+<section id="certifications">
+    <div class="container">
+        <h2 class="section-title">Certifications & Education</h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon">🎓</div>
+                <div class="cert-content">
+                    <h3>Computer Science</h3>
+                    <p>Currently Studying</p>
+                    <span class="cert-date">2023 - Present</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Add after the Featured Projects section -->
+     <section id="project-filters">
+        <div class="container">
+            <h2 class="section-title">Project Categories</h2>
+            <div class="filter-grid">
+                <div class="filter-card">
+                    <div class="filter-icon">🤖</div>
+                    <h3>AI Projects</h3>
+                    <span class="project-count">2</span>
+                </div>
+                <div class="filter-card">
+                    <div class="filter-icon">🌐</div>
+                    <h3>Web Apps</h3>
+                    <span class="project-count">1</span>
+                </div>
+                <div class="filter-card">
+                    <div class="filter-icon">📱</div>
+                    <h3>Automation</h3>
+                    <span class="project-count">2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h4 class="footer-title">About Me</h4>
+                    <p class="footer-description">Passionate Python developer crafting innovative solutions. Exploring the realms of web development, data analysis, and machine learning to make a positive impact.</p>
+                    <div class="footer-social">
+                        <div class="social-card">
+                            <span>Social</span>
+                            <div class="social-links-container">
+                                <a class="social-link" href="https://www.instagram.com/nourddinak/" target="_blank" rel="noopener noreferrer">
+                                   <i class="fab fa-instagram"></i>
+                                </a>
+                                <a class="social-link" href="https://github.com/nourddinak" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a class="social-link" href="https://discord.gg/928289420958924840" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-discord"></i>
+                                </a>
+                                <a class="social-link" href="https://x.com/Japdjdj1" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-x-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero" class="footer-link"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#about" class="footer-link"><i class="fas fa-user"></i> About</a></li>
+                        <li><a href="#project-demo" class="footer-link"><i class="fas fa-code"></i> Projects</a></li>
+                        <li><a href="#skills" class="footer-link"><i class="fas fa-cogs"></i> Skills</a></li>
+                        <li><a href="contact.html" class="footer-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="footer-contact-list">
+                        <li><i class="fas fa-map-marker-alt"></i> Morocco</li>
+                        <li><i class="fas fa-envelope"></i> hholi7728@gmail.com</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 nourddinak. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Replace the existing scroll-to-top button with this -->
+    <button id="scroll-to-top">
+        <svg class="svgIcon" viewBox="0 0 384 512">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+        </svg>
+    </button>
+
+    <svg class="filters">
+        <filter id="glow-4">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="glow" />
+            <feComposite in="SourceGraphic" in2="glow" operator="over" />
+        </filter>
+    </svg>
+
+
+    <script src="https://kit.fontawesome.com/YOUR-KIT-CODE.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+
+    <!-- Music Player Button -->
+    <button id="music-player">
+        <svg class="svgIcon" viewBox="0 0 512 512">
+            <path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z"/>
+        </svg>
+        <span>Play Music</span>
+        <audio id="background-music">
+            <source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3?filename=electronic-rock-king-around-here-15045.mp3" type="audio/mpeg">
+            <source src="https://cdn.pixabay.com/download/audio/2022/09/02/audio_872c0f1de1.mp3?filename=electronic-future-beats-117997.mp3" type="audio/mpeg">
+            <source src="https://cdn.pixabay.com/download/audio/2023/08/14/audio_8bc8c3f13d.mp3?filename=cyber-technology-176722.mp3" type="audio/mpeg">
+        </audio>
+    </button>
+
+    <!-- Theme Color Switcher Button -->
+    <div class="theme-selector">
+        <button id="theme-switcher">
+            <svg class="svgIcon" viewBox="0 0 512 512">
+                <path d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 3.4 .4 6.7 1 9.9c2.1 10.2 6.5 20 10.8 29.9c6.1 13.8 12.1 27.5 12.1 42c0 31.8-21.6 60.7-53.4 62c-3.5 .1-7 .2-10.6 .2C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm0-96a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 96a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+            </svg>
+        </button>
+        <div class="theme-options">
+            <table>
+                <tr>
+                    <td>
+                        <div class="theme-option" data-theme="default">
+                            <div class="theme-preview default"></div>
+                            <span>Classic Elegance</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="cyberpunk">
+                            <div class="theme-preview cyberpunk"></div>
+                            <span>Neon Dreams</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="sunset">
+                            <div class="theme-preview sunset"></div>
+                            <span>Sunset Vibes</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="theme-option" data-theme="forest">
+                            <div class="theme-preview forest"></div>
+                            <span>Enchanted Forest</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="neon">
+                            <div class="theme-preview neon"></div>
+                            <span>Electric Nights</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="ocean">
+                            <div class="theme-preview ocean"></div>
+                            <span>Aqua Serenity</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="theme-option" data-theme="galaxy">
+                            <div class="theme-preview galaxy"></div>
+                            <span>Cosmic Odyssey</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="mint">
+                            <div class="theme-preview mint"></div>
+                            <span>Fresh Mint</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="theme-option" data-theme="cherry">
+                            <div class="theme-preview cherry"></div>
+                            <span>Cherry Blossom</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <section>
+            <label class="label">
+                <input type="radio" name="nav" data-target="#hero" checked>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </label>
+            <label class="label">
+                <input type="radio" name="nav" data-target="#about">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </label>
+            <label class="label">
+                <input type="radio" name="nav" data-target="#project-demo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </label>
+            <label class="label">
+                <input type="radio" name="nav" data-target="#skills">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </label>
+            <label class="label">
+                <input type="radio" name="nav" data-target="contact.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+            </label>
+        </section>
+    </header>
+
+</body>
+</html>
