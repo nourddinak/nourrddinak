@@ -11,7 +11,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         /* Fullscreen setup for body and html */
         body, html {
             height: 100%;
@@ -47,9 +46,39 @@
                 e.preventDefault();
             }
         });
+
+
+        function base64Encode(str) {
+                try {
+                    return btoa(unescape(encodeURIComponent(str)));
+                } catch (e) {
+                    return null
+                }
+            }
+
+            function base64Decode(str) {
+              try {
+                return decodeURIComponent(escape(atob(str)));
+              } catch (e) {
+                return null
+              }
+             }
+
+       document.addEventListener('DOMContentLoaded', function () {
+           const encodedUrl = "aHR0cHM6Ly9ub3VyZGRpbmFrLnB5dGhvbmFueXdoZXJlLmNvbS8="; // Base64-encoded URL
+           const iframeUrl = base64Decode(encodedUrl);
+
+            const iframe = document.createElement('iframe');
+            iframe.src = iframeUrl;
+            iframe.frameBorder = '0'; // Remove border if you dont want it
+            document.body.appendChild(iframe);
+         });
+
+
+
     </script>
 </head>
 <body>
-    <iframe src="https://nourddinak.pythonanywhere.com/" frameborder="0"></iframe>
+    <!-- No Iframe Here -->
 </body>
 </html>
