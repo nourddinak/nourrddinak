@@ -1,254 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me - nourddinak</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;1000&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-    <style>
-        body, html {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Me - nourddinak</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;1000&display=swap"
+    rel="stylesheet"
+  />
+  <script
+    src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+    crossorigin="anonymous"
+  ></script>
+  <style>
+    /* Define custom properties for colors and fonts */
+    :root {
+      --accent-color: #ff7f50;
+      --secondary-accent: #ff9f70;
+      --bg-color: #1a1a2e;
+      --text-color: #eaeaea;
+      --form-bg: rgba(255, 255, 255, 0.05);
+      --shadow-color: rgba(255, 255, 255, 0.1);
+    }
 
-        .contact-form {
-            background: linear-gradient(135deg, rgba(255, 250, 246, 0.1), rgba(134, 134, 139, 0.1));
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            max-width: 500px;
-            width: 90%;
-            backdrop-filter: blur(15px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-        .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 250, 246, 0.3);
-        }
+    body,
+    html {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: var(--text-color);
+    }
 
-        .contact-form h2 {
-            color: var(--accent-color);
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.2em;
-            text-transform: uppercase;
-            position: relative;
-        }
+    header {
+      width: 100%;
+      padding: 20px 0;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
 
-        .contact-form h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 2px;
-            background: var(--accent-color);
-        }
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .input-icon {
-            position: relative;
-            margin-bottom: 20px;
-        }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8em;
+      color: var(--accent-color);
+    }
 
-        .input-icon i {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            color: var(--accent-color);
-        }
+    .logo-emoji {
+      margin-left: 10px;
+    }
 
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 15px 15px 15px 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 5px;
-            color: var(--text-color);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--accent-color);
-        }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
 
-        .contact-form button {
-            width: 100%;
-            padding: 15px;
-            background: var(--accent-color);
-            color: var(--bg-color);
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    nav ul li a:hover {
+      color: var(--accent-color);
+    }
 
-        .contact-form button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s;
-        }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
-        .contact-form button:hover::before {
-            left: 100%;
-        }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--text-color);
+      border-radius: 2px;
+    }
 
-        .contact-form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 250, 246, 0.3);
-            background: var(--secondary-accent);
-        }
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 80px; /* Space for header */
+    }
 
-        #response {
-            margin-top: 20px;
-            text-align: center;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
+    .contact-form {
+      background: var(--form-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px var(--shadow-color);
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(15px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .back-button {
-            background: var(--secondary-accent);
-            margin-top: 10px;
-        }
+    .contact-form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+    }
 
-        .glitch {
-            animation: glitch 1s infinite;
-        }
+    .contact-form h2 {
+      color: var(--accent-color);
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.2em;
+      text-transform: uppercase;
+      position: relative;
+    }
 
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
+    .contact-form h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 2px;
+      background: var(--accent-color);
+    }
 
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
+    .input-icon {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: var(--accent-color);
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form input[type="file"] {
+      width: 100%;
+      padding: 15px 15px 15px 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 5px;
+      color: var(--text-color);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent-color);
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent-color);
+      color: var(--bg-color);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.6s;
+    }
+
+    .contact-form button:hover::before {
+      left: 100%;
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+      background: var(--secondary-accent);
+    }
+
+    #response {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .back-button {
+      background: var(--secondary-accent);
+      margin-top: 10px;
+    }
+
+    .glitch {
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    /* Style for the Email Me link */
+    .email-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .email-link:hover {
+      color: var(--secondary-accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: var(--text-color);
+    }
+  </style>
 </head>
 <body>
-    <!-- Include the header from index.html -->
-    <header class="cool-header">
-        <div class="container">
-            <div class="logo">
-                <span class="logo-text">nourddinak</span>
-                <span class="logo-emoji">👨‍💻</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="nav-link">Home <span class="nav-emoji">🏠</span></a></li>
-                    <li><a href="index.html#about" class="nav-link">About Me <span class="nav-emoji">🤷</span></a></li>
-                    <li><a href="contact.html" class="nav-link">Contact <span class="nav-emoji">📞</span></a></li>
-                </ul>
-            </nav>
-            <button class="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- Header Section -->
+  <header class="cool-header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-text">nourddinak</span>
+        <span class="logo-emoji">👨‍💻</span>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html" class="nav-link"
+              >Home <span class="nav-emoji">🏠</span></a
+            >
+          </li>
+          <li>
+            <a href="index.html#about" class="nav-link"
+              >About Me <span class="nav-emoji">🤷</span></a
+            >
+          </li>
+          <li>
+            <a href="contact.html" class="nav-link"
+              >Contact <span class="nav-emoji">📞</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <button class="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Contact Form Section -->
+  <main>
+    <div class="contact-form">
+      <h2 class="glitch">Contact Me</h2>
+      <form id="contactForm">
+        <div class="input-icon">
+          <i class="fas fa-user"></i>
+          <input type="text" id="name" name="name" placeholder="Your Name" required />
         </div>
-    </header>
-
-    <main>
-        <div class="contact-form">
-            <h2 class="glitch">Contact Me</h2>
-            <form id="contactForm">
-                <div class="input-icon">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="input-icon">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="input-icon">
-                    <i class="fas fa-comment"></i>
-                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                </div>
-                <div class="input-icon">
-                    <i class="fas fa-image"></i>
-                    <input type="file" id="image" name="image" accept="image/*">
-                </div>
-                <button type="submit" class="float-animation">Send Message</button>
-                <button type="button" class="back-button" onclick="window.history.back();">Back</button>
-            </form>
-            <div id="response"></div>
+        <div class="input-icon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" name="email" placeholder="Your Email" required />
         </div>
-    </main>
+        <div class="input-icon">
+          <i class="fas fa-comment"></i>
+          <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        </div>
+        <div class="input-icon">
+          <i class="fas fa-image"></i>
+          <input type="file" id="image" name="image" accept="image/*" />
+        </div>
+        <button type="submit" class="float-animation">Send Message</button>
+        <button type="button" class="back-button" onclick="window.history.back();">
+          Back
+        </button>
+      </form>
+      <div id="response"></div>
+      <!-- Email link -->
+      <a href="mailto:contact@nourddinak.online" class="email-link">Or email me at contact@nourddinak.online</a>
+    </div>
+  </main>
 
-    <!-- Include the footer from index.html if you have one -->
-    <footer>
-        <!-- Add your footer content here -->
-    </footer>
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 nourddinak. All rights reserved.</p>
+  </footer>
 
-    <script src="script.js"></script>
-    <script>
-        const form = document.getElementById('contactForm');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('response').innerText = 'Sending...';
-            const fileInput = document.getElementById('image');
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-            reader.onloadend = function() {
-                const data = {
-                    name: form.name.value,
-                    email: form.email.value,
-                    message: form.message.value,
-                    image: file ? reader.result : null
-                };
-                fetch('https://script.google.com/macros/s/AKfycbyfKypqw3ZPUlQWSEHAEz9oGtdB9f27OXSyn36DMaJbTC3PVk-ISss7OUBFwBVgEuMn/exec', {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                }).then(response => response.json()).then(result => {
-                    if (result.status === 'success') {
-                        document.getElementById('response').innerText = 'Thank you for the contact!';
-                        form.reset();
-                    } else {
-                        document.getElementById('response').innerText = 'Failed to send message.';
-                    }
-                }).catch(error => {
-                    document.getElementById('response').innerText = 'Error: ' + error.message;
-                });
-            };
-            if (file) {
-                reader.readAsDataURL(file);
+  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("response").innerText = "Sending...";
+      const fileInput = document.getElementById("image");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+          image: file ? reader.result : null,
+        };
+        fetch(
+          "https://script.google.com/macros/s/AKfycbyfKypqw3ZPUlQWSEHAEz9oGtdB9f27OXSyn36DMaJbTC3PVk-ISss7OUBFwBVgEuMn/exec",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+          }
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.status === "success") {
+              document.getElementById("response").innerText =
+                "Thank you for the contact!";
+              form.reset();
             } else {
-                reader.onloadend();
+              document.getElementById("response").innerText =
+                "Failed to send message.";
             }
-        });
-    </script>
+          })
+          .catch((error) => {
+            document.getElementById("response").innerText =
+              "Error: " + error.message;
+          });
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        reader.onloadend();
+      }
+    });
+  </script>
 </body>
 </html>
