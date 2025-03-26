@@ -1504,17 +1504,12 @@ footer {
 .about-image img {
     width: 100%;
     max-width: 400px;
-    border-radius: 10px;
+    border-radius: 100px;
     position: relative;
     z-index: 1;
 }
 
 .image-frame {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
     border: 2px solid var(--accent-color);
     border-radius: 10px;
     transform: translate(20px, 20px);
